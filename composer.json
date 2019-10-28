@@ -1,0 +1,27 @@
+{
+    "name": "concepture/yii2-user-module",
+    "license": "BSD-3-Clause",
+    "type": "yii2-extension",
+    "description": "package under development",
+    "require": {
+        "php": ">=5.6.0",
+        "concepture/yii2-logic-core": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "Olzhas Kulzhambekov",
+            "email": "exgamer@live.ru"
+        }
+    ],
+    "extra": {
+        "bootstrap": "concepture\\yii2user\\Bootstrap",
+        "branch-alias": {
+            "dev-master": "1.0.0-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "concepture\\yii2user\\": "src"
+        }
+    }
+}
