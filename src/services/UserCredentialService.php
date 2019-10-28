@@ -3,6 +3,7 @@ namespace concepture\yii2user\services;
 
 use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
+use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\forms\UserEmailCredentialForm;
 use concepture\yii2logic\forms\Form;
 use concepture\yii2logic\models\ActiveRecord;
@@ -22,10 +23,11 @@ class UserCredentialService extends Service
 
     public function createEmailCredential($identity, $validation, $user_id)
     {
-        $form = new UserEmailCredentialForm();
+        $form = new UserCredentialForm();
         $form->identity = $identity;
         $form->validation = $validation;
         $form->user_id = $user_id;
+        $form->type = UserCredentialTypeEnum::EMAIL;
 
         return $this->create($form);
     }
