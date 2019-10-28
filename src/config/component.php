@@ -2,18 +2,18 @@
 
 return [
     'userService' => [
-        'class' => '\concepture\yii2user\service\UserService'
+        'class' => '\concepture\yii2user\services\UserService'
     ],
     'userCredentialService' => [
-        'class' => '\concepture\yii2user\service\UserCredentialService'
+        'class' => '\concepture\yii2user\services\UserCredentialService'
     ],
     'authService' => [
-        'class' => '\concepture\yii2user\service\AuthService'
+        'class' => '\concepture\yii2user\services\AuthService'
     ],
     'userRoleHandbookService' => [
-        'class' => '\concepture\yii2user\service\UserRoleHandbookService'
+        'class' => '\concepture\yii2user\services\UserRoleHandbookService'
     ],
     'userRoleService' => [
-        'class' => '\concepture\yii2user\service\UserRoleService'
+        'class' => '\concepture\yii2user\services\UserRoleService'
     ]
 ];

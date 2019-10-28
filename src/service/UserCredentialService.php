@@ -1,5 +1,5 @@
 <?php
-namespace concepture\yii2user\service;
+namespace concepture\yii2user\services;
 
 use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
