@@ -1,7 +1,7 @@
 <?php
 namespace concepture\yii2user\services;
 
-use concepture\yii2logic\helper\MailerHelper;
+use concepture\yii2logic\helpers\MailerHelper;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
