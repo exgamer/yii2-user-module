@@ -27,7 +27,7 @@ class EmailPasswordResetRequestForm extends Form
     public function attributeLabels()
     {
         return [
-            'identity' => Yii::t(BundleBaseEnum::TRANSLATION_DOMAIN,'Адрес электронной почты')
+            'identity' => Yii::t('user', 'Адрес электронной почты')
         ];
     }
 }
