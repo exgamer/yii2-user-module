@@ -29,4 +29,14 @@ class UserSearch extends User
 
         $query->andFilterWhere(['like', 'username', $this->username]);
     }
+
+    public static function getListSearchKeyAttribute()
+    {
+        return 'id';
+    }
+
+    public static function getListSearchAttribute()
+    {
+        return 'username';
+    }
 }
