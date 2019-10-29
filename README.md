@@ -41,11 +41,7 @@ composer.json
  
 Подключение модуля для админки
 
-     'modules' => [
-         'user' => [
-             'class' => 'concepture\yii2user\Module'
-         ],
-     ],
+y
  
  Настройка автообновления пакета на https://packagist.org/ws 
  
