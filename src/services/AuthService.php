@@ -97,7 +97,7 @@ class AuthService extends Service
         MailerHelper::send(
             $form->identity,
             Yii::t('user','Смена пароля - ' . Yii::$app->name),
-            Yii::$app->controller->renderPartial("@concepture/user/views/mailer/password_reset_html",['route'=>$form->route, 'token'=>$model->validation])
+            Yii::$app->controller->renderPartial("@concepture/yii2user/views/mailer/password_reset_html",['route'=>$form->route, 'token'=>$model->validation])
         );
     }
     public function changePassword(PasswordResetForm $form)
