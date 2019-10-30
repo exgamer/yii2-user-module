@@ -22,7 +22,6 @@ use yii\widgets\ActiveForm;
             'minLength'=>'2',
             'autoFill'=>true,
             'select' => new \yii\web\JsExpression("function( event, ui ) {
-            console.log(ui);
 			        $('#userroleform-user_id').val(ui.item.id);
              }")]
     ]); ?>
