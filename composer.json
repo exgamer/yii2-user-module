@@ -5,7 +5,9 @@
     "description": "package under development",
     "require": {
         "php": ">=5.6.0",
-        "concepture/yii2-logic-core": "dev-master"
+        "concepture/yii2-logic-core": "dev-master",
+        "yiisoft/yii2": "2.0.14",
+        "yiisoft/yii2-jui": "~2.0.0"
     },
     "authors": [
         {
