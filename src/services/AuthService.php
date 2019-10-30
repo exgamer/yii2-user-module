@@ -172,7 +172,6 @@ class AuthService extends Service
         $cred->load($credential->attributes,'');
         $cred->validation = $form->validation;
         $model = $this->getUserCredentialService()->save($cred, $credential);
-        $cred->action($credential);
         Yii::$app->user->login(
             $user,
             3600
