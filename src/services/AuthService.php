@@ -145,7 +145,7 @@ class AuthService extends Service
         $credential = $this->getUserCredentialService()->findByValidation($form->token);
         if (!$credential) {
             $error = Yii::t ( 'user', "Токен недействителен" );
-            $form->addError('token', $error);
+            $form->addError('validation', $error);
 
             return false;
         }
@@ -153,7 +153,7 @@ class AuthService extends Service
         $user = $this->getUserService()->findById($credential->user_id, ['roles']);
         if (!$user){
             $error = Yii::t ( 'user', "Пользователь не найден" );
-            $form->addError('token', $error);
+            $form->addError('validation', $error);
 
             return false;
         }
@@ -163,7 +163,7 @@ class AuthService extends Service
         $credential = $this->getUserCredentialService()->findByIdentity($identity);
         if (!$credential) {
             $error = Yii::t ( 'user', "Логин не существует" );
-            $form->addError('token', $error);
+            $form->addError('validation', $error);
 
             return false;
         }
