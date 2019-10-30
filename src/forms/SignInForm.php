@@ -58,4 +58,15 @@ class SignInForm extends Form
             'rememberMe' => Yii::t(B'user', 'Запомнить меня'),
         ];
     }
+
+    /**
+     * Установка ограничений на авторизацию по роли
+     *
+     * @param $restrictions
+     * @return void
+     */
+    public function setRestrictions($restrictions)
+    {
+        $this->restrictions = $restrictions;
+    }
 }
