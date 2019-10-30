@@ -16,9 +16,9 @@ use Yii;
  */
 class UserCredentialService extends Service
 {
-    protected function beforeModelSave(Form $form, ActiveRecord $model, $is_new_record)
+    protected function beforeCreate(Form $form)
     {
-        $model->validation = Yii::$app->security->generatePasswordHash($model->validation);
+        $form->validation = Yii::$app->security->generatePasswordHash($form->validation);
     }
 
     public function createEmailCredential($identity, $validation, $user_id)
