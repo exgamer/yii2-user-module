@@ -5,8 +5,11 @@ use concepture\yii2logic\services\Service;
 
 
 /**
- * UserRoleService
+ * Сервис содержит бизнес логику для работы с ролям ипользователя
  *
+ * Class UserRoleService
+ * @package concepture\yii2user\services
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserRoleService extends Service
 {

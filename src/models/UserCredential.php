@@ -6,8 +6,11 @@ use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 
+
 /**
- * UserCredential model
+ * Модель авторизационных данных пользователя
+ *
+ * Class UserCredential
  *
  * @property integer $id
  * @property integer $user_id
@@ -17,6 +20,9 @@ use concepture\yii2logic\models\ActiveRecord;
  * @property string $validation
  * @property datetime $created_at
  * @property datetime $updated_at
+ *
+ * @package concepture\yii2user\models
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserCredential extends ActiveRecord
 {

@@ -5,7 +5,11 @@ use concepture\yii2logic\forms\Form;
 use Yii;
 
 /**
- * Password reset form
+ * Форма для смены пароля
+ *
+ * Class PasswordResetForm
+ * @package concepture\yii2user\forms
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class PasswordResetForm extends Form
 {

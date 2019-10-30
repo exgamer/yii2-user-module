@@ -5,7 +5,11 @@ use Yii;
 use concepture\yii2logic\forms\Form;
 
 /**
- * UserForm
+ * Форма для сущности пользователя
+ *
+ * Class UserForm
+ * @package concepture\yii2user\forms
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserForm extends Form
 {

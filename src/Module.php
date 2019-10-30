@@ -3,6 +3,11 @@ namespace concepture\yii2user;
 
 use Yii;
 
+/**
+ * Class Module
+ * @package concepture\yii2user
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
+ */
 class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'concepture\yii2user\web\controllers';

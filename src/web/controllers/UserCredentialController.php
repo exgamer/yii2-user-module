@@ -2,7 +2,9 @@
 namespace concepture\yii2user\web\controllers;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * Class UserCredentialController
+ * @package concepture\yii2user\web\controllers
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserCredentialController extends Controller
 {

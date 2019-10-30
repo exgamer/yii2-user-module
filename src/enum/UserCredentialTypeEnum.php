@@ -4,6 +4,13 @@ namespace concepture\yii2user\enum;
 
 use concepture\yii2logic\enum\Enum;
 
+/**
+ * Виды авторизационных записей пользователя
+ *
+ * Class UserCredentialTypeEnum
+ * @package concepture\yii2user\enum
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
+ */
 class UserCredentialTypeEnum extends Enum
 {
     const LOGIN = 1;

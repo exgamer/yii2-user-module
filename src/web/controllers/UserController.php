@@ -6,7 +6,9 @@ use concepture\yii2user\enum\UserRoleEnum;
 use concepture\yii2logic\actions\web\AutocompleteListAction;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * Class UserController
+ * @package concepture\yii2user\web\controllers
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserController extends Controller
 {

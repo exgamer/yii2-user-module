@@ -5,7 +5,11 @@ use Yii;
 use concepture\yii2logic\forms\Form;
 
 /**
- * UserCredentialForm
+ * Форма дял сущности авторизационных данных пользователя
+ *
+ * Class UserCredentialForm
+ * @package concepture\yii2user\forms
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserCredentialForm extends Form
 {

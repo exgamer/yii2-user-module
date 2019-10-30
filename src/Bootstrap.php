@@ -4,6 +4,13 @@ namespace concepture\yii2user;
 use Yii;
 use yii\base\BootstrapInterface;
 
+/**
+ * Файл первичной настройки модуля
+ *
+ * Class Bootstrap
+ * @package concepture\yii2user
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
+ */
 class Bootstrap implements BootstrapInterface
 {
     //Метод, который вызывается автоматически при каждом запросе

@@ -6,7 +6,11 @@ use Yii;
 use concepture\yii2logic\forms\Form;
 
 /**
- * SignUpForm
+ * Форма решистрации нового пользователя
+ *
+ * Class SignUpForm
+ * @package concepture\yii2user\forms
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class SignUpForm extends Form
 {

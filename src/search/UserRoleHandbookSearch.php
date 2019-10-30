@@ -5,6 +5,13 @@ namespace concepture\yii2user\search;
 use concepture\yii2user\models\UserRoleHandbook;
 use yii\db\ActiveQuery;
 
+/**
+ * Search модель для справочника ролей пользователя
+ *
+ * Class UserRoleHandbookSearch
+ * @package concepture\yii2user\search
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
+ */
 class UserRoleHandbookSearch extends UserRoleHandbook
 {
     /**

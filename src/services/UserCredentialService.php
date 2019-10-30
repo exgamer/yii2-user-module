@@ -11,16 +11,31 @@ use concepture\yii2logic\services\Service;
 use Yii;
 
 /**
- * UserCredentialService
+ * Сервис содержит бизнес логику дял работы с авторизационными записями пользователя
  *
+ * Class UserCredentialService
+ * @package concepture\yii2user\services
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserCredentialService extends Service
 {
+    /**
+     * Дополнительные действия с моделью перед созданием
+     * @param Form $form класс для работы
+     */
     protected function beforeCreate(Form $form)
     {
         $form->validation = Yii::$app->security->generatePasswordHash($form->validation);
     }
 
+    /**
+     * Создание учетки по емеилу
+     *
+     * @param $identity
+     * @param $validation
+     * @param $user_id
+     * @return mixed
+     */
     public function createEmailCredential($identity, $validation, $user_id)
     {
         $form = new UserCredentialForm();
@@ -49,6 +64,12 @@ class UserCredentialService extends Service
         )->one();
     }
 
+    /**
+     * Поиск модели по validation
+     *
+     * @param $validation
+     * @return mixed
+     */
     public function findByValidation($validation)
     {
         return $this->getQuery()->where(

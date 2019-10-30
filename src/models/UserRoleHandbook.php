@@ -4,12 +4,18 @@ namespace concepture\yii2user\models;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 
+
 /**
- * UserRoleHandbook model
+ * Модель для справочника ролей пользователей
+ *
+ * Class UserRoleHandbook
  *
  * @property integer $id
  * @property string $caption
  * @property string $name
+ *
+ * @package concepture\yii2user\models
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserRoleHandbook extends ActiveRecord
 {

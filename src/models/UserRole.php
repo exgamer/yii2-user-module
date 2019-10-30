@@ -4,13 +4,19 @@ namespace concepture\yii2user\models;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 
+
 /**
- * UserRole model
+ * Модель ролей пользователя
+ *
+ * Class UserRole
  *
  * @property integer $id
  * @property integer $user_id
  * @property integer $role_id
  * @property datetime $created_at
+ *
+ * @package concepture\yii2user\models
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserRole extends ActiveRecord
 {

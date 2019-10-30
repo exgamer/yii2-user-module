@@ -8,12 +8,17 @@ use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * Модель пользователя
+ *
+ * Class User
  *
  * @property integer $id
  * @property string $username
  * @property datetime $created_at
  * @property datetime $updated_at
+ *
+ * @package concepture\yii2user\models
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class User extends ActiveRecord implements IdentityInterface
 {

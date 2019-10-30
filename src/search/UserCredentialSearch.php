@@ -8,6 +8,13 @@ use yii\db\ActiveQuery;
 use Yii;
 use yii\data\ActiveDataProvider;
 
+/**
+ * Search модель для авторизационных данных пользователя
+ *
+ * Class UserCredentialSearch
+ * @package concepture\yii2user\search
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
+ */
 class UserCredentialSearch extends UserCredential
 {
     public $username;

@@ -3,7 +3,9 @@
 namespace concepture\yii2user\web\controllers;
 
 /**
- * UserRoleController implements the CRUD actions for UserRole model.
+ * Class UserRoleController
+ * @package concepture\yii2user\web\controllers
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserRoleController extends Controller
 {

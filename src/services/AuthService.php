@@ -7,15 +7,20 @@ use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
 use concepture\yii2user\forms\SignInForm;
 use concepture\yii2user\forms\UserCredentialForm;
+use Exception;
 use Yii;
 use concepture\yii2user\forms\SignUpForm;
 use concepture\yii2logic\services\Service;
 use yii\helpers\ArrayHelper;
 use yii\web\ForbiddenHttpException;
+use concepture\yii2logic\models\ActiveRecord;
 
 /**
- * AuthService
+ * Сервис содержит бизнес логику для работы с авторизацией/регистрацией пользователя
  *
+ * Class AuthService
+ * @package concepture\yii2user\services
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class AuthService extends Service
 {
@@ -23,7 +28,8 @@ class AuthService extends Service
      * Регистрация пользователя
      *
      * @param SignUpForm $form
-     * @throws \Exception
+     * @return ActiveRecord
+     * @throws Exception
      */
     public function signUp(SignUpForm $form)
     {
@@ -31,7 +37,7 @@ class AuthService extends Service
         if ($credential) {
             $error = Yii::t ( 'user', "Логин уже занят" );
             $form->addError('identity', $error);
-            throw new \Exception($error);
+            throw new Exception($error);
         }
         $user = $this->getUserService()->createUser($form->username);
         $this->getUserCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id);
@@ -42,7 +48,7 @@ class AuthService extends Service
      * Авторизация пользователя
      *
      * @param SignInForm $form
-     * @throws \Exception
+     * @throws Exception
      */
     public function signIn(SignInForm $form)
     {
@@ -50,18 +56,18 @@ class AuthService extends Service
         if (!$credential) {
             $error = Yii::t ( 'user', "Неверный логин" );
             $form->addError('identity', $error);
-            throw new \Exception($error );
+            throw new Exception($error );
         }
         if (!Yii::$app->security->validatePassword($form->validation, $credential->validation)){
             $error = Yii::t ( 'user', "Неверный пароль" );
             $form->addError('validation', $error);
-            throw new \Exception($error);
+            throw new Exception($error);
         }
         $user = $this->getUserService()->findById($credential->user_id, ['roles']);
         if (!Yii::$app->security->validatePassword($form->validation, $credential->validation)){
             $error = Yii::t ( 'user', "Пользователь не найден" );
             $form->addError('identity', $error);
-            throw new \Exception($error );
+            throw new Exception($error );
         }
         if (!empty($form->restrictions)){
             $roles = Yii::$app->userRoleService->getRolesByUserId($user->id);
@@ -70,7 +76,7 @@ class AuthService extends Service
             if (empty($result)){
                 $error = Yii::t ( 'user', "Пользователь не найден" );
                 $form->addError('identity', $error);
-                throw new \Exception($error );
+                throw new Exception($error );
             }
         }
         Yii::$app->user->login(
@@ -78,13 +84,20 @@ class AuthService extends Service
             $form->rememberMe ? 3600 : 0
         );
     }
+
+    /**
+     * Посылка письма со ссылкой на сброс пароля
+     *
+     * @param EmailPasswordResetRequestForm $form
+     * @throws Exception
+     */
     public function sendPasswordResetEmail(EmailPasswordResetRequestForm $form)
     {
         $credential = $this->getUserCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
             $error = Yii::t ( 'user', "Неверный логин" );
             $form->addError('identity', $error);
-            throw new \Exception($error );
+            throw new Exception($error );
         }
         $tokenModel = $this->getUserCredentialService()->findByIdentity($form->identity, UserCredentialTypeEnum::VALIDATION_RESET_TOKEN);
         $token = new UserCredentialForm();
@@ -100,19 +113,26 @@ class AuthService extends Service
             Yii::$app->controller->renderPartial("@concepture/yii2user/views/mailer/password_reset_html",['route'=>$form->route, 'token'=>$model->validation])
         );
     }
+
+    /**
+     * смена пароля
+     *
+     * @param PasswordResetForm $form
+     * @throws Exception
+     */
     public function changePassword(PasswordResetForm $form)
     {
         $credential = $this->getUserCredentialService()->findByValidation($form->token);
         if (!$credential) {
             $error = Yii::t ( 'user', "Токен недействителен" );
             $form->addError('token', $error);
-            throw new \Exception($error );
+            throw new Exception($error );
         }
         $user = $this->getUserService()->findById($credential->user_id, ['roles']);
         if (!$user){
             $error = Yii::t ( 'user', "Пользователь не найден" );
             $form->addError('token', $error);
-            throw new \Exception($error );
+            throw new Exception($error );
         }
         $identity = $credential->identity;
         $this->getUserCredentialService()->delete($credential);
@@ -120,7 +140,7 @@ class AuthService extends Service
         if (!$credential) {
             $error = Yii::t ( 'user', "Логин не существует" );
             $form->addError('token', $error);
-            throw new \Exception($error );
+            throw new Exception($error );
         }
         $cred = new UserCredentialForm();
         $cred->load($credential->attributes,'');
@@ -132,6 +152,7 @@ class AuthService extends Service
             3600
         );
     }
+
     /**
      * @return UserService
      */
@@ -139,6 +160,7 @@ class AuthService extends Service
     {
         return Yii::$app->userService;
     }
+
     /**
      * @return UserCredentialService
      */

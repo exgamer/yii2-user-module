@@ -5,7 +5,11 @@ use Yii;
 use concepture\yii2logic\forms\Form;
 
 /**
- * UserCredentialForm
+ * Форма для сущности справочника ролей пользователя
+ *
+ * Class UserRoleHandbookForm
+ * @package concepture\yii2user\forms
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserRoleHandbookForm extends Form
 {

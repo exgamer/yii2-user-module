@@ -6,7 +6,11 @@ use concepture\yii2user\models\User;
 use yii\db\ActiveQuery;
 
 /**
- * UserSearch represents the model behind the search form of `concepture\user\models\User`.
+ * Search модель для пользователя
+ *
+ * Class UserSearch
+ * @package concepture\yii2user\search
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 class UserSearch extends User
 {

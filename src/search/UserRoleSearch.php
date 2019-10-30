@@ -9,6 +9,14 @@ use yii\db\ActiveQuery;
 use Yii;
 use yii\data\ActiveDataProvider;
 
+
+/**
+ * Search модель для ролей пользователя
+ *
+ * Class UserRoleSearch
+ * @package concepture\yii2user\search
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
+ */
 class UserRoleSearch extends UserRole
 {
     public $username;
