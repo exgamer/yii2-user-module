@@ -41,11 +41,30 @@ composer.json
  
 Подключение модуля для админки
 
-y
+     'modules' => [
+         'user' => [
+             'class' => 'concepture\yii2user\Module'
+         ],
+     ],
+     
+Для переопределния контроллера добавялем в настройки модуля
+
+     'modules' => [
+         'static' => [
+            'class' => 'concepture\yii2user\Module',
+            'controllerMap' => [
+                'user' => 'backend\controllers\UserController'
+            ],
+         ],
+     ],
+
+            
+Для переопределния папки с представленяими добавялем в настройки модуля
+
+     'modules' => [
+         'static' => [
+             'class' => 'concepture\yii2user\Module',
+             'viewPath' => '@backend/views'
+         ],
+     ],
  
- Настройка автообновления пакета на https://packagist.org/ws 
- 
- В репозитории гитхаб переходим в настройки репозитория
- переходим в пункт webhooks  и добавляем новый
- вводим url и тип данных из (заходим на страницу пакета packagist если автообновление не настроено быдет ссылка оттуда копируем)
- вводим апи ключ из профиля packagist
