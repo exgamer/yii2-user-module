@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use concepture\yii2locale\converters\LocaleConverter;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -27,6 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'username',
+            [
+                'attribute'=>'locale',
+                'value'=>function($data) {
+
+                    return LocaleConverter::value($data->locale);
+                }
+            ],
             'created_at',
             'updated_at',
 
