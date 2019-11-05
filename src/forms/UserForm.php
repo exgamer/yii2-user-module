@@ -17,7 +17,7 @@ class UserForm extends Form
     public $locale;
 
     /**
-     * @see CForm::formRules()
+     * @see Form::formRules()
      */
     public function formRules()
     {
