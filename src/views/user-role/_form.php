@@ -16,6 +16,7 @@ use yii\widgets\ActiveForm;
     <? echo $form->field($model, 'user_id')->hiddenInput()->label(false); ?>
     <?= Html::activeLabel($model, 'user_id')?>
     <?= \yii\jui\AutoComplete::widget([
+        'name' => 'name',
         'options' => ['class' => 'form-control'],
         'clientOptions' => [
             'source' => \yii\helpers\Url::to(['/user/user/list']),
