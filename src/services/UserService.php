@@ -1,8 +1,11 @@
 <?php
 namespace concepture\yii2user\services;
 
+use Yii;
+use concepture\yii2logic\forms\Form;
 use concepture\yii2user\forms\UserForm;
 use concepture\yii2logic\services\Service;
+use concepture\yii2locale\converters\LocaleConverter;
 
 /**
  * Сервис содержит бизнес логику для работы с пользователем
@@ -13,10 +16,23 @@ use concepture\yii2logic\services\Service;
  */
 class UserService extends Service
 {
-    public function createUser($username)
+    protected function beforeCreate(Form $form)
+    {
+        $form->locale = LocaleConverter::key(Yii::$app->language);
+    }
+
+    /**
+     * @param string $username
+     * @param integer $locale
+     * @return UserForm
+     */
+    public function createUser($username, $locale = null)
     {
         $form = new UserForm();
         $form->username = $username;
+        if ($locale){
+            $form->locale = $locale;
+        }
 
         return $this->create($form);
     }

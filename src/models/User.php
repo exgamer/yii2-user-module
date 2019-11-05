@@ -14,6 +14,7 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property integer $locale
  * @property datetime $created_at
  * @property datetime $updated_at
  *
@@ -48,6 +49,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['username', 'string', 'min' => 2, 'max' => 100],
+            ['locale', 'integer'],
             ['username', 'unique']
         ];
     }
@@ -57,6 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => Yii::t('user', '#'),
             'username' => Yii::t('user',' Имя пользователя'),
+            'locale' => Yii::t('user',' Язык'),
             'created_at' => Yii::t('user', 'Дата создания'),
             'updated_at' => Yii::t('user', 'Дата обновления')
         ];
