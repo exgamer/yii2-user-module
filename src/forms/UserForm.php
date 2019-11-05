@@ -14,6 +14,7 @@ use concepture\yii2logic\forms\Form;
 class UserForm extends Form
 {
     public $username;
+    public $locale;
 
     /**
      * @see CForm::formRules()
