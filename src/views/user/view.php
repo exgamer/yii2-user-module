@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use concepture\yii2locale\converters\LocaleConverter;
 
 /* @var $this yii\web\View */
 /* @var $model concepture\user\models\User */
@@ -31,6 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
+            [
+                'attribute'=>'locale',
+                'value'=>function($data) {
+
+                    return LocaleConverter::value($data->locale);
+                }
+            ],
             'created_at',
             'updated_at',
         ],
