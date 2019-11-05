@@ -18,7 +18,9 @@ class UserService extends Service
 {
     protected function beforeCreate(Form $form)
     {
-        $form->locale = LocaleConverter::key(Yii::$app->language);
+        if (! $form->locale) {
+            $form->locale = LocaleConverter::key(Yii::$app->language);
+        }
     }
 
     /**

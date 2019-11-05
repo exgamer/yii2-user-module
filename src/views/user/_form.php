@@ -13,7 +13,12 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'locale')->dropDownList(
+        Yii::$app->localeService->getAllList('id', 'locale'),
+        [
+            'prompt' => Yii::t('backend', 'Выберите язык')
+        ]
+    );?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('user', 'Сохранить'), ['class' => 'btn btn-success']) ?>
     </div>
