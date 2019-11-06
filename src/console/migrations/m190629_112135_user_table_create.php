@@ -18,9 +18,11 @@ class m190629_112135_user_table_create extends Migration
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull()->unique(),
             'locale' => $this->integer()->notNull(),
+            'domain_id' => $this->integer(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
             'updated_at' => $this->dateTime()->append('ON UPDATE NOW()'),
         ]);
         $this->addIndex(['locale']);
+        $this->addIndex(['domain_id']);
     }
 }
