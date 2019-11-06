@@ -6,6 +6,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
+use concepture\yii2domain\models\traits\DomainTrait;
 
 /**
  * Модель пользователя
@@ -24,6 +25,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use DomainTrait;
+    
     /**
      * Users roles array
      * Contains associative array, where key is role and value is instance of UserRoles class
