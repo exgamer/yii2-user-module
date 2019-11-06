@@ -36,6 +36,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return LocaleConverter::value($data->locale);
                 }
             ],
+            [
+                'attribute'=>'domain_id',
+                'filter'=> Yii::$app->domainService->getAllList('id', 'domain'),
+                'value'=>function($data) {
+                    return $data->getDomainName();
+                }
+            ],
             'created_at',
             'updated_at',
 

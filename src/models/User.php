@@ -26,7 +26,7 @@ use concepture\yii2domain\models\traits\DomainTrait;
 class User extends ActiveRecord implements IdentityInterface
 {
     use DomainTrait;
-    
+
     /**
      * Users roles array
      * Contains associative array, where key is role and value is instance of UserRoles class

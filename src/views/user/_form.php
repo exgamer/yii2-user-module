@@ -19,6 +19,12 @@ use yii\widgets\ActiveForm;
             'prompt' => Yii::t('backend', 'Выберите язык')
         ]
     );?>
+    <?= $form->field($model, 'domain_id')->dropDownList(
+        Yii::$app->domainService->getAllList('id', 'domain'),
+        [
+            'prompt' => Yii::t('backend', 'Выберите домен')
+        ]
+    );?>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('user', 'Сохранить'), ['class' => 'btn btn-success']) ?>
     </div>
