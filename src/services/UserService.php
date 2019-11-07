@@ -5,7 +5,7 @@ use Yii;
 use concepture\yii2logic\forms\Form;
 use concepture\yii2user\forms\UserForm;
 use concepture\yii2logic\services\Service;
-use concepture\yii2locale\converters\LocaleConverter;
+use concepture\yii2handbook\converters\LocaleConverter;
 
 /**
  * Сервис содержит бизнес логику для работы с пользователем

@@ -6,7 +6,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
-use concepture\yii2domain\models\traits\DomainTrait;
+use concepture\yii2handbook\models\traits\DomainTrait;
 
 /**
  * Модель пользователя

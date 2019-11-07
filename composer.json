@@ -6,8 +6,7 @@
     "require": {
         "php": ">=5.6.0",
         "concepture/yii2-logic-core": "dev-master",
-        "concepture/yii2-locale-module" : "dev-master",
-        "concepture/yii2-domain-module" : "dev-master",
+        "concepture/yii2-handbook-module" : "dev-master",
         "yiisoft/yii2": "2.0.29",
         "yiisoft/yii2-jui": "~2.0.0"
     },

@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use concepture\yii2locale\converters\LocaleConverter;
+use concepture\yii2handbook\converters\LocaleConverter;
 
 /* @var $this yii\web\View */
 /* @var $model concepture\user\models\User */
