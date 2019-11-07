@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'user_id')->dropDownList(\Yii::$app->userService->getAllList('id','username'));?>
+    <?= $form->field($model, 'user_id')->dropDownList(\Yii::$app->userService->catalog());?>
 
     <?= $form->field($model, 'identity')->textInput(['maxlength' => true]) ?>
 

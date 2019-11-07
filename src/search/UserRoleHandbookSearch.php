@@ -30,4 +30,14 @@ class UserRoleHandbookSearch extends UserRoleHandbook
             'id' => $this->id
         ]);
     }
+
+    public static function getListSearchKeyAttribute()
+    {
+        return 'id';
+    }
+
+    public static function getListSearchAttribute()
+    {
+        return 'caption';
+    }
 }

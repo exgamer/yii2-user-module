@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?= Html::error($model, 'user_id')?>
 
-    <?= $form->field($model, 'role_id')->dropDownList(\Yii::$app->userRoleHandbookService->getAllList('id','caption'));?>
+    <?= $form->field($model, 'role_id')->dropDownList(\Yii::$app->userRoleHandbookService->catalog());?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('user', 'Сохранить'), ['class' => 'btn btn-success']) ?>

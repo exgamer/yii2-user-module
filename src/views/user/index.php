@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'domain_id',
-                'filter'=> Yii::$app->domainService->getAllList('id', 'domain'),
+                'filter'=> Yii::$app->domainService->catalog(),
                 'value'=>function($data) {
                     return $data->getDomainName();
                 }
