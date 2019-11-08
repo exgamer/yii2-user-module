@@ -23,7 +23,8 @@ class UserSearch extends User
             [
                 [
                     'id',
-                    'domain_id'
+                    'domain_id',
+                    'locale',
                 ],
                 'integer'
             ],
@@ -38,6 +39,9 @@ class UserSearch extends User
         ]);
         $query->andFilterWhere([
             'domain_id' => $this->domain_id
+        ]);
+        $query->andFilterWhere([
+            'locale' => $this->locale
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username]);
