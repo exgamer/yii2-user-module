@@ -43,8 +43,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'domain_id',
                 'value'=>$model->getDomainName(),
             ],
+            [
+                'attribute'=>'status',
+                'value'=>$model->statusLabel(),
+            ],
             'created_at',
             'updated_at',
+            [
+                'attribute'=>'is_deleted',
+                'value'=>function($data) {
+                    return $data->isDeletedLabel();
+                }
+            ],
         ],
     ]) ?>
 

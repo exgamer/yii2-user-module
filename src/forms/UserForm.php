@@ -16,6 +16,7 @@ class UserForm extends Form
     public $username;
     public $locale;
     public $domain_id;
+    public $status;
 
     /**
      * @see Form::formRules()

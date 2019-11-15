@@ -25,6 +25,8 @@ class UserSearch extends User
                     'id',
                     'domain_id',
                     'locale',
+                    'is_deleted',
+                    'status',
                 ],
                 'integer'
             ],
@@ -42,6 +44,12 @@ class UserSearch extends User
         ]);
         $query->andFilterWhere([
             'locale' => $this->locale
+        ]);
+        $query->andFilterWhere([
+            'is_deleted' => $this->is_deleted
+        ]);
+        $query->andFilterWhere([
+            'status' => $this->status
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username]);

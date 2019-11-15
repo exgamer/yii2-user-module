@@ -6,6 +6,7 @@ use concepture\yii2logic\forms\Form;
 use concepture\yii2user\forms\UserForm;
 use concepture\yii2logic\services\Service;
 use concepture\yii2handbook\converters\LocaleConverter;
+use concepture\yii2logic\enum\StatusEnum;
 
 /**
  * Сервис содержит бизнес логику для работы с пользователем
@@ -32,6 +33,7 @@ class UserService extends Service
     {
         $form = new UserForm();
         $form->username = $username;
+        $form->status = StatusEnum::ACTIVE;
         if ($locale){
             $form->locale = $locale;
         }

@@ -7,6 +7,8 @@ use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
 use concepture\yii2handbook\models\traits\DomainTrait;
+use concepture\yii2logic\models\traits\IsDeletedTrait;
+use concepture\yii2logic\models\traits\StatusTrait;
 
 /**
  * Модель пользователя
@@ -17,6 +19,7 @@ use concepture\yii2handbook\models\traits\DomainTrait;
  * @property string $username
  * @property integer $locale
  * @property integer $domain_id
+ * @property integer $status
  * @property datetime $created_at
  * @property datetime $updated_at
  *
@@ -25,7 +28,11 @@ use concepture\yii2handbook\models\traits\DomainTrait;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public $allow_physical_delete = false;
+
     use DomainTrait;
+    use IsDeletedTrait;
+    use StatusTrait;
 
     /**
      * Users roles array
@@ -55,6 +62,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'string', 'min' => 2, 'max' => 100],
             [
                 [
+                    'status',
                     'locale',
                     'domain_id'
                 ]
@@ -69,10 +77,12 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => Yii::t('user', '#'),
             'username' => Yii::t('user',' Имя пользователя'),
+            'status' => Yii::t('user','Статус'),
             'locale' => Yii::t('user',' Язык'),
             'domain_id' => Yii::t('user',' Домен'),
             'created_at' => Yii::t('user', 'Дата создания'),
-            'updated_at' => Yii::t('user', 'Дата обновления')
+            'updated_at' => Yii::t('user', 'Дата обновления'),
+            'is_deleted' => Yii::t('user','Удален'),
         ];
     }
 
