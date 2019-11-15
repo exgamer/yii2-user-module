@@ -24,5 +24,6 @@ class m190629_112135_user_table_create extends Migration
         ]);
         $this->addIndex(['locale']);
         $this->addIndex(['domain_id']);
+        $this->addForeign('locale', 'locale','id');
     }
 }
