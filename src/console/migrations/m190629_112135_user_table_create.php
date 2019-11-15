@@ -15,10 +15,10 @@ class m190629_112135_user_table_create extends Migration
     public function up()
     {
         $this->addTable( [
-            'id' => $this->primaryKey(),
+            'id' => $this->bigPrimaryKey(),
             'username' => $this->string()->notNull()->unique(),
             'locale' => $this->integer()->notNull(),
-            'domain_id' => $this->integer(),
+            'domain_id' => $this->bigInteger(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
             'updated_at' => $this->dateTime()->append('ON UPDATE NOW()'),
         ]);

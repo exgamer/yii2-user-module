@@ -15,7 +15,7 @@ class m190629_123851_user_roles_handbook_table_create extends Migration
     public function up()
     {
         $this->addTable([
-            'id' => $this->primaryKey(),
+            'id' => $this->bigPrimaryKey(),
             'caption' => $this->text(),
             'name' => $this->string(255),
         ]);

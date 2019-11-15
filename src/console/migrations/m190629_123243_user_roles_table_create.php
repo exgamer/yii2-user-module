@@ -15,9 +15,9 @@ class m190629_123243_user_roles_table_create extends Migration
     public function up()
     {
         $this->addTable([
-            'id' => $this->primaryKey(),
-            'user_id' =>  $this->integer(),
-            'role_id' => $this->integer(),
+            'id' => $this->bigPrimaryKey(),
+            'user_id' =>  $this->bigInteger(),
+            'role_id' => $this->bigInteger(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
         ]);
         $this->addUniqueIndex(

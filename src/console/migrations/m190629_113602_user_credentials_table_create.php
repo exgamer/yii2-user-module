@@ -14,11 +14,11 @@ class m190629_113602_user_credentials_table_create extends Migration
     public function up()
     {
         $this->addTable([
-            'id' => $this->primaryKey(),
-            'user_id' =>  $this->integer(),
+            'id' => $this->bigPrimaryKey(),
+            'user_id' =>  $this->bigInteger(),
             'identity' => $this->string(255),
             'validation' => $this->string(512),
-            'parent_id' => $this->integer(),
+            'parent_id' => $this->bigInteger(),
             'type' => $this->integer()->notNull(),
             'status' => $this->smallInteger()->defaultValue(0),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
