@@ -40,6 +40,14 @@ class UserRole extends ActiveRecord
                     'role_id'
                 ],
                 'integer'
+            ],
+            [
+                [
+                    'user_id',
+                    'role_id'
+                ],
+                'unique',
+                'targetAttribute' => ['user_id', 'role_id']
             ]
         ];
     }
