@@ -7,6 +7,7 @@ use concepture\yii2user\forms\UserForm;
 use concepture\yii2logic\services\Service;
 use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
+use concepture\yii2logic\services\traits\StatusTrait;
 
 /**
  * Сервис содержит бизнес логику для работы с пользователем
@@ -17,6 +18,8 @@ use concepture\yii2logic\enum\StatusEnum;
  */
 class UserService extends Service
 {
+    use StatusTrait;
+
     protected function beforeCreate(Form $form)
     {
         if (! $form->locale) {
