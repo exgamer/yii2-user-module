@@ -14,6 +14,8 @@ use concepture\yii2logic\services\Service;
 use yii\helpers\ArrayHelper;
 use yii\web\ForbiddenHttpException;
 use concepture\yii2logic\models\ActiveRecord;
+use concepture\yii2logic\enum\StatusEnum;
+use concepture\yii2logic\enum\IsDeletedEnum;
 
 /**
  * Сервис содержит бизнес логику для работы с авторизацией/регистрацией пользователя
@@ -73,6 +75,20 @@ class AuthService extends Service
 
         $user = $this->getUserService()->findById($credential->user_id, ['roles']);
         if (!Yii::$app->security->validatePassword($form->validation, $credential->validation)){
+            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $form->addError('identity', $error);
+
+            return false;
+        }
+
+        if ($user->status !== StatusEnum::ACTIVE){
+            $error = Yii::t ( 'user', "Пользователь неактивен" );
+            $form->addError('identity', $error);
+
+            return false;
+        }
+
+        if ($user->is_deleted === IsDeletedEnum::DELETED){
             $error = Yii::t ( 'user', "Пользователь не найден" );
             $form->addError('identity', $error);
 
