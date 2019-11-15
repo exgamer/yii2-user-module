@@ -57,7 +57,16 @@ class UserCredential extends ActiveRecord
                 'value'=> UserCredentialStatusEnum::ACTIVE
             ],
             ['status', 'in', 'range' => UserCredentialStatusEnum::all()],
-            ['type', 'in', 'range' => UserCredentialTypeEnum::all()]
+            ['type', 'in', 'range' => UserCredentialTypeEnum::all()],
+            [
+                [
+                    'user_id',
+                    'identity',
+                    'type'
+                ],
+                'unique',
+                'targetAttribute' => ['user_id', 'identity', 'type']
+            ]
         ];
     }
 
