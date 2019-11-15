@@ -24,5 +24,7 @@ class m190629_123243_user_roles_table_create extends Migration
             ['user_id', 'role_id']);
         $this->addIndex(['role_id']);
         $this->addIndex(['user_id']);
+        $this->addForeign('user_id', 'user','id');
+        $this->addForeign('role_id', 'user_role_handbook','id');
     }
 }
