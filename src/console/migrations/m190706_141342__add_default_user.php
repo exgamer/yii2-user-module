@@ -17,10 +17,6 @@ class m190706_141342__add_default_user extends Migration
     public function safeUp()
     {
         Yii::$app->language = "ru";
-        $form = new UserRoleHandbookForm();
-        $form->caption = "Администратор";
-        $form->name = UserRoleEnum::ADMIN;
-        $role = Yii::$app->userRoleHandbookService->create($form);
         $form = new SignUpForm();
         $form ->username = "admin";
         $form->identity = "admin@concepture.club";
