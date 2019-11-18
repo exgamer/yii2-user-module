@@ -51,6 +51,7 @@ class AuthService extends Service
             return false;
         }
         $this->getUserCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id);
+        $this->getEmailHandbookService()->addEmail($form->identity);
 
         return $user;
     }
@@ -216,5 +217,13 @@ class AuthService extends Service
     public function getUserCredentialService()
     {
         return Yii::$app->userCredentialService;
+    }
+
+    /**
+     * @return EmailHandbookService
+     */
+    public function getEmailHandbookService()
+    {
+        return Yii::$app->emailHandbookService;
     }
 }
