@@ -30,14 +30,6 @@ class m190706_141342__add_default_user extends Migration
         $form->role_id = $role->id;
         $form->user_id = $model->id;
         Yii::$app->userRoleService->create($form);
-        /**
-         * Добавляем пользователя гостя для всяких разных случаев
-         */
-        $form = new SignUpForm();
-        $form ->username = "Guest";
-        $form->identity = "guest@guest.com";
-        $form->validation = "sukjvl667asda";
-        Yii::$app->authService->signUp($form);
     }
 
     /**
