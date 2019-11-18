@@ -20,7 +20,6 @@ use yii\data\ActiveDataProvider;
 class UserRoleSearch extends UserRole
 {
     public $username;
-    public $caption;
 
     /**
      * {@inheritdoc}
@@ -29,18 +28,20 @@ class UserRoleSearch extends UserRole
     {
         return [
             [['id'], 'integer'],
-            [['caption','username'], 'safe'],
+            [['role','username'], 'safe'],
         ];
     }
 
     protected function extendQuery(ActiveQuery $query)
     {
-        $query->joinWith(['user','role']);
+        $query->joinWith(['user']);
         $query->andFilterWhere([
             'id' => $this->id
         ]);
+        $query->andFilterWhere([
+            'role' => $this->role
+        ]);
         $query->andFilterWhere(['like', User::tableName().'.username', $this->username]);
-        $query->andFilterWhere(['like', UserRoleHandbook::tableName().'.caption', $this->caption]);
     }
 
     protected function extendDataProvider(ActiveDataProvider $dataProvider)
@@ -49,10 +50,6 @@ class UserRoleSearch extends UserRole
             'asc' => [User::tableName().'.username' => SORT_ASC],
             'desc' => [User::tableName().'.username' => SORT_DESC],
         ];
-        $dataProvider->sort->attributes['caption'] = [
-            'asc' => [UserRoleHandbook::tableName().'.caption' => SORT_ASC],
-            'desc' => [UserRoleHandbook::tableName().'.caption' => SORT_DESC],
-        ];
     }
 
     public function attributeLabels()
@@ -60,8 +57,7 @@ class UserRoleSearch extends UserRole
         $labels = parent::attributeLabels();
 
         return array_merge($labels, [
-            'username' => Yii::t('user', 'Пользователь'),
-            'caption' => Yii::t('user', 'Роль')
+            'username' => Yii::t('user', 'Пользователь')
         ]);
     }
 }
