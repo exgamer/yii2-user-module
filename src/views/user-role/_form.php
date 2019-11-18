@@ -28,7 +28,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?= Html::error($model, 'user_id')?>
 
-    <?= $form->field($model, 'role_id')->dropDownList(\concepture\yii2user\enum\UserRoleEnum::arrayList());?>
+    <?= $form->field($model, 'role')->dropDownList(\concepture\yii2user\enum\UserRoleEnum::arrayList());?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('user', 'Сохранить'), ['class' => 'btn btn-success']) ?>
