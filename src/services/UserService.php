@@ -24,13 +24,6 @@ class UserService extends Service
     {
         if (! $form->locale) {
             $defaultLocale = Yii::$app->language;
-            /**
-             * Если вызов делается через консоль то возможно  Yii::$app->language будет false
-             * для этого делаем проверку и выставляем по умолчанию "ru"
-             */
-            if (! Yii::$app->language){
-                $defaultLocale = "ru";
-            }
             $form->locale = LocaleConverter::key($defaultLocale);
         }
 
