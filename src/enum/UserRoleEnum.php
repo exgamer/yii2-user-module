@@ -15,12 +15,14 @@ class UserRoleEnum extends Enum
 {
 
     const ADMIN = "admin";
+    const GUEST = "guest";
 
 
     public static function labels()
     {
         return [
-            self::ADMIN => Yii::t('user', "Администратор")
+            self::ADMIN => Yii::t('user', "Администратор"),
+            self::GUEST => Yii::t('user', "Гость"),
         ];
     }
 }

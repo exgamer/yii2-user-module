@@ -2,6 +2,7 @@
 namespace concepture\yii2user\traits;
 
 use concepture\yii2user\services\AuthService;
+use concepture\yii2user\services\EmailHandbookService;
 use concepture\yii2user\services\UserCredentialService;
 use concepture\yii2user\services\UserRoleHandbookService;
 use concepture\yii2user\services\UserRoleService;
@@ -45,6 +46,14 @@ trait ServicesTrait
     public function userRoleService()
     {
         return Yii::$app->userRoleService;
+    }
+
+    /**
+     * @return EmailHandbookService
+     */
+    public function emailHandbookService()
+    {
+        return Yii::$app->emailHandbookService;
     }
 }
 

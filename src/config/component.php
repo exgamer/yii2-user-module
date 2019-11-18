@@ -12,5 +12,8 @@ return [
     ],
     'userRoleService' => [
         'class' => '\concepture\yii2user\services\UserRoleService'
+    ],
+    'emailHandbookService' => [
+        'class' => '\concepture\yii2user\services\EmailHandbookService'
     ]
 ];
