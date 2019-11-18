@@ -152,10 +152,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getRoles()
     {
-        return $this->hasMany(
-            UserRoleHandbook::className(),
-            ['id'=>'id_role'])
-            ->viaTable(UserRole::tableName(),['user_id'=>'id']);
+        return $this->hasMany(UserRole::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -168,7 +165,7 @@ class User extends ActiveRecord implements IdentityInterface
         if($name=='roles'){
             $this->roles=[];
             foreach($records as $r){
-                $this->roles[] = $r->name;
+                $this->roles[] = $r->role;
             }
             return;
         }

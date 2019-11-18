@@ -15,6 +15,6 @@ class UserRoleService extends Service
 {
     public function getRolesByUserId($user_id)
     {
-        return $this->getQuery()->where(['user_id' => $user_id])->indexBy('role.name')->all();
+        return $this->getQuery()->where(['user_id' => $user_id])->indexBy('role')->all();
     }
 }

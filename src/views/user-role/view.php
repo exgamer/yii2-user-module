@@ -30,7 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'user.username',
-            'role.caption',
+            [
+                'attribute'=>'role',
+                'value'=>function($data) {
+                    return $data->getRoleLabel();
+                }
+            ],
             'created_at',
         ],
     ]) ?>

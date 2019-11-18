@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\models;
 
+use concepture\yii2user\enum\UserRoleEnum;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 
@@ -12,7 +13,7 @@ use concepture\yii2logic\models\ActiveRecord;
  *
  * @property integer $id
  * @property integer $user_id
- * @property integer $role_id
+ * @property string $role
  * @property datetime $created_at
  *
  * @package concepture\yii2user\models
@@ -36,18 +37,24 @@ class UserRole extends ActiveRecord
         return [
             [
                 [
-                    'user_id',
-                    'role_id'
+                    'user_id'
                 ],
                 'integer'
             ],
             [
                 [
+                    'role'
+                ],
+                'string',
+                'max'=>50
+            ],
+            [
+                [
                     'user_id',
-                    'role_id'
+                    'role'
                 ],
                 'unique',
-                'targetAttribute' => ['user_id', 'role_id']
+                'targetAttribute' => ['user_id', 'role']
             ]
         ];
     }
@@ -57,7 +64,7 @@ class UserRole extends ActiveRecord
         return [
             'id' => Yii::t('user', '#'),
             'user_id' => Yii::t('user', 'Пользователь'),
-            'role_id' => Yii::t('user', 'Роль'),
+            'role' => Yii::t('user', 'Роль'),
             'created_at' => Yii::t('user', 'Дата создания'),
         ];
     }
@@ -67,8 +74,8 @@ class UserRole extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function getRole()
+    public function getRoleLabel()
     {
-        return $this->hasOne(UserRoleHandbook::className(), ['id' => 'role_id']);
+        return UserRoleEnum::label($this->role);
     }
 }

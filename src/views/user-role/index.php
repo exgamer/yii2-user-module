@@ -32,8 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => 'user.username'
             ],
             [
-                'attribute' => 'caption',
-                'value' => 'role.caption'
+                'attribute'=>'role',
+                'filter'=> \concepture\yii2user\enum\UserRoleEnum::arrayList(),
+                'value'=>function($data) {
+                    return $data->getRoleLabel();
+                }
             ],
             'created_at',
             [

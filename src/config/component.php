@@ -10,9 +10,6 @@ return [
     'authService' => [
         'class' => '\concepture\yii2user\services\AuthService'
     ],
-    'userRoleHandbookService' => [
-        'class' => '\concepture\yii2user\services\UserRoleHandbookService'
-    ],
     'userRoleService' => [
         'class' => '\concepture\yii2user\services\UserRoleService'
     ]

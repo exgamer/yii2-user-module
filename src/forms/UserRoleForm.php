@@ -14,7 +14,7 @@ use concepture\yii2logic\forms\Form;
 class UserRoleForm extends Form
 {
     public $user_id;
-    public $role_id;
+    public $role;
 
     /**
      * @see CForm::formRules()
@@ -25,7 +25,7 @@ class UserRoleForm extends Form
             [
                 [
                     'user_id',
-                    'role_id'
+                    'role'
                 ],
                 'required'
             ],

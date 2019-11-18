@@ -3,7 +3,7 @@
 namespace concepture\yii2user\enum;
 
 use concepture\yii2logic\enum\Enum;
-
+use Yii;
 /**
  * Виды ролей пользователя
  *
@@ -14,8 +14,13 @@ use concepture\yii2logic\enum\Enum;
 class UserRoleEnum extends Enum
 {
 
-    const ADMIN = "rAdmin";
+    const ADMIN = "admin";
 
 
-
+    public static function labels()
+    {
+        return [
+            self::ADMIN => Yii::t('user', "Администратор")
+        ];
+    }
 }

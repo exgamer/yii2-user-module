@@ -27,7 +27,7 @@ class m190706_141342__add_default_user extends Migration
         $form->validation = "123456";
         $model = Yii::$app->authService->signUp($form);
         $form = new UserRoleForm();
-        $form->role_id = $role->id;
+        $form->role = UserRoleEnum::ADMIN;
         $form->user_id = $model->id;
         Yii::$app->userRoleService->create($form);
     }

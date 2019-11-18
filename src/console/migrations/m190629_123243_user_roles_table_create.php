@@ -17,14 +17,13 @@ class m190629_123243_user_roles_table_create extends Migration
         $this->addTable([
             'id' => $this->bigPrimaryKey(),
             'user_id' =>  $this->bigInteger()->notNull(),
-            'role_id' => $this->bigInteger()->notNull(),
+            'role' => $this->string(50)->notNull(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
         ]);
         $this->addUniqueIndex(
-            ['user_id', 'role_id']);
-        $this->addIndex(['role_id']);
+            ['user_id', 'role']);
+        $this->addIndex(['role']);
         $this->addIndex(['user_id']);
         $this->addForeign('user_id', 'user','id');
-        $this->addForeign('role_id', 'user_role_handbook','id');
     }
 }
