@@ -40,14 +40,6 @@ trait ServicesTrait
     }
 
     /**
-     * @return UserRoleHandbookService
-     */
-    public function userRoleHandbookService()
-    {
-        return Yii::$app->userRoleHandbookService;
-    }
-
-    /**
      * @return UserRoleService
      */
     public function userRoleService()
