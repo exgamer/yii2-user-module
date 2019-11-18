@@ -44,6 +44,12 @@ class AuthService extends Service
         }
 
         $user = $this->getUserService()->createUser($form->username);
+        if (! $user){
+            $error = Yii::t ( 'user', "Не удалось сохранить нового пользователя" );
+            $form->addError('identity', $error);
+
+            return false;
+        }
         $this->getUserCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id);
 
         return $user;

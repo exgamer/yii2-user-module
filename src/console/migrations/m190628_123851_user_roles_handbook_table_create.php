@@ -17,7 +17,7 @@ class m190628_123851_user_roles_handbook_table_create extends Migration
         $this->addTable([
             'id' => $this->bigPrimaryKey(),
             'caption' => $this->text(),
-            'name' => $this->string(255),
+            'name' => $this->string(255)->notNull(),
         ]);
         $this->addUniqueIndex(['name']);
     }

@@ -16,8 +16,8 @@ class m190629_123243_user_roles_table_create extends Migration
     {
         $this->addTable([
             'id' => $this->bigPrimaryKey(),
-            'user_id' =>  $this->bigInteger(),
-            'role_id' => $this->bigInteger(),
+            'user_id' =>  $this->bigInteger()->notNull(),
+            'role_id' => $this->bigInteger()->notNull(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
         ]);
         $this->addUniqueIndex(

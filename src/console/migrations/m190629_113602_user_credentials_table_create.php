@@ -15,7 +15,7 @@ class m190629_113602_user_credentials_table_create extends Migration
     {
         $this->addTable([
             'id' => $this->bigPrimaryKey(),
-            'user_id' =>  $this->bigInteger(),
+            'user_id' =>  $this->bigInteger()->notNull(),
             'identity' => $this->string(255),
             'validation' => $this->string(512),
             'parent_id' => $this->bigInteger(),
