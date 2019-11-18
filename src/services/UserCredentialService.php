@@ -5,7 +5,7 @@ use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\forms\UserEmailCredentialForm;
-use concepture\yii2logic\forms\Form;
+use concepture\yii2logic\forms\Model;
 use concepture\yii2logic\models\ActiveRecord;
 use concepture\yii2logic\services\Service;
 use Yii;
@@ -23,7 +23,7 @@ class UserCredentialService extends Service
      * Дополнительные действия с моделью перед созданием
      * @param Form $form класс для работы
      */
-    protected function beforeCreate(Form $form)
+    protected function beforeCreate(Model $form)
     {
         $form->validation = Yii::$app->security->generatePasswordHash($form->validation);
     }
