@@ -9,6 +9,7 @@ use concepture\yii2logic\forms\Model;
 use concepture\yii2logic\models\ActiveRecord;
 use concepture\yii2logic\services\Service;
 use Yii;
+use concepture\yii2user\traits\ServicesTrait;
 
 /**
  * Сервис содержит бизнес логику дял работы с авторизационными записями пользователя
@@ -19,6 +20,8 @@ use Yii;
  */
 class UserCredentialService extends Service
 {
+    use ServicesTrait;
+
     /**
      * Дополнительные действия с моделью перед созданием
      * @param Form $form класс для работы
@@ -43,8 +46,10 @@ class UserCredentialService extends Service
         $form->validation = $validation;
         $form->user_id = $user_id;
         $form->type = UserCredentialTypeEnum::EMAIL;
+        $result = $this->create($form);
+        $this->emailHandbookService()->addEmail($identity);
 
-        return $this->create($form);
+        return $result;
     }
 
     /**
