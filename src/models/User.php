@@ -67,8 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
                     'domain_id'
                 ]
                 , 'integer'
-            ],
-            ['username', 'unique']
+            ]
         ];
     }
 

@@ -16,7 +16,7 @@ class m190629_112135_user_table_create extends Migration
     {
         $this->addTable( [
             'id' => $this->bigPrimaryKey(),
-            'username' => $this->string()->notNull()->unique(),
+            'username' => $this->string()->notNull(),
             'status' => $this->smallInteger()->defaultValue(0),
             'locale' => $this->bigInteger()->notNull(),
             'domain_id' => $this->bigInteger(),
