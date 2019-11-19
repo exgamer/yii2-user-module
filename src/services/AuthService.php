@@ -53,6 +53,7 @@ class AuthService extends Service
 
             return false;
         }
+        
         $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id);
 
         return $user;
