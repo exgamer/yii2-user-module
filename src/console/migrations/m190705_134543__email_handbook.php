@@ -5,7 +5,7 @@ use concepture\yii2logic\console\migrations\Migration;
 /**
  * Class m191118_134543__email_handbook
  */
-class m191118_134543__email_handbook extends Migration
+class m190705_134543__email_handbook extends Migration
 {
     function getTableName()
     {
