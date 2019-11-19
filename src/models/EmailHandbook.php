@@ -19,7 +19,7 @@ class EmailHandbook extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%user_role}}';
+        return '{{%email_handbook}}';
     }
 
     /**
