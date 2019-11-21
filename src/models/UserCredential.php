@@ -41,7 +41,6 @@ class UserCredential extends ActiveRecord
     {
         return [
             ['identity', 'string', 'min' => 2, 'max' => 255],
-            ['identity', 'match', 'pattern' => RegexPatternEnum::DIGITS_UNDERSCORE_LETTERS],
             ['validation', 'string'],
             [
                 [
