@@ -5,7 +5,6 @@ use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
-use concepture\yii2logic\enum\RegexPatternEnum;
 
 /**
  * Модель авторизационных данных пользователя
