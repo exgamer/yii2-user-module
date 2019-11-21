@@ -5,7 +5,7 @@ use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
-
+use concepture\yii2logic\enum\RegexPatternEnum;
 
 /**
  * Модель авторизационных данных пользователя
@@ -41,6 +41,7 @@ class UserCredential extends ActiveRecord
     {
         return [
             ['identity', 'string', 'min' => 2, 'max' => 255],
+            ['identity', 'match', 'pattern' => RegexPatternEnum::DIGITS_UNDERSCORE_LETTERS],
             ['validation', 'string'],
             [
                 [
