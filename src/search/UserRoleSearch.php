@@ -32,7 +32,7 @@ class UserRoleSearch extends UserRole
         ];
     }
 
-    protected function extendQuery(ActiveQuery $query)
+    public function extendQuery(ActiveQuery $query)
     {
         $query->joinWith(['user']);
         $query->andFilterWhere([
@@ -44,7 +44,7 @@ class UserRoleSearch extends UserRole
         $query->andFilterWhere(['like', User::tableName().'.username', $this->username]);
     }
 
-    protected function extendDataProvider(ActiveDataProvider $dataProvider)
+    public function extendDataProvider(ActiveDataProvider $dataProvider)
     {
         $dataProvider->sort->attributes['username'] = [
             'asc' => [User::tableName().'.username' => SORT_ASC],
