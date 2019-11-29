@@ -2,6 +2,7 @@
 namespace concepture\yii2user\services;
 
 use Yii;
+use yii\db\ActiveQuery;
 use concepture\yii2logic\forms\Model;
 use concepture\yii2user\forms\UserForm;
 use concepture\yii2logic\services\Service;
