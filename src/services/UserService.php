@@ -8,6 +8,8 @@ use concepture\yii2logic\services\Service;
 use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\services\traits\StatusTrait;
+use concepture\yii2handbook\services\traits\ModifySupportTrait as HandbookModifySupportTrait;
+use concepture\yii2handbook\services\traits\ReadSupportTrait as HandbookReadSupportTrait;
 
 /**
  * Сервис содержит бизнес логику для работы с пользователем
@@ -19,14 +21,13 @@ use concepture\yii2logic\services\traits\StatusTrait;
 class UserService extends Service
 {
     use StatusTrait;
+    use HandbookModifySupportTrait;
+    use HandbookReadSupportTrait;
 
     protected function beforeCreate(Model $form)
     {
-        if (! $form->locale) {
-            $defaultLocale = Yii::$app->language;
-            $form->locale = LocaleConverter::key($defaultLocale);
-        }
-
+        $this->setCurrentDomain($form);
+        $this->setCurrentLocale($form);
     }
 
     /**
@@ -44,5 +45,18 @@ class UserService extends Service
         }
 
         return $this->create($form);
+    }
+
+    /**
+     * Метод для расширения find()
+     * !! ВНимание эти данные будут поставлены в find по умолчанию все всех случаях
+     *
+     * @param ActiveQuery $query
+     * @see \concepture\yii2logic\services\Service::extendFindCondition()
+     */
+    protected function extendQuery(ActiveQuery $query)
+    {
+        $this->applyDomain($query);
+        $this->applyLocale($query);
     }
 }
