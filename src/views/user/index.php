@@ -2,29 +2,16 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
+use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
 
-/* @var $this yii\web\View */
-/* @var $searchModel backend\search\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = Yii::t('backend', 'Пользователи');
-$this->params['breadcrumbs'][] = $this->title;
+$this->setTitle(Yii::t('user', 'Пользователи'));
+$this->pushBreadcrumbs($this->title);
+$this->viewHelper()->pushPageHeader();
 ?>
-<div class="user-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('user', 'Добавить пользователя'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+<?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -68,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons'=>[
                     'view'=> function ($url, $model) {
                         return Html::a(
-                            '<span class="glyphicon glyphicon-eye-open"></span>',
+                            '<i class="file-eye2"></i>',
                             ['view', 'id' => $model['id']],
                             ['data-pjax' => '0']
                         );
@@ -79,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
 
                         return Html::a(
-                            '<span class="glyphicon glyphicon-pencil"></span>',
+                            '<i class="pencil6"></i>',
                             ['update', 'id' => $model['id']],
                             ['data-pjax' => '0']
                         );
@@ -94,7 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
 
                         return Html::a(
-                            '<span class="glyphicon glyphicon-ok"></span>',
+                            '<i class="glyphicon glyphicon-ok"></i>',
                             ['status-change', 'id' => $model['id'], 'status' => StatusEnum::ACTIVE],
                             [
                                 'title' => Yii::t('user', 'Активировать'),
@@ -111,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return '';
                         }
                         return Html::a(
-                            '<span class="glyphicon glyphicon-remove"></span>',
+                            '<i class="glyphicon glyphicon-remove"></i>',
                             ['status-change', 'id' => $model['id'], 'status' => StatusEnum::INACTIVE],
                             [
                                 'title' => Yii::t('user', 'Деактивировать'),
@@ -126,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
 
                         return Html::a(
-                            '<span class="glyphicon glyphicon-trash"></span>',
+                            '<i class="bin2"></i>',
                             ['delete', 'id' => $model['id']],
                             [
                                 'title' => Yii::t('user', 'Удалить'),
@@ -140,6 +127,4 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
-
-</div>
+<?php Pjax::end(); ?>

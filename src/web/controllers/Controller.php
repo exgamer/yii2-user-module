@@ -3,7 +3,7 @@
 namespace concepture\yii2user\web\controllers;
 
 use concepture\yii2user\enum\UserRoleEnum;
-use concepture\yii2logic\controllers\web\Controller as Base;
+use kamaelkz\yii2admin\v1\controllers\BaseController;
 
 /**
  * Базовый контроллер для модуля пользователя
@@ -12,7 +12,7 @@ use concepture\yii2logic\controllers\web\Controller as Base;
  * @package concepture\yii2user\web\controllers
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
-abstract class Controller extends Base
+abstract class Controller extends BaseController
 {
     protected function getAccessRules()
     {
