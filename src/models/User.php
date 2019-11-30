@@ -109,7 +109,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-        return Yii::$app->userService->findgetOneByCondition(['username' => $username]);
+        return Yii::$app->userService->getOneByCondition(['username' => $username]);
     }
 
     /**
