@@ -7,7 +7,7 @@ use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
 
-$this->setTitle(Yii::t('user', 'Пользователи'));
+$this->setTitle(Yii::t('yii2admin', 'Пользователи'));
 $this->pushBreadcrumbs($this->title);
 $this->viewHelper()->pushPageHeader();
 ?>
@@ -58,12 +58,12 @@ $this->viewHelper()->pushPageHeader();
             'buttons'=>[
                 'view'=> function ($url, $model) {
                     return Html::a(
-                        '<i class="icon-file-eye2"></i>' . Yii::t('user', 'Просмотр'),
+                        '<i class="icon-file-eye2"></i>' . Yii::t('yii2admin', 'Просмотр'),
                         ['view', 'id' => $model['id']],
                         [
                             'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('user', 'Просмотр'),
-                            'title' => Yii::t('user', 'Просмотр'),
+                            'aria-label' => Yii::t('yii2admin', 'Просмотр'),
+                            'title' => Yii::t('yii2admin', 'Просмотр'),
                             'data-pjax' => '0'
                         ]
                     );
@@ -74,12 +74,12 @@ $this->viewHelper()->pushPageHeader();
                     }
 
                     return Html::a(
-                        '<i class="icon-pencil6"></i>'. Yii::t('user', 'Редактировать'),
+                        '<i class="icon-pencil6"></i>'. Yii::t('yii2admin', 'Редактировать'),
                         ['update', 'id' => $model['id']],
                         [
                             'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('user', 'Редактировать'),
-                            'title' => Yii::t('user', 'Редактировать'),
+                            'aria-label' => Yii::t('yii2admin', 'Редактировать'),
+                            'title' => Yii::t('yii2admin', 'Редактировать'),
                             'data-pjax' => '0'
                         ]
                     );
@@ -94,13 +94,13 @@ $this->viewHelper()->pushPageHeader();
                     }
 
                     return Html::a(
-                        '<i class="icon-checkmark4"></i>'. Yii::t('user', 'Активировать'),
+                        '<i class="icon-checkmark4"></i>'. Yii::t('yii2admin', 'Активировать'),
                         ['status-change', 'id' => $model['id'], 'status' => StatusEnum::ACTIVE],
                         [
                             'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('user', 'Активировать'),
-                            'title' => Yii::t('user', 'Активировать'),
-                            'data-confirm' => Yii::t('user', 'Активировать ?'),
+                            'aria-label' => Yii::t('yii2admin', 'Активировать'),
+                            'title' => Yii::t('yii2admin', 'Активировать'),
+                            'data-confirm' => Yii::t('yii2admin', 'Активировать ?'),
                             'data-method' => 'post',
                         ]
                     );
@@ -113,13 +113,13 @@ $this->viewHelper()->pushPageHeader();
                         return '';
                     }
                     return Html::a(
-                        '<i class="icon-cross2"></i>'. Yii::t('user', 'Деактивировать'),
+                        '<i class="icon-cross2"></i>'. Yii::t('yii2admin', 'Деактивировать'),
                         ['status-change', 'id' => $model['id'], 'status' => StatusEnum::INACTIVE],
                         [
                             'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('user', 'Деактивировать'),
-                            'title' => Yii::t('user', 'Деактивировать'),
-                            'data-confirm' => Yii::t('user', 'Деактивировать ?'),
+                            'aria-label' => Yii::t('yii2admin', 'Деактивировать'),
+                            'title' => Yii::t('yii2admin', 'Деактивировать'),
+                            'data-confirm' => Yii::t('yii2admin', 'Деактивировать ?'),
                             'data-method' => 'post',
                         ]
                     );
@@ -130,15 +130,15 @@ $this->viewHelper()->pushPageHeader();
                     }
 
                     return Html::a(
-                        '<i class="icon-trash"></i>'. Yii::t('user', 'Удалить'),
+                        '<i class="icon-trash"></i>'. Yii::t('yii2admin', 'Удалить'),
                         ['delete', 'id' => $model['id']],
                         [
-                            'title' => Yii::t('user', 'Удалить'),
-                            'data-confirm' => Yii::t('user', 'Удалить ?'),
+                            'title' => Yii::t('yii2admin', 'Удалить'),
+                            'data-confirm' => Yii::t('yii2admin', 'Удалить ?'),
                             'data-method' => 'post',
                             'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('user', 'Удалить'),
-                            'title' => Yii::t('user', 'Удалить'),
+                            'aria-label' => Yii::t('yii2admin', 'Удалить'),
+                            'title' => Yii::t('yii2admin', 'Удалить'),
                         ]
                     );
                 }

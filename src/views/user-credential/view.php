@@ -5,13 +5,13 @@ use yii\widgets\DetailView;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use yii\helpers\Url;
 
-$this->setTitle(Yii::t('user', 'Просмотр'));
-$this->pushBreadcrumbs(['label' => Yii::t('user', 'Авторизационные данные пользователей'), 'url' => ['index']]);
+$this->setTitle(Yii::t('yii2admin', 'Просмотр'));
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Авторизационные данные пользователей'), 'url' => ['index']]);
 $this->pushBreadcrumbs($this->title);
 
 $this->viewHelper()->pushPageHeader();
 $this->viewHelper()->pushPageHeader(['update' ,'id' => $model->id], Yii::t('yii2admin','Редактировать'), 'icon-pencil6');
-$this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Авторизационные данные пользователей'),'icon-list');
+$this->viewHelper()->pushPageHeader(['index'], Yii::t('yii2admin', 'Авторизационные данные пользователей'),'icon-list');
 ?>
 
 <?php Pjax::begin();?>

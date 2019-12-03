@@ -6,13 +6,13 @@ use concepture\yii2handbook\converters\LocaleConverter;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use yii\helpers\Url;
 
-$this->setTitle(Yii::t('user', 'Просмотр'));
-$this->pushBreadcrumbs(['label' => Yii::t('user', 'Пользователи'), 'url' => ['index']]);
+$this->setTitle(Yii::t('yii2admin', 'Просмотр'));
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Пользователи'), 'url' => ['index']]);
 $this->pushBreadcrumbs($this->title);
 
 $this->viewHelper()->pushPageHeader();
 $this->viewHelper()->pushPageHeader(['update' ,'id' => $model->id], Yii::t('yii2admin','Редактировать'), 'icon-pencil6');
-$this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Пользователи'),'icon-list');
+$this->viewHelper()->pushPageHeader(['index'], Yii::t('yii2admin', 'Пользователи'),'icon-list');
 ?>
 
 <?php Pjax::begin();?>

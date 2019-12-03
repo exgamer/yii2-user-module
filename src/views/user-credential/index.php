@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\web\View;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 
-$this->setTitle(Yii::t('user', 'Авторизационные данные пользователей'));
+$this->setTitle(Yii::t('yii2admin', 'Авторизационные данные пользователей'));
 $this->pushBreadcrumbs($this->title);
 ?>
 <?php Pjax::begin(); ?>

@@ -5,12 +5,12 @@ use yii\widgets\DetailView;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use yii\helpers\Url;
 
-$this->setTitle(Yii::t('user', 'Просмотр'));
-$this->pushBreadcrumbs(['label' => Yii::t('user', 'Роли пользователей'), 'url' => ['index']]);
+$this->setTitle(Yii::t('yii2admin', 'Просмотр'));
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Роли пользователей'), 'url' => ['index']]);
 $this->pushBreadcrumbs($this->title);
 
 $this->viewHelper()->pushPageHeader();
-$this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Роли пользователей'),'icon-list');
+$this->viewHelper()->pushPageHeader(['index'], Yii::t('yii2admin', 'Роли пользователей'),'icon-list');
 ?>
 
 <?php Pjax::begin();?>
