@@ -25,6 +25,11 @@ use concepture\yii2logic\models\ActiveRecord;
  */
 class UserCredential extends ActiveRecord
 {
+    public static function label()
+    {
+        return Yii::t('user', 'Авторизационные данные пользователей');
+    }
+
     /**
      * {@inheritdoc}
      */

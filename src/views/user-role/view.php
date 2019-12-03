@@ -6,11 +6,11 @@ use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use yii\helpers\Url;
 
 $this->setTitle(Yii::t('yii2admin', 'Просмотр'));
-$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Роли пользователей'), 'url' => ['index']]);
+$this->pushBreadcrumbs(['label' => $model::label(), 'url' => ['index']]);
 $this->pushBreadcrumbs($this->title);
 
 $this->viewHelper()->pushPageHeader();
-$this->viewHelper()->pushPageHeader(['index'], Yii::t('yii2admin', 'Роли пользователей'),'icon-list');
+$this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
 ?>
 
 <?php Pjax::begin();?>

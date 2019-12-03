@@ -23,6 +23,12 @@ use concepture\yii2logic\models\ActiveRecord;
 class UserRole extends ActiveRecord
 {
     use UserTrait;
+
+    public static function label()
+    {
+        return Yii::t('user', 'Роли пользователей');
+    }
+
     /**
      * {@inheritdoc}
      */

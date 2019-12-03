@@ -45,6 +45,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public $roles=[];
 
+    public static function label()
+    {
+        return Yii::t('user', 'Пользователи');
+    }
+
     /**
      * {@inheritdoc}
      */

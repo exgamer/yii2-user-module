@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 
-$this->setTitle(Yii::t('yii2admin', 'Роли пользователей'));
+$this->setTitle($searchModel::label());
 $this->pushBreadcrumbs($this->title);
 $this->viewHelper()->pushPageHeader();
 ?>

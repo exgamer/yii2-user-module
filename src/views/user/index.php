@@ -7,7 +7,7 @@ use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
 
-$this->setTitle(Yii::t('yii2admin', 'Пользователи'));
+$this->setTitle($searchModel::label());
 $this->pushBreadcrumbs($this->title);
 $this->viewHelper()->pushPageHeader();
 ?>
