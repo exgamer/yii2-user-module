@@ -1,36 +1,47 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model backend\search\UserSearch */
-/* @var $form yii\widgets\ActiveForm */
+use kamaelkz\yii2admin\v1\modules\uikit\enum\UiikitEnum;
+use concepture\yii2logic\enum\StatusEnum;
+use concepture\yii2logic\enum\IsDeletedEnum;
 ?>
-
-<div class="user-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'username') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <?= $form->field($model, 'updated_at') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('backend', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('backend', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form->field($model,'id')->textInput();?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form
+            ->field($model, 'locale')
+            ->dropDownList(Yii::$app->localeService->catalog(), [
+                'class' => 'form-control custom-select',
+                'prompt' => ''
+            ]);
+        ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form
+            ->field($model, 'domain_id')
+            ->dropDownList(Yii::$app->domainService->catalog(), [
+                'class' => 'form-control form-control-uniform active-form-refresh-control',
+                'prompt' => ''
+            ]);
+        ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form
+            ->field($model, 'status')
+            ->dropDownList(StatusEnum::arrayList(), [
+                'class' => 'form-control form-control-uniform active-form-refresh-control',
+                'prompt' => ''
+            ]);
+        ?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form
+            ->field($model, 'is_deleted')
+            ->dropDownList(IsDeletedEnum::arrayList(), [
+                'class' => 'form-control form-control-uniform active-form-refresh-control',
+                'prompt' => ''
+            ]);
+        ?>
+    </div>
 </div>
