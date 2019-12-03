@@ -50,6 +50,7 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                             [
                                 'class' => 'admin-action dropdown-item',
                                 'data-swal' => Yii::t('yii2admin' , 'Редактирование'),
+                                'data-pjax' => '0',
                             ]
                         );?>
                     </ul>
