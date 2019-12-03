@@ -2,6 +2,7 @@
 namespace concepture\yii2user\models;
 
 use concepture\yii2user\enum\UserRoleEnum;
+use concepture\yii2user\models\traits\UserTrait;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 
@@ -21,6 +22,7 @@ use concepture\yii2logic\models\ActiveRecord;
  */
 class UserRole extends ActiveRecord
 {
+    use UserTrait;
     /**
      * {@inheritdoc}
      */
