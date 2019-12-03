@@ -1,36 +1,23 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model backend\search\UserRoleSearch */
-/* @var $form yii\widgets\ActiveForm */
+use kamaelkz\yii2admin\v1\modules\uikit\enum\UiikitEnum;
+use concepture\yii2logic\enum\StatusEnum;
+use concepture\yii2logic\enum\IsDeletedEnum;
 ?>
-
-<div class="user-role-search">
-
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
-    ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'user_id') ?>
-
-    <?= $form->field($model, 'role_id') ?>
-
-    <?= $form->field($model, 'created_at') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('backend', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('backend', 'Reset'), ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form->field($model,'id')->textInput();?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form->field($model,'username')->textInput();?>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <?= $form
+            ->field($model, 'locale')
+            ->dropDownList(\concepture\yii2user\enum\UserRoleEnum::arrayList(), [
+                'class' => 'form-control custom-select',
+                'prompt' => ''
+            ]);
+        ?>
+    </div>
 </div>

@@ -1,30 +1,20 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel backend\search\UserRoleSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 
-$this->title = Yii::t('backend', 'Роли пользователей');
-$this->params['breadcrumbs'][] = $this->title;
+$this->setTitle(Yii::t('user', 'Роли пользователей'));
+$this->pushBreadcrumbs($this->title);
+$this->viewHelper()->pushPageHeader();
 ?>
-<div class="user-role-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a(Yii::t('user', 'Добавить роль'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+<?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'searchVisible' => true,
+        'searchParams' => [
+            'model' => $searchModel
+        ],
         'columns' => [
             'id',
             [
@@ -33,23 +23,17 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute'=>'role',
-                'filter'=> \concepture\yii2user\enum\UserRoleEnum::arrayList(),
                 'value'=>function($data) {
                     return $data->getRoleLabel();
                 }
             ],
             'created_at',
+
             [
                 'class'=>'yii\grid\ActionColumn',
                 'template'=>'{view} {delete}',
-                'buttons'=>[
-                    'view',
-                    'delete'
-                ]
             ],
         ],
     ]); ?>
 
-    <?php Pjax::end(); ?>
-
-</div>
+<?php Pjax::end(); ?>

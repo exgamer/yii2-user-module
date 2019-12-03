@@ -1,24 +1,13 @@
 <?php
 
-
-use yii\helpers\Html;
-
-/* @var $this yii\web\View */
-/* @var $model concepture\user\models\UserRole */
-
-$this->title = Yii::t('user', 'Update User Role: {name}', [
-    'name' => $model->id,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user',  'User Roles'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->username, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('backend', 'Update');
+$this->setTitle(Yii::t('user', 'Редактирование'));
+$this->pushBreadcrumbs(['label' => Yii::t('user', 'Роли пользователей'), 'url' => ['index']]);
+$this->pushBreadcrumbs($this->title);
+$this->viewHelper()->pushPageHeader();
+$this->viewHelper()->pushPageHeader(['view', 'id' => $originModel->id], Yii::t('user', 'Просмотр'),'icon-file-eye2');
+$this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Роли пользователей'),'icon-list');
 ?>
-<div class="user-role-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+<?= $this->render('_form', [
+    'model' => $model,
+]) ?>
