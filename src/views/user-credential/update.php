@@ -1,23 +1,13 @@
 <?php
 
-use yii\helpers\Html;
-
-/* @var $this yii\web\View */
-/* @var $model concepture\user\models\UserCredential */
-
-$this->title = Yii::t('user', 'Update User Credential: {name}', [
-    'name' => $originModel->id,
-]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('user', 'User Credentials'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $originModel->id, 'url' => ['view', 'id' => $originModel->id]];
-$this->params['breadcrumbs'][] = Yii::t('user', 'Update');
+$this->setTitle(Yii::t('user', 'Редактирование'));
+$this->pushBreadcrumbs(['label' => Yii::t('user', 'Авторизационные данные пользователей'), 'url' => ['index']]);
+$this->pushBreadcrumbs($this->title);
+$this->viewHelper()->pushPageHeader();
+$this->viewHelper()->pushPageHeader(['view', 'id' => $originModel->id], Yii::t('user', 'Просмотр'),'icon-file-eye2');
+$this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Авторизационные данные пользователей'),'icon-list');
 ?>
-<div class="user-credential-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+<?= $this->render('_form', [
+    'model' => $model,
+]) ?>

@@ -3,34 +3,29 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\web\View;
-use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 
-$this->title = Yii::t('user', 'Авторизационные данные пользователей');
-$this->params['breadcrumbs'][] = $this->title;
+$this->setTitle(Yii::t('user', 'Авторизационные данные пользователей'));
+$this->pushBreadcrumbs($this->title);
 ?>
-<div class="user-credential-index">
+<?php Pjax::begin(); ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?php Pjax::begin(); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            'id',
-            [
-                'attribute' => 'username',
-                'value' => 'user.username'
-            ],
-            'identity',
-            'created_at',
-            'updated_at'
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+    'searchVisible' => true,
+    'searchParams' => [
+        'model' => $searchModel
+    ],
+    'columns' => [
+        'id',
+        [
+            'attribute' => 'username',
+            'value' => 'user.username'
         ],
-    ]); ?>
+        'identity',
+        'created_at',
+        'updated_at'
+    ],
+]); ?>
 
-    <?php Pjax::end(); ?>
-
-</div>
+<?php Pjax::end(); ?>
