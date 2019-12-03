@@ -19,7 +19,7 @@ $this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Роли поль
         <div class="row">
             <div class="col-lg-9 col-md-8 col-sm-12">
                 <h5 class="card-title">
-                    <?= $model->username;?>
+                    <?= $model->getRoleLabel();?>
                 </h5>
             </div>
             <div class="col-lg-3 col-md-4 col-sm-12 text-right">
