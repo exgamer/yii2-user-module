@@ -45,7 +45,7 @@ $this->viewHelper()->pushPageHeader(['index'], Yii::t('yii2admin', 'Автори
                         );?>
                         <div class="dropdown-divider"></div>
                         <?= Html::a(
-                            '<i class="icon-question6"></i>' . Yii::t('yii2admin', 'Редактирование'),
+                            '<i class="icon-pencil6"></i>' . Yii::t('yii2admin', 'Редактирование'),
                             ['update', 'id' => $model->id],
                             [
                                 'class' => 'admin-action dropdown-item',
