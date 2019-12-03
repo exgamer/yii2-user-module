@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
-use kamaelkz\yii2admin\v1\widgets\formelements\editors\froala\FroalaEditor;
 ?>
 
 <?php Pjax::begin(['formSelector' => '#user-form']); ?>
