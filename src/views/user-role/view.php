@@ -10,7 +10,6 @@ $this->pushBreadcrumbs(['label' => Yii::t('user', 'Роли пользовате
 $this->pushBreadcrumbs($this->title);
 
 $this->viewHelper()->pushPageHeader();
-$this->viewHelper()->pushPageHeader(['update' ,'id' => $model->id], Yii::t('yii2admin','Редактировать'), 'icon-pencil6');
 $this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Роли пользователей'),'icon-list');
 ?>
 
@@ -41,15 +40,6 @@ $this->viewHelper()->pushPageHeader(['index'], Yii::t('user', 'Роли поль
                                 'data-pjax-id' => 'list-pjax',
                                 'data-pjax-url' => Url::current([], true),
                                 'data-swal' => Yii::t('yii2admin' , 'Удалить'),
-                            ]
-                        );?>
-                        <div class="dropdown-divider"></div>
-                        <?= Html::a(
-                            '<i class="icon-question6"></i>' . Yii::t('yii2admin', 'Редактирование'),
-                            ['update', 'id' => $model->id],
-                            [
-                                'class' => 'admin-action dropdown-item',
-                                'data-swal' => Yii::t('yii2admin' , 'Редактирование'),
                             ]
                         );?>
                     </ul>
