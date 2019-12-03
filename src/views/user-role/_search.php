@@ -13,7 +13,7 @@ use concepture\yii2logic\enum\IsDeletedEnum;
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12">
         <?= $form
-            ->field($model, 'locale')
+            ->field($model, 'role')
             ->dropDownList(\concepture\yii2user\enum\UserRoleEnum::arrayList(), [
                 'class' => 'form-control custom-select',
                 'prompt' => ''
