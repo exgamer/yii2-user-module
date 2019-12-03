@@ -25,7 +25,7 @@ use kamaelkz\yii2admin\v1\widgets\formelements\editors\froala\FroalaEditor;
                     <?= Html::activeLabel($model, 'user_id')?>
                     <?= \yii\jui\AutoComplete::widget([
                         'name' => 'name',
-//                        'value' => $model->getUserName(),
+                        'value' => $model->getUserName(),
                         'options' => ['class' => 'form-control'],
                         'clientOptions' => [
                             'source' => \yii\helpers\Url::to(['/user/user/list']),
