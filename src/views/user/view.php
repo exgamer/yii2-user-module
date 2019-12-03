@@ -21,7 +21,7 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
             <div class="row">
                 <div class="col-lg-9 col-md-8 col-sm-12">
                     <h5 class="card-title">
-                        <?= $model->username;?>
+                        <?= $model->toString();?>
                     </h5>
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-12 text-right">

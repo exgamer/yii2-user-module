@@ -24,9 +24,23 @@ class UserRole extends ActiveRecord
 {
     use UserTrait;
 
+    /**
+     * @see \concepture\yii2logic\models\ActiveRecord:label()
+     *
+     * @return string
+     */
     public static function label()
     {
         return Yii::t('user', 'Роли пользователей');
+    }
+
+    /**
+     * @see \concepture\yii2logic\models\ActiveRecord:toString()
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->role;
     }
 
     /**

@@ -45,9 +45,23 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public $roles=[];
 
+    /**
+     * @see \concepture\yii2logic\models\ActiveRecord:label()
+     *
+     * @return string
+     */
     public static function label()
     {
         return Yii::t('user', 'Пользователи');
+    }
+
+    /**
+     * @see \concepture\yii2logic\models\ActiveRecord:toString()
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->username;
     }
 
     /**
