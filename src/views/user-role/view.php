@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
+use yii\helpers\Url;
 
 $this->setTitle(Yii::t('user', 'Просмотр'));
 $this->pushBreadcrumbs(['label' => Yii::t('user', 'Роли пользователей'), 'url' => ['index']]);
