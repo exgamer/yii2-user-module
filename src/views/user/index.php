@@ -6,6 +6,7 @@ use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
+use yii\helpers\Url;
 
 $this->setTitle($searchModel::label());
 $this->pushBreadcrumbs($this->title);
@@ -97,11 +98,10 @@ $this->viewHelper()->pushPageHeader();
                         '<i class="icon-checkmark4"></i>'. Yii::t('yii2admin', 'Активировать'),
                         ['status-change', 'id' => $model['id'], 'status' => StatusEnum::ACTIVE],
                         [
-                            'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('yii2admin', 'Активировать'),
-                            'title' => Yii::t('yii2admin', 'Активировать'),
-                            'data-confirm' => Yii::t('yii2admin', 'Активировать ?'),
-                            'data-method' => 'post',
+                            'class' => 'admin-action dropdown-item',
+                            'data-pjax-id' => 'list-pjax',
+                            'data-pjax-url' => Url::current([], true),
+                            'data-swal' => Yii::t('yii2admin' , 'Активировать'),
                         ]
                     );
                 },
@@ -116,11 +116,10 @@ $this->viewHelper()->pushPageHeader();
                         '<i class="icon-cross2"></i>'. Yii::t('yii2admin', 'Деактивировать'),
                         ['status-change', 'id' => $model['id'], 'status' => StatusEnum::INACTIVE],
                         [
-                            'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('yii2admin', 'Деактивировать'),
-                            'title' => Yii::t('yii2admin', 'Деактивировать'),
-                            'data-confirm' => Yii::t('yii2admin', 'Деактивировать ?'),
-                            'data-method' => 'post',
+                            'class' => 'admin-action dropdown-item',
+                            'data-pjax-id' => 'list-pjax',
+                            'data-pjax-url' => Url::current([], true),
+                            'data-swal' => Yii::t('yii2admin' , 'Деактивировать'),
                         ]
                     );
                 },
@@ -133,12 +132,10 @@ $this->viewHelper()->pushPageHeader();
                         '<i class="icon-trash"></i>'. Yii::t('yii2admin', 'Удалить'),
                         ['delete', 'id' => $model['id']],
                         [
-                            'title' => Yii::t('yii2admin', 'Удалить'),
-                            'data-confirm' => Yii::t('yii2admin', 'Удалить ?'),
-                            'data-method' => 'post',
-                            'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('yii2admin', 'Удалить'),
-                            'title' => Yii::t('yii2admin', 'Удалить'),
+                            'class' => 'admin-action dropdown-item',
+                            'data-pjax-id' => 'list-pjax',
+                            'data-pjax-url' => Url::current([], true),
+                            'data-swal' => Yii::t('yii2admin' , 'Удалить'),
                         ]
                     );
                 }
