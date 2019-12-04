@@ -41,6 +41,6 @@ use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
             ]
         ); ?>
     </div>
-    <?php ActiveForm::end(); ?>
 </div>
+<?php ActiveForm::end(); ?>
 <?php Pjax::end(); ?>
