@@ -10,7 +10,7 @@ $this->pushBreadcrumbs(['label' => $model::label(), 'url' => ['index']]);
 $this->pushBreadcrumbs($this->title);
 
 $this->viewHelper()->pushPageHeader();
-$this->viewHelper()->pushPageHeader(['update' ,'id' => $model->id], Yii::t('yii2admin','Редактировать'), 'icon-pencil6');
+$this->viewHelper()->pushPageHeader(['update' ,'id' => $model->id], Yii::t('yii2admin','Редактирование'), 'icon-pencil6');
 $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
 ?>
 
@@ -48,8 +48,7 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                             '<i class="icon-pencil6"></i>' . Yii::t('yii2admin', 'Редактирование'),
                             ['update', 'id' => $model->id],
                             [
-                                'class' => 'admin-action dropdown-item',
-                                'data-swal' => Yii::t('yii2admin' , 'Редактирование'),
+                                'class' => ' dropdown-item',
                                 'data-pjax' => '0',
                             ]
                         );?>

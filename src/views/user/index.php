@@ -74,12 +74,12 @@ $this->viewHelper()->pushPageHeader();
                     }
 
                     return Html::a(
-                        '<i class="icon-pencil6"></i>'. Yii::t('yii2admin', 'Редактировать'),
+                        '<i class="icon-pencil6"></i>'. Yii::t('yii2admin', 'Редактирование'),
                         ['update', 'id' => $model['id']],
                         [
                             'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('yii2admin', 'Редактировать'),
-                            'title' => Yii::t('yii2admin', 'Редактировать'),
+                            'aria-label' => Yii::t('yii2admin', 'Редактирование'),
+                            'title' => Yii::t('yii2admin', 'Редактирование'),
                             'data-pjax' => '0'
                         ]
                     );
