@@ -21,7 +21,7 @@ use concepture\yii2logic\enum\IsDeletedEnum;
         <?= $form
             ->field($model, 'domain_id')
             ->dropDownList(Yii::$app->domainService->catalog(), [
-                'class' => 'form-control form-control-uniform active-form-refresh-control',
+                'class' => 'form-control custom-select',
                 'prompt' => ''
             ]);
         ?>
@@ -30,7 +30,7 @@ use concepture\yii2logic\enum\IsDeletedEnum;
         <?= $form
             ->field($model, 'status')
             ->dropDownList(StatusEnum::arrayList(), [
-                'class' => 'form-control form-control-uniform active-form-refresh-control',
+                'class' => 'form-control custom-select',
                 'prompt' => ''
             ]);
         ?>
@@ -39,7 +39,7 @@ use concepture\yii2logic\enum\IsDeletedEnum;
         <?= $form
             ->field($model, 'is_deleted')
             ->dropDownList(IsDeletedEnum::arrayList(), [
-                'class' => 'form-control form-control-uniform active-form-refresh-control',
+                'class' => 'form-control custom-select',
                 'prompt' => ''
             ]);
         ?>

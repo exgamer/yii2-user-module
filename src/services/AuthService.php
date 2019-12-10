@@ -196,7 +196,7 @@ class AuthService extends Service
 
         $cred = new UserCredentialForm();
         $cred->load($credential->attributes,'');
-        $cred->validation = $form->validation;
+        $cred->validation = Yii::$app->security->generatePasswordHash($form->validation);
         $model = $this->userCredentialService()->save($cred, $credential);
         Yii::$app->user->login(
             $user,

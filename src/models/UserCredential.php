@@ -81,12 +81,10 @@ class UserCredential extends ActiveRecord
             ['type', 'in', 'range' => UserCredentialTypeEnum::all()],
             [
                 [
-                    'user_id',
-                    'identity',
-                    'type'
+                    'identity'
                 ],
                 'unique',
-                'targetAttribute' => ['user_id', 'identity', 'type']
+                'targetAttribute' => ['user_id', 'identity', 'type', 'domain_id']
             ]
         ];
     }

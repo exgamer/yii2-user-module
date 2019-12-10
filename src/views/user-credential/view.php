@@ -33,16 +33,6 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <?= Html::a(
-                            '<i class="icon-bin2"></i>' . Yii::t('yii2admin', 'Удалить'),
-                            ['delete', 'id' => $model->id],
-                            [
-                                'class' => 'admin-action dropdown-item',
-                                'data-pjax-id' => 'list-pjax',
-                                'data-pjax-url' => Url::current([], true),
-                                'data-swal' => Yii::t('yii2admin' , 'Удалить'),
-                            ]
-                        );?>
                         <div class="dropdown-divider"></div>
                         <?= Html::a(
                             '<i class="icon-pencil6"></i>' . Yii::t('yii2admin', 'Редактирование'),
@@ -64,6 +54,12 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                 'id',
                 'user.username',
                 'identity',
+                [
+                    'attribute'=>'domain_id',
+                    'value'=>function($data) {
+                        return $data->getDomainName();
+                    }
+                ],
                 'created_at',
                 'updated_at',
             ],
