@@ -77,7 +77,7 @@ class UserCredentialService extends Service
      */
     public function findByIdentity($identity, $type = UserCredentialTypeEnum::EMAIL)
     {
-        return $this->getQuery()->where(
+        return $this->getQuery()->andWhere(
             [
                 'identity' => $identity,
                 'type' => $type,
@@ -94,7 +94,7 @@ class UserCredentialService extends Service
      */
     public function findByValidation($validation)
     {
-        return $this->getQuery()->where(
+        return $this->getQuery()->andWhere(
             [
                 'validation' => $validation,
                 'status' => UserCredentialStatusEnum::ACTIVE,
@@ -110,7 +110,7 @@ class UserCredentialService extends Service
      */
     public function findByType($user_id, $type)
     {
-        return $this->getQuery()->where(
+        return $this->getQuery()->andWhere(
             [
                 'user_id' => $user_id,
                 'type' => $type,
