@@ -18,6 +18,7 @@ $this->viewHelper()->pushPageHeader();
         'columns' => [
             'id',
             [
+                'label' => Yii::t('yii2admin', 'Пользователь'),
                 'attribute' => 'username',
                 'value' => 'user.username'
             ],
