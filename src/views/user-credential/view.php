@@ -35,7 +35,7 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                     <ul class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-divider"></div>
                         <?= Html::a(
-                            '<i class="icon-pencil6"></i>' . Yii::t('yii2admin', 'Редактирование'),
+                            '<i class="icon-pencil6"></i>' . Yii::t('yii2admin', 'Смена пароля'),
                             ['update', 'id' => $model->id],
                             [
                                 'class' => ' dropdown-item',

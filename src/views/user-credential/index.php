@@ -38,6 +38,19 @@ $this->viewHelper()->pushPageHeader();
             'class'=>'yii\grid\ActionColumn',
             'template'=>'{view} {update} {activate} {deactivate}',
             'buttons'=>[
+                'update'=> function ($url, $model) {
+
+                    return Html::a(
+                        '<i class="icon-pencil6"></i>'. Yii::t('yii2admin', 'Смена пароля'),
+                        ['update', 'id' => $model['id']],
+                        [
+                            'class' => 'dropdown-item',
+                            'aria-label' => Yii::t('yii2admin', 'Смена пароля'),
+                            'title' => Yii::t('yii2admin', 'Смена пароля'),
+                            'data-pjax' => '0'
+                        ]
+                    );
+                },
                 'activate'=> function ($url, $model) {
                     if ($model['status'] == StatusEnum::ACTIVE){
                         return '';
