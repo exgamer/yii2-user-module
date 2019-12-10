@@ -6,6 +6,7 @@ use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 use concepture\yii2handbook\models\traits\DomainTrait;
+use concepture\yii2user\models\traits\UserTrait;
 
 /**
  * Модель авторизационных данных пользователя
@@ -27,6 +28,7 @@ use concepture\yii2handbook\models\traits\DomainTrait;
 class UserCredential extends ActiveRecord
 {
     use DomainTrait;
+    use UserTrait;
 
     /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
