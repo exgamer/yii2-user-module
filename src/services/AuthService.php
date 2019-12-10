@@ -54,7 +54,7 @@ class AuthService extends Service
             return false;
         }
 
-        $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id);
+        $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
 
         return $user;
     }

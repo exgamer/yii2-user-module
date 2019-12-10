@@ -6,7 +6,6 @@ use Yii;
 use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
-use concepture\yii2handbook\models\traits\DomainTrait;
 use concepture\yii2logic\models\traits\IsDeletedTrait;
 use concepture\yii2logic\models\traits\StatusTrait;
 
@@ -18,7 +17,6 @@ use concepture\yii2logic\models\traits\StatusTrait;
  * @property integer $id
  * @property string $username
  * @property integer $locale
- * @property integer $domain_id
  * @property integer $status
  * @property datetime $created_at
  * @property datetime $updated_at
@@ -30,7 +28,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     public $allow_physical_delete = false;
 
-    use DomainTrait;
+
     use IsDeletedTrait;
     use StatusTrait;
 
@@ -83,7 +81,6 @@ class User extends ActiveRecord implements IdentityInterface
                 [
                     'status',
                     'locale',
-                    'domain_id'
                 ]
                 , 'integer'
             ]
@@ -97,7 +94,6 @@ class User extends ActiveRecord implements IdentityInterface
             'username' => Yii::t('user',' Имя пользователя'),
             'status' => Yii::t('user','Статус'),
             'locale' => Yii::t('user',' Язык'),
-            'domain_id' => Yii::t('user',' Домен'),
             'created_at' => Yii::t('user', 'Дата создания'),
             'updated_at' => Yii::t('user', 'Дата обновления'),
             'is_deleted' => Yii::t('user','Удален'),

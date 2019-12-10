@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\services;
 
+use yii\db\ActiveQuery;
 use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use concepture\yii2user\forms\UserCredentialForm;
@@ -32,19 +33,33 @@ class UserCredentialService extends Service
     }
 
     /**
+     * Метод для расширения find()
+     * !! ВНимание эти данные будут поставлены в find по умолчанию все всех случаях
+     *
+     * @param ActiveQuery $query
+     * @see \concepture\yii2logic\services\Service::extendFindCondition()
+     */
+    protected function extendQuery(ActiveQuery $query)
+    {
+        $this->applyDomain($query);
+    }
+
+    /**
      * Создание учетки по емеилу
      *
      * @param $identity
      * @param $validation
      * @param $user_id
+     * @param null $domain_id
      * @return mixed
      */
-    public function createEmailCredential($identity, $validation, $user_id)
+    public function createEmailCredential($identity, $validation, $user_id, $domain_id = null)
     {
         $form = new UserCredentialForm();
         $form->identity = $identity;
         $form->validation = $validation;
         $form->user_id = $user_id;
+        $form->domain_id = $domain_id;
         $form->type = UserCredentialTypeEnum::EMAIL;
         $result = $this->create($form);
         $this->emailHandbookService()->addEmail($identity);

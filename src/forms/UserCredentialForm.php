@@ -17,6 +17,7 @@ class UserCredentialForm extends Form
     public $identity;
     public $validation;
     public $parent_id;
+    public $domain_id;
     public $type;
     public $status;
 

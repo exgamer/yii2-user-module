@@ -5,6 +5,7 @@ use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
+use concepture\yii2handbook\models\traits\DomainTrait;
 
 /**
  * Модель авторизационных данных пользователя
@@ -25,6 +26,8 @@ use concepture\yii2logic\models\ActiveRecord;
  */
 class UserCredential extends ActiveRecord
 {
+    use DomainTrait;
+
     /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
      * @return string
@@ -65,6 +68,7 @@ class UserCredential extends ActiveRecord
                     'type',
                     'status',
                     'parent_id',
+                    'domain_id',
                 ],
                 'integer'
             ],
@@ -94,6 +98,7 @@ class UserCredential extends ActiveRecord
             'type' => Yii::t('user', 'Тип записи'),
             'validation' => Yii::t('user', 'Пароль'),
             'user_id' => Yii::t('user', 'Пользователь'),
+            'domain_id' => Yii::t('user', 'Домен'),
             'identity' => Yii::t('user', 'Логин'),
             'created_at' => Yii::t('user', 'Дата создания'),
             'updated_at' => Yii::t('user', 'Дата обновления')

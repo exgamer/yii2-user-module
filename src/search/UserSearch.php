@@ -23,7 +23,6 @@ class UserSearch extends User
             [
                 [
                     'id',
-                    'domain_id',
                     'locale',
                     'is_deleted',
                     'status',
@@ -39,9 +38,7 @@ class UserSearch extends User
         $query->andFilterWhere([
             'id' => $this->id
         ]);
-        $query->andFilterWhere([
-            'domain_id' => $this->domain_id
-        ]);
+
         $query->andFilterWhere([
             'locale' => $this->locale
         ]);

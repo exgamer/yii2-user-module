@@ -27,7 +27,6 @@ class UserService extends Service
 
     protected function beforeCreate(Model $form)
     {
-        $this->setCurrentDomain($form);
         $this->setCurrentLocale($form);
     }
 
@@ -46,18 +45,5 @@ class UserService extends Service
         }
 
         return $this->create($form);
-    }
-
-    /**
-     * Метод для расширения find()
-     * !! ВНимание эти данные будут поставлены в find по умолчанию все всех случаях
-     *
-     * @param ActiveQuery $query
-     * @see \concepture\yii2logic\services\Service::extendFindCondition()
-     */
-    protected function extendQuery(ActiveQuery $query)
-    {
-        $this->applyDomain($query);
-        $this->applyLocale($query);
     }
 }
