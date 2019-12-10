@@ -67,7 +67,7 @@ class UserCredentialController extends Controller
             $originModel->setAttributes($model->attributes);
             if ($model->validate(null, true, $originModel)) {
                 $model->validation = Yii::$app->security->generatePasswordHash($model->validation);
-                if (($result = $this->getService()->save($model, $originModel)) != false) {
+                if (($result = $this->getService()->update($model, $originModel)) != false) {
 
                     return $this->redirect('index');
                 }
