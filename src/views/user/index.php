@@ -30,13 +30,6 @@ $this->viewHelper()->pushPageHeader();
             }
         ],
         [
-            'attribute'=>'domain_id',
-            'filter'=> Yii::$app->domainService->catalog(),
-            'value'=>function($data) {
-                return $data->getDomainName();
-            }
-        ],
-        [
             'attribute'=>'status',
             'filter'=> StatusEnum::arrayList(),
             'value'=>function($data) {

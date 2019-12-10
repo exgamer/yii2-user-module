@@ -72,10 +72,6 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                         }
                     ],
                     [
-                        'attribute'=>'domain_id',
-                        'value'=>$model->getDomainName(),
-                    ],
-                    [
                         'attribute'=>'status',
                         'value'=>$model->statusLabel(),
                     ],
