@@ -99,6 +99,7 @@ class UserCredential extends ActiveRecord
             'validation' => Yii::t('user', 'Пароль'),
             'user_id' => Yii::t('user', 'Пользователь'),
             'domain_id' => Yii::t('user', 'Домен'),
+            'username' => Yii::t('user', 'Пользователь'),
             'identity' => Yii::t('user', 'Логин'),
             'created_at' => Yii::t('user', 'Дата создания'),
             'updated_at' => Yii::t('user', 'Дата обновления')

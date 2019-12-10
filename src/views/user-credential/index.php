@@ -9,6 +9,7 @@ use concepture\yii2logic\enum\StatusEnum;
 
 $this->setTitle($searchModel::label());
 $this->pushBreadcrumbs($this->title);
+$this->viewHelper()->pushPageHeader();
 ?>
 <?php Pjax::begin(); ?>
 
