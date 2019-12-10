@@ -9,7 +9,7 @@ use concepture\yii2user\enum\UserRoleEnum;
 /**
  * Class m190706_141342__add_default_user
  */
-class m190706_141342__add_default_user extends Migration
+class m191108_102329__add_default_user extends Migration
 {
     /**
      * {@inheritdoc}
