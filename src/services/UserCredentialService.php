@@ -11,6 +11,7 @@ use concepture\yii2logic\models\ActiveRecord;
 use concepture\yii2logic\services\Service;
 use Yii;
 use concepture\yii2user\traits\ServicesTrait;
+use concepture\yii2handbook\services\traits\ReadSupportTrait as HandbookReadSupportTrait;
 
 /**
  * Сервис содержит бизнес логику дял работы с авторизационными записями пользователя
@@ -22,6 +23,7 @@ use concepture\yii2user\traits\ServicesTrait;
 class UserCredentialService extends Service
 {
     use ServicesTrait;
+    use HandbookReadSupportTrait;
 
     /**
      * Дополнительные действия с моделью перед созданием
