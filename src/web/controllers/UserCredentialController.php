@@ -63,11 +63,14 @@ class UserCredentialController extends Controller
         $model = new UserCredentialForm();
         $model->setAttributes($originModel->attributes, false);
         $model->validation = null;
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->validation = Yii::$app->security->generatePasswordHash($model->validation);
-            if (($result = $this->getService()->save($model, $originModel)) != false) {
+        if ($model->load(Yii::$app->request->post())) {
+            $originModel->setAttributes($model->attributes);
+            if ($model->validate(null, true, $originModel)) {
+                $model->validation = Yii::$app->security->generatePasswordHash($model->validation);
+                if (($result = $this->getService()->save($model, $originModel)) != false) {
 
-                return $this->redirect('index');
+                    return $this->redirect('index');
+                }
             }
         }
 
