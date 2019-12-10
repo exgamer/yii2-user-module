@@ -36,7 +36,7 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
                         'minLength'=>'2',
                         'autoFill'=>true,
                         'select' => new \yii\web\JsExpression("function( event, ui ) {
-                                    $('#userroleform-user_id').val(ui.item.id);
+                                    $('#emailcredentialform-user_id').val(ui.item.id);
                              }")]
                 ]); ?>
                 <?= Html::error($model, 'user_id', ['class' => 'text-danger form-text'])?>
