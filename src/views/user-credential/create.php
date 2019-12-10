@@ -47,7 +47,15 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <?= $form->field($model, 'validation')->textInput(['maxlength' => true]) ?>
             </div>
-
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <?= $form
+                    ->field($model, 'domain_id')
+                    ->dropDownList(Yii::$app->domainService->catalog(), [
+                        'class' => 'form-control custom-select',
+                        'prompt' => Yii::t('backend', 'Выберите домен')
+                    ]);
+                ?>
+            </div>
 
         </div>
     </div>
