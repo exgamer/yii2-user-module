@@ -23,6 +23,9 @@ class WebUser extends User
      */
     public function can($permissionName, $params = [], $allowCaching = true)
     {
+        if (! $this->identity){
+            return false;
+        }
         $roles = Yii::$app->userRoleService->getRolesByUserId($this->identity->id);
         if (isset($roles[$permissionName])){
             return true;
