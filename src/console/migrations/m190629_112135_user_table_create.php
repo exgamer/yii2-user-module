@@ -21,7 +21,7 @@ class m190629_112135_user_table_create extends Migration
             'locale' => $this->bigInteger()->notNull(),
             'domain_id' => $this->bigInteger(),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
-            'updated_at' => $this->dateTime()->append('ON UPDATE NOW()'),
+            'updated_at' => $this->dateTime(),
             'is_deleted' => $this->smallInteger()->defaultValue(0),
         ]);
         $this->addIndex(['locale']);

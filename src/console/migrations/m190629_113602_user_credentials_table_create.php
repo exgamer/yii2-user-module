@@ -22,7 +22,7 @@ class m190629_113602_user_credentials_table_create extends Migration
             'type' => $this->integer()->notNull(),
             'status' => $this->smallInteger()->defaultValue(0),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
-            'updated_at' => $this->dateTime()->append('ON UPDATE NOW()'),
+            'updated_at' => $this->dateTime(),
         ]);
         $this->addUniqueIndex(
             ['user_id', 'identity', 'type']);
