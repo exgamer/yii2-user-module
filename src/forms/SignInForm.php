@@ -32,9 +32,7 @@ class SignInForm extends Form
                 [
                     'validation'
                 ],
-                'string',
-                'min' => 6,
-                'max'=>100
+                'string'
             ],
             ['identity', 'trim'],
             ['validation', 'trim'],
