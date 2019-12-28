@@ -45,7 +45,7 @@ class UserAccountOperationService extends Service
 
         $form = new UserAccountOperationForm();
         $form->type = UserAccountOperationTypeEnum::REFILL;
-        $form->currency = $currency;
+        $form->currency = $account->currency;
         $form->sum = $sum;
         $form->status = 1;
         $form->account_id = $account->id;
@@ -82,7 +82,7 @@ class UserAccountOperationService extends Service
 
         $form = new UserAccountOperationForm();
         $form->type = UserAccountOperationTypeEnum::WRITE_OFF;
-        $form->currency = $currency;
+        $form->currency = $account->currency;
         $form->sum = $sum;
         $form->status = 1;
         $form->account_id = $account->id;
