@@ -13,7 +13,13 @@ return [
     'userRoleService' => [
         'class' => 'concepture\yii2user\services\UserRoleService'
     ],
+    'userAccountService' => [
+        'class' => 'concepture\yii2user\services\UserAccountService'
+    ],
+    'userAccountOperationService' => [
+        'class' => 'concepture\yii2user\services\UserAccountOperationService'
+    ],
     'emailHandbookService' => [
         'class' => 'concepture\yii2user\services\EmailHandbookService'
-    ]
+    ],
 ];
