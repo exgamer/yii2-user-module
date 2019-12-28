@@ -104,9 +104,4 @@ class UserCredential extends ActiveRecord
             'updated_at' => Yii::t('user', 'Дата обновления')
         ];
     }
-
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
 }

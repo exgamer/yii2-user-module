@@ -91,11 +91,6 @@ class UserRole extends ActiveRecord
         ];
     }
 
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
     public function getRoleLabel()
     {
         return UserRoleEnum::label($this->role);

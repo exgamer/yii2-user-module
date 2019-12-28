@@ -4,6 +4,7 @@ namespace concepture\yii2user\models;
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
 use concepture\yii2user\models\traits\UserTrait;
+use concepture\yii2handbook\models\traits\CurrencyTrait;
 
 /**
  * Class UserAccount
@@ -13,6 +14,7 @@ use concepture\yii2user\models\traits\UserTrait;
 class UserAccount extends ActiveRecord
 {
     use UserTrait;
+    use CurrencyTrait;
 
     /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
@@ -67,6 +69,7 @@ class UserAccount extends ActiveRecord
     {
         return [
             'id' => Yii::t('user', '#'),
+            'user_id' => Yii::t('user', 'Пользователь'),
             'currency' => Yii::t('user', 'Валюта'),
             'balance' => Yii::t('user', 'Баланс'),
             'created_at' => Yii::t('user', 'Дата создания'),

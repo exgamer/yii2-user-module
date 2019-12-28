@@ -3,6 +3,7 @@ namespace concepture\yii2user\models;
 
 use Yii;
 use concepture\yii2logic\models\ActiveRecord;
+use concepture\yii2handbook\models\traits\CurrencyTrait;
 
 /**
  * Class UserAccountOperation
@@ -11,6 +12,8 @@ use concepture\yii2logic\models\ActiveRecord;
  */
 class UserAccountOperation extends ActiveRecord
 {
+    use CurrencyTrait;
+    
     /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
      * @return string
