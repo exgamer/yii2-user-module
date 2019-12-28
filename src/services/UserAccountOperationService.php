@@ -107,7 +107,7 @@ class UserAccountOperationService extends Service
             $account->balance -= $form->sum;
         }
 
-        if (! $account->save()){
+        if (! $account->save(false)){
             throw new Exception("operation failed");
         }
 
