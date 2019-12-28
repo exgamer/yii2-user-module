@@ -27,7 +27,7 @@ class UserAccountOperationService extends Service
      * @param double $sum
      * @param integer $currency
      * @param string $description
-     * @return ActiveRecord
+     * @return boolean
      * @throws Exception
      */
     public function refill($user_id, $sum, $currency, $description = null)
@@ -54,7 +54,7 @@ class UserAccountOperationService extends Service
      * @param double $sum
      * @param integer $currency
      * @param string $description
-     * @return ActiveRecord
+     * @return boolean
      * @throws Exception
      */
     public function writeOff($user_id, $sum, $currency, $description = null)
