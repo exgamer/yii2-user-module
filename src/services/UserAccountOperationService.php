@@ -17,7 +17,7 @@ use Exception;
  */
 class UserAccountOperationService extends Service
 {
-    use StatusTrat;
+    use StatusTrait;
     use ServicesTrait;
 
     /**

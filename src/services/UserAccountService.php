@@ -11,5 +11,5 @@ use concepture\yii2logic\services\traits\StatusTrait;
  */
 class UserAccountService extends Service
 {
-    use StatusTrat;
+    use StatusTrait;
 }
