@@ -61,6 +61,7 @@ class UserAccountOperation extends ActiveRecord
                 ],
                 'integer'
             ],
+            ['description', 'string', 'max' => 255],
         ];
     }
 
@@ -72,6 +73,7 @@ class UserAccountOperation extends ActiveRecord
             'sum' => Yii::t('user', 'Сумма'),
             'account_id' => Yii::t('user', ' Аккаунт'),
             'type' => Yii::t('user', ' Вид операции'),
+            'description' => Yii::t('user', 'Описание'),
             'created_at' => Yii::t('user', 'Дата создания'),
         ];
     }

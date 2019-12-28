@@ -19,13 +19,12 @@ class m191126_102340_user_account_operation extends Migration
             'sum' => $this->double(),
             'type' => $this->smallInteger()->notNull(),
             'currency' => $this->bigInteger()->notNull(),
+            'description' => $this->string(255),
             'status' => $this->smallInteger()->defaultValue(0),
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
         ]);
         $this->addIndex(['status']);
-        $this->addIndex(['user_id']);
         $this->addIndex(['account_id']);
-        $this->addForeign('user_id', 'user','id');
         $this->addForeign('account_id', 'user_account','id');
     }
 }

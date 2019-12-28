@@ -15,6 +15,7 @@ class UserAccountOperationForm extends Form
     public $sum;
     public $type;
     public $currency;
+    public $description;
     public $status;
 
     /**
