@@ -31,7 +31,7 @@ class UserAccountOperationService extends Service
      */
     public function refill($user_id, $sum, $currency, $description = null)
     {
-        $account = $this->userAccountOperationService()->getOneByCondition([
+        $account = $this->userAccountService()->getOneByCondition([
             'user_id' => $user_id,
             'currency' => $currency,
         ]);
@@ -68,7 +68,7 @@ class UserAccountOperationService extends Service
      */
     public function writeOff($user_id, $sum, $currency, $description = null)
     {
-        $account = $this->userAccountOperationService()->getOneByCondition([
+        $account = $this->userAccountService()->getOneByCondition([
             'user_id' => $user_id,
             'currency' => $currency,
         ]);
