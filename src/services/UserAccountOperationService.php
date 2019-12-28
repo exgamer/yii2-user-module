@@ -12,4 +12,14 @@ use concepture\yii2logic\services\traits\StatusTrait;
 class UserAccountOperationService extends Service
 {
     use StatusTrat;
+
+    public function refill($sum)
+    {
+
+    }
+
+    public function writeOff($sum)
+    {
+
+    }
 }

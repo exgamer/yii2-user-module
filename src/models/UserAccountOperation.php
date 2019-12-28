@@ -13,7 +13,7 @@ use concepture\yii2handbook\models\traits\CurrencyTrait;
 class UserAccountOperation extends ActiveRecord
 {
     use CurrencyTrait;
-    
+
     /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
      * @return string
