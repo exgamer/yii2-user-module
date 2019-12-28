@@ -26,9 +26,10 @@ class UserAccountOperationService extends Service
      * @param integer $user_id
      * @param double $sum
      * @param integer $currency
+     * @param string $description
      * @return ActiveRecord
      */
-    public function refill($user_id, $sum, $currency)
+    public function refill($user_id, $sum, $currency, $description = null)
     {
         $account = $this->userAccountOperationService()->getOneByCondition([
             'user_id' => $user_id,
@@ -48,6 +49,9 @@ class UserAccountOperationService extends Service
         $form->sum = $sum;
         $form->status = 1;
         $form->account_id = $account->id;
+        if ($description){
+            $form->description = $description;
+        }
 
         return $this->userAccountOperationService()->create($form);
     }
@@ -58,10 +62,11 @@ class UserAccountOperationService extends Service
      * @param integer $user_id
      * @param double $sum
      * @param integer $currency
+     * @param string $description
      * @return ActiveRecord
      * @throws Exception
      */
-    public function writeOff($user_id, $sum, $currency)
+    public function writeOff($user_id, $sum, $currency, $description = null)
     {
         $account = $this->userAccountOperationService()->getOneByCondition([
             'user_id' => $user_id,
@@ -81,6 +86,9 @@ class UserAccountOperationService extends Service
         $form->sum = $sum;
         $form->status = 1;
         $form->account_id = $account->id;
+        if ($description){
+            $form->description = $description;
+        }
 
         return $this->userAccountOperationService()->create($form);
     }
