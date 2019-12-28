@@ -43,17 +43,7 @@ class UserAccountOperationService extends Service
             $account = $this->userAccountService()->create($accountForm);
         }
 
-        $form = new UserAccountOperationForm();
-        $form->type = UserAccountOperationTypeEnum::REFILL;
-        $form->currency = $account->currency;
-        $form->sum = $sum;
-        $form->status = 1;
-        $form->account_id = $account->id;
-        if ($description){
-            $form->description = $description;
-        }
-
-        return $this->userAccountOperationService()->create($form);
+        return $this->doOperation($sum, $account, UserAccountOperationTypeEnum::REFILL, $description);
     }
 
     /**
@@ -80,8 +70,23 @@ class UserAccountOperationService extends Service
             throw new Exception("not enough balance");
         }
 
+        return $this->doOperation($sum, $account, UserAccountOperationTypeEnum::WRITE_OFF, $description);
+    }
+
+    /**
+     * Операция
+     *
+     * @param $sum
+     * @param $account
+     * @param $type
+     * @param string $description
+     * @return bool
+     * @throws Exception
+     */
+    protected function doOperation($sum, $account, $type, $description = null)
+    {
         $form = new UserAccountOperationForm();
-        $form->type = UserAccountOperationTypeEnum::WRITE_OFF;
+        $form->type = $type;
         $form->currency = $account->currency;
         $form->sum = $sum;
         $form->status = 1;
@@ -90,6 +95,21 @@ class UserAccountOperationService extends Service
             $form->description = $description;
         }
 
-        return $this->userAccountOperationService()->create($form);
+        if (! $this->userAccountOperationService()->create($form))
+        {
+            throw new Exception("operation failed");
+        }
+
+        if ($type == UserAccountOperationTypeEnum::REFILL){
+            $account->balance += $form->sum;
+        }else{
+            $account->balance -= $form->sum;
+        }
+
+        if (! $account->save()){
+            throw new Exception("operation failed");
+        }
+
+        return true;
     }
 }
