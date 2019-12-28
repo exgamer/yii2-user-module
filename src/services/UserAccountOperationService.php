@@ -28,6 +28,7 @@ class UserAccountOperationService extends Service
      * @param integer $currency
      * @param string $description
      * @return ActiveRecord
+     * @throws Exception
      */
     public function refill($user_id, $sum, $currency, $description = null)
     {
