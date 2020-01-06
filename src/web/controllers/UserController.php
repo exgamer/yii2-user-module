@@ -35,7 +35,7 @@ class UserController extends Controller
         $actions['undelete'] = UndeleteAction::class;
         $actions['image-upload'] = ImageUploadAction::class;
         $actions['mage-delete'] = ImageDeleteAction::class;
-        
+
         return $actions;
     }
 }
