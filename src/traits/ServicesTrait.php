@@ -35,22 +35,6 @@ trait ServicesTrait
     }
 
     /**
-     * @return UserAccountService
-     */
-    public function userAccountService()
-    {
-        return Yii::$app->userAccountService;
-    }
-
-    /**
-     * @return UserAccountOperationService
-     */
-    public function userAccountOperationService()
-    {
-        return Yii::$app->userAccountOperationService;
-    }
-
-    /**
      * @return AuthService
      */
     public function authService()
