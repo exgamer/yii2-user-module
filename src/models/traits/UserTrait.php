@@ -23,7 +23,7 @@ trait UserTrait
         return null;
     }
 
-    public function getUseLogo()
+    public function getUserLogo()
     {
         if (isset($this->user)){
             return $this->user->getImageAttribute('logo');
