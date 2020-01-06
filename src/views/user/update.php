@@ -9,5 +9,6 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
 ?>
 <?= $this->render('_form', [
     'model' => $model,
+    'originModel' => $originModel,
 ]) ?>
 

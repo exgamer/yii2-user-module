@@ -16,6 +16,8 @@ class UserForm extends Form
     public $username;
     public $locale;
     public $status;
+    public $logo;
+    public $description;
 
     /**
      * @see Form::formRules()
