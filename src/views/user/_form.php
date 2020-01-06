@@ -37,17 +37,12 @@ use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
                 <?= $this->render('/include/_uploader.php', [
                     'form' => $form,
                     'model' => $model,
-                    'attribute' => 'image',
+                    'attribute' => 'logo',
                     'originModel' => isset($originModel) ? $originModel : null
                 ]) ?>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <?= $this->render('/include/_uploader.php', [
-                    'form' => $form,
-                    'model' => $model,
-                    'attribute' => 'image_anons',
-                    'originModel' => isset($originModel) ? $originModel : null
-                ]) ?>
+                <?= $form->field($model, 'description')->textarea();?>
             </div>
         </div>
     </div>
