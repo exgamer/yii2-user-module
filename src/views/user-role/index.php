@@ -18,11 +18,11 @@ $this->viewHelper()->pushPageHeader(['create', 'user_id' => $searchModel->user_i
     ],
     'columns' => [
         'id',
-        [
-            'label' => Yii::t('yii2admin', 'Пользователь'),
-            'attribute' => 'username',
-            'value' => 'user.username'
-        ],
+//        [
+//            'label' => Yii::t('yii2admin', 'Пользователь'),
+//            'attribute' => 'username',
+//            'value' => 'user.username'
+//        ],
         [
             'attribute'=>'role',
             'value'=>function($data) {
