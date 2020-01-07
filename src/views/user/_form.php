@@ -32,6 +32,19 @@ use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
                 ?>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <?= $this->render('/include/_uploader.php', [
+                    'form' => $form,
+                    'model' => $model,
+                    'attribute' => 'logo',
+                    'originModel' => isset($originModel) ? $originModel : null
+                ]) ?>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <?= $form->field($model, 'description')->textarea();?>
+            </div>
+        </div>
     </div>
     <div class="card-body text-right">
         <?=  Html::submitButton(

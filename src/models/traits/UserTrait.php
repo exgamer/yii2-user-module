@@ -22,5 +22,15 @@ trait UserTrait
 
         return null;
     }
+
+    public function getUserLogo()
+    {
+        if (isset($this->user)){
+            return $this->user->getImageAttribute('logo');
+        }
+
+        return null;
+    }
+
 }
 

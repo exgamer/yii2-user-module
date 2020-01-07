@@ -8,6 +8,7 @@ use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
 use concepture\yii2logic\models\traits\IsDeletedTrait;
 use concepture\yii2logic\models\traits\StatusTrait;
+use kamaelkz\yii2cdnuploader\traits\ModelTrait;
 
 /**
  * Модель пользователя
@@ -31,6 +32,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     use IsDeletedTrait;
     use StatusTrait;
+    use ModelTrait;
 
     /**
      * Users roles array
@@ -79,6 +81,14 @@ class User extends ActiveRecord implements IdentityInterface
             ['username', 'string', 'min' => 2, 'max' => 100],
             [
                 [
+                    'logo',
+                    'description',
+                ],
+                'string',
+                'max' => 1024
+            ],
+            [
+                [
                     'status',
                     'locale',
                 ]
@@ -91,7 +101,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => Yii::t('user', '#'),
-            'username' => Yii::t('user',' Имя пользователя'),
+            'username' => Yii::t('user','Имя пользователя'),
+            'logo' => Yii::t('user','Аватар'),
+            'description' => Yii::t('user','Описание'),
             'status' => Yii::t('user','Статус'),
             'locale' => Yii::t('user',' Язык'),
             'created_at' => Yii::t('user', 'Дата создания'),
