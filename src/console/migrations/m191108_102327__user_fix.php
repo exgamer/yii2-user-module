@@ -3,9 +3,9 @@
 use concepture\yii2logic\console\migrations\Migration;
 
 /**
- * Class m191126_102343__user_fix
+ * Class m191108_102327__user_fix
  */
-class m191126_102343__user_fix extends Migration
+class m191108_102327__user_fix extends Migration
 {
     public function getTableName()
     {
