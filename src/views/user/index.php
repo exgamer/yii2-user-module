@@ -48,8 +48,32 @@ $this->viewHelper()->pushPageHeader();
 
         [
             'class'=>'yii\grid\ActionColumn',
-            'template'=>'{view} {update} {activate} {deactivate} {delete}',
+            'template'=>'{credentials} {roles} {view} {update} {activate} {deactivate} {delete}',
             'buttons'=>[
+                'credentials'=> function ($url, $model) {
+                    return Html::a(
+                        '<i class="icon-key"></i>' . Yii::t('yii2admin', 'Авторизационные данные'),
+                        ['/user/user-credential/index', 'user_id' => $model['id']],
+                        [
+                            'class' => 'dropdown-item',
+                            'aria-label' => Yii::t('yii2admin', 'Авторизационные данные'),
+                            'title' => Yii::t('yii2admin', 'Авторизационные данные'),
+                            'data-pjax' => '0'
+                        ]
+                    );
+                },
+                'roles'=> function ($url, $model) {
+                    return Html::a(
+                        '<i class="icon-users"></i>' . Yii::t('yii2admin', 'Роли'),
+                        ['/user/user-role/index', 'user_id' => $model['id']],
+                        [
+                            'class' => 'dropdown-item',
+                            'aria-label' => Yii::t('yii2admin', 'Роли'),
+                            'title' => Yii::t('yii2admin', 'Роли'),
+                            'data-pjax' => '0'
+                        ]
+                    );
+                },
                 'view'=> function ($url, $model) {
                     return Html::a(
                         '<i class="icon-file-eye2"></i>' . Yii::t('yii2admin', 'Просмотр'),

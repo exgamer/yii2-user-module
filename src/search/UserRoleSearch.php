@@ -27,7 +27,7 @@ class UserRoleSearch extends UserRole
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'user_id'], 'integer'],
             [['role','username'], 'safe'],
         ];
     }
@@ -40,6 +40,9 @@ class UserRoleSearch extends UserRole
         ]);
         $query->andFilterWhere([
             'role' => $this->role
+        ]);
+        $query->andFilterWhere([
+            'user_id' => $this->user_id
         ]);
         $query->andFilterWhere(['like', User::tableName().'.username', $this->username]);
     }

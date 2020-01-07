@@ -24,7 +24,7 @@ class UserCredentialSearch extends UserCredential
     public function rules()
     {
         return [
-            [['id', 'domain_id'], 'integer'],
+            [['id', 'domain_id', 'user_id'], 'integer'],
             [['identity','username'], 'safe'],
         ];
     }
@@ -38,6 +38,9 @@ class UserCredentialSearch extends UserCredential
         ]);
         $query->andFilterWhere([
             'domain_id' => $this->domain_id
+        ]);
+        $query->andFilterWhere([
+            'user_id' => $this->user_id
         ]);
         $query->andFilterWhere(['like', 'identity', $this->identity]);
         $query->andFilterWhere(['like', User::tableName().'.username', $this->username]);

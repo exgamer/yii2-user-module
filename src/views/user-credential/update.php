@@ -3,12 +3,11 @@ use yii\helpers\Html;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
 
-$this->setTitle(Yii::t('yii2admin', 'Смена пароля' . $originModel->identity));
-$this->pushBreadcrumbs(['label' => $model::label(), 'url' => ['index']]);
+$this->setTitle(Yii::t('yii2admin', 'Смена пароля ' . $originModel->identity));
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', \concepture\yii2user\models\User::label()), 'url' => ['/user/user/index']]);
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Авторизационные данные пользователя ' . $user->username), 'url' => ['index', 'user_id' => $model->user_id]]);
 $this->pushBreadcrumbs($this->title);
-$this->viewHelper()->pushPageHeader();
-$this->viewHelper()->pushPageHeader(['view', 'id' => $originModel->id], Yii::t('yii2admin', 'Просмотр'),'icon-file-eye2');
-$this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
+$this->viewHelper()->pushPageHeader(['create', 'user_id' => $originModel->user_id]);
 ?>
 
 <?php Pjax::begin(['formSelector' => '#user-credential-form']); ?>

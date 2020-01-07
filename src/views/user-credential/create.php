@@ -4,9 +4,9 @@ use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
 
 $this->setTitle(Yii::t('yii2admin', 'Новая запись'));
-$this->pushBreadcrumbs(['label' => $model::label(), 'url' => ['index']]);
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', \concepture\yii2user\models\User::label()), 'url' => ['/user/user/index']]);
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Авторизационные данные пользователя ' . $user->username), 'url' => ['index', 'user_id' => $model->user_id]]);
 $this->pushBreadcrumbs($this->title);
-$this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
 ?>
 
 <?php Pjax::begin(['formSelector' => '#user-credential-form']); ?>
@@ -24,23 +24,6 @@ $this->viewHelper()->pushPageHeader(['index'], $model::label(),'icon-list');
 
     <div class="card-body">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <?= Html::activeHiddenInput($model, 'user_id') ?>
-                <?= Html::activeLabel($model, 'user_id')?>
-                <?= \yii\jui\AutoComplete::widget([
-                    'name' => 'name',
-                    'value' => $model->getUserName(),
-                    'options' => ['class' => 'form-control'],
-                    'clientOptions' => [
-                        'source' => \yii\helpers\Url::to(['/user/user/list']),
-                        'minLength'=>'2',
-                        'autoFill'=>true,
-                        'select' => new \yii\web\JsExpression("function( event, ui ) {
-                                    $('#emailcredentialform-user_id').val(ui.item.id);
-                             }")]
-                ]); ?>
-                <?= Html::error($model, 'user_id', ['class' => 'text-danger form-text'])?>
-            </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <?= $form->field($model, 'identity')->textInput(['maxlength' => true]) ?>
             </div>

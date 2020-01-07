@@ -7,9 +7,10 @@ use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use yii\helpers\Url;
 use concepture\yii2logic\enum\StatusEnum;
 
-$this->setTitle($searchModel::label());
+$this->setTitle(Yii::t('yii2admin', 'Авторизационные данные пользователя ' . $user->username));
+$this->pushBreadcrumbs(['label' => Yii::t('yii2admin', \concepture\yii2user\models\User::label()), 'url' => ['/user/user/index']]);
 $this->pushBreadcrumbs($this->title);
-$this->viewHelper()->pushPageHeader();
+$this->viewHelper()->pushPageHeader(['create', 'user_id' => $searchModel->user_id]);
 ?>
 <?php Pjax::begin(); ?>
 
@@ -21,11 +22,11 @@ $this->viewHelper()->pushPageHeader();
     ],
     'columns' => [
         'id',
-        [
-            'label' => Yii::t('yii2admin', 'Пользователь'),
-            'attribute' => 'username',
-            'value' => 'user.username'
-        ],
+//        [
+//            'label' => Yii::t('yii2admin', 'Пользователь'),
+//            'attribute' => 'username',
+//            'value' => 'user.username'
+//        ],
         'identity',
         [
             'attribute'=>'domain_id',
@@ -37,7 +38,7 @@ $this->viewHelper()->pushPageHeader();
         'updated_at',
         [
             'class'=>'yii\grid\ActionColumn',
-            'template'=>'{view} {update} {activate} {deactivate}',
+            'template'=>'{update} {activate} {deactivate}',
             'buttons'=>[
                 'update'=> function ($url, $model) {
 

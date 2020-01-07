@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\services;
 
+use concepture\yii2logic\services\traits\StatusTrait;
 use yii\db\ActiveQuery;
 use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
@@ -23,6 +24,7 @@ use concepture\yii2handbook\services\traits\ReadSupportTrait as HandbookReadSupp
 class UserCredentialService extends Service
 {
     use ServicesTrait;
+    use StatusTrait;
     use HandbookReadSupportTrait;
 
     /**

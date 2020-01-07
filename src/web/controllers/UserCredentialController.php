@@ -1,10 +1,11 @@
 <?php
 namespace concepture\yii2user\web\controllers;
 
-use concepture\yii2logic\actions\web\localized\StatusChangeAction;
 use concepture\yii2user\enum\UserRoleEnum;
 use concepture\yii2user\forms\EmailCredentialForm;
 use concepture\yii2user\forms\UserCredentialForm;
+use concepture\yii2user\search\UserCredentialSearch;
+use concepture\yii2user\traits\ServicesTrait;
 use yii\web\NotFoundHttpException;
 use Yii;
 
@@ -15,6 +16,8 @@ use Yii;
  */
 class UserCredentialController extends Controller
 {
+    use ServicesTrait;
+
     protected function getAccessRules()
     {
         return [
@@ -32,24 +35,25 @@ class UserCredentialController extends Controller
         unset($actions['delete']);
         unset($actions['create']);
         unset($actions['update']);
+        unset($actions['index']);
 
-        return array_merge($actions,[
-            'status-change' => StatusChangeAction::class
-        ]);
+        return $actions;
     }
 
-    public function actionCreate()
+    public function actionCreate($user_id)
     {
         $model = new EmailCredentialForm();
+        $model->user_id = $user_id;
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if (($result = $this->getService()->create($model)) != false) {
 
-                return $this->redirect('index');
+                return $this->redirect(['index' , 'user_id' => $user_id]);
             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'user' => $this->userService()->findById($user_id)
         ]);
     }
 
@@ -69,7 +73,7 @@ class UserCredentialController extends Controller
                 $model->validation = Yii::$app->security->generatePasswordHash($model->validation);
                 if (($result = $this->getService()->update($model, $originModel)) != false) {
 
-                    return $this->redirect('index');
+                    return $this->redirect(['index' , 'user_id' => $originModel->user_id]);
                 }
             }
         }
@@ -77,6 +81,34 @@ class UserCredentialController extends Controller
         return $this->render('update', [
             'model' => $model,
             'originModel' => $originModel,
+            'user' => $this->userService()->findById($originModel->user_id)
         ]);
+    }
+
+    public function actionIndex($user_id)
+    {
+        $searchModel = Yii::createObject(UserCredentialSearch::class);
+        $searchModel->user_id = $user_id;
+        $searchModel->load(Yii::$app->request->queryParams);
+        $dataProvider =  $this->getService()->getDataProvider([], [], $searchModel);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'user' => $this->userService()->findById($user_id)
+        ]);
+    }
+
+    public function actionStatusChange($id, $status)
+    {
+        $model = $this->userCredentialService()->findById($id);
+        $user_id = $model->user_id;
+        if (!$model){
+            throw new NotFoundHttpException();
+        }
+
+        $this->getService()->statusChange($model, $status);
+
+        return $this->redirect(['index', 'user_id' => $user_id]);
     }
 }
