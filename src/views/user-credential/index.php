@@ -29,6 +29,13 @@ $this->viewHelper()->pushPageHeader(['create', 'user_id' => $searchModel->user_i
 //        ],
         'identity',
         [
+            'attribute'=>'status',
+            'filter'=> StatusEnum::arrayList(),
+            'value'=>function($data) {
+                return $data->statusLabel();
+            }
+        ],
+        [
             'attribute'=>'domain_id',
             'value'=>function($data) {
                 return $data->getDomainName();
