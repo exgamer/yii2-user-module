@@ -176,7 +176,7 @@ class User extends ActiveRecord implements IdentityInterface
      *
      * @return ActiveQuery
      */
-    public function getRoles()
+    public function getUserRoles()
     {
         return $this->hasMany(UserRole::className(), ['user_id' => 'id']);
     }
@@ -188,7 +188,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function populateRelation($name, $records)
     {
-        if($name=='roles'){
+        if($name=='userRoles'){
             $this->roles=[];
             foreach($records as $r){
                 $this->roles[] = $r->role;
