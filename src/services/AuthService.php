@@ -83,7 +83,7 @@ class AuthService extends Service
             return false;
         }
 
-        $user = $this->userService()->findById($credential->user_id, ['roles']);
+        $user = $this->userService()->findById($credential->user_id, ['userRoles']);
         if (!Yii::$app->security->validatePassword($form->validation, $credential->validation)){
             $error = Yii::t ( 'user', "Пользователь не найден" );
             $form->addError('identity', $error);
@@ -176,7 +176,7 @@ class AuthService extends Service
             return false;
         }
 
-        $user = $this->userService()->findById($credential->user_id, ['roles']);
+        $user = $this->userService()->findById($credential->user_id, ['userRoles']);
         if (!$user){
             $error = Yii::t ( 'user', "Пользователь не найден" );
             $form->addError('validation', $error);
