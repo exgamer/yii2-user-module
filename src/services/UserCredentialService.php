@@ -34,6 +34,7 @@ class UserCredentialService extends Service
     protected function beforeCreate(Model $form)
     {
         $form->validation = Yii::$app->security->generatePasswordHash($form->validation);
+        parent::beforeCreate($form);
     }
 
     /**

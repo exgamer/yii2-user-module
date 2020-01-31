@@ -28,6 +28,7 @@ class UserService extends Service
     protected function beforeCreate(Model $form)
     {
         $this->setCurrentLocale($form);
+        parent::beforeCreate($form);
     }
 
     /**
