@@ -2,7 +2,7 @@
 namespace concepture\yii2user\services\traits;
 
 use Yii;
-use concepture\yii2logic\forms\Model;
+use yii\base\Model;
 
 /**
  * Trait UserSupportTrait
