@@ -88,7 +88,7 @@ class UserCredential extends ActiveRecord
                     'identity'
                 ],
                 'unique',
-                'targetAttribute' => ['user_id', 'identity', 'type', 'domain_id']
+                'targetAttribute' => ['identity', 'type']
             ]
         ];
     }
