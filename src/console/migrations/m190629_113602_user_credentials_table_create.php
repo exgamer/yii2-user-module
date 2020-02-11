@@ -25,7 +25,7 @@ class m190629_113602_user_credentials_table_create extends Migration
             'updated_at' => $this->dateTime(),
         ]);
         $this->addUniqueIndex(
-            ['user_id', 'identity', 'type']);
+            ['identity', 'type']);
         $this->addIndex(['type']);
         $this->addIndex(['status']);
         $this->addIndex(['user_id']);

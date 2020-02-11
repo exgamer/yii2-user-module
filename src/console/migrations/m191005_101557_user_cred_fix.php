@@ -15,7 +15,7 @@ class m191005_101557_user_cred_fix extends Migration
     public function up()
     {
         $this->createColumn("domain_id", $this->bigInteger());
-        $this->addUniqueIndex(
-            ['user_id', 'identity', 'type', 'domain_id']);
+//        $this->addUniqueIndex(
+//            ['user_id', 'identity', 'type', 'domain_id']);
     }
 }
