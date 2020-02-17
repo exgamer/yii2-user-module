@@ -152,7 +152,9 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getAuthKey()
     {
-        return $this->getUserCredentialService()->findByType($this->id, UserCredentialTypeEnum::EMAIL);
+        $cred = $this->getUserCredentialService()->findByType($this->id, UserCredentialTypeEnum::EMAIL);
+
+        return $cred->validation;
     }
 
     /**
