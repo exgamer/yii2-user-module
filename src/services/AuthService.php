@@ -119,6 +119,16 @@ class AuthService extends Service
     }
 
     /**
+     * Логаут
+     *
+     * @return mixed
+     */
+    public function signOut()
+    {
+        return Yii::$app->user->logout();
+    }
+
+    /**
      * Посылка письма со ссылкой на сброс пароля
      *
      * @param EmailPasswordResetRequestForm $form
