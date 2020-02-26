@@ -15,7 +15,7 @@ class SsoHelper
 {
     public static function isSsoEnabled()
     {
-        return in_array( SsoBootstrap::class, Yii::$app->bootstrap);
+        return isset(Yii::$app->params['SSO_HOST']) && isset(Yii::$app->params['SSO_APP_ID']);
     }
 
     public static function getSignInUrl()
