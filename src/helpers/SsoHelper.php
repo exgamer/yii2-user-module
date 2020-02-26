@@ -43,6 +43,16 @@ class SsoHelper
         return Yii::$app->params['SSO_HOST']. "/checkout?token=" . static::getSsoJwtToken();
     }
 
+    public static function getRequestPasswordResetUrl()
+    {
+        return Yii::$app->params['SSO_HOST']. "/api/auth/request-password-reset";
+    }
+
+    public static function getResetPasswordUrl($token)
+    {
+        return Yii::$app->params['SSO_HOST']. "/api/auth/reset-password?" . $token;
+    }
+
     public static function getLogoutUrl()
     {
         return Yii::$app->params['SSO_HOST']. "/logout?token=" . static::getSsoJwtToken();

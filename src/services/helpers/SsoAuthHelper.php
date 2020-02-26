@@ -16,6 +16,7 @@ use concepture\yii2user\forms\SignUpForm;
 use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
+use yii\helpers\Url;
 use yii\web\Cookie;
 
 
@@ -197,7 +198,36 @@ class SsoAuthHelper implements AuthHelperInterface
      */
     public function sendPasswordResetEmail(EmailPasswordResetRequestForm $form)
     {
+        $options = [];
+        $client = new Client([
+            'timeout'=> 0
+        ]);
+        $options['headers'] = ['X-DATA' => SsoHelper::getSsoJwtToken()];
+        $options['form_params'] = [
+            'identity' => $form->identity,
+            'route' => Url::to($form->route, true),
+        ];
+        try{
+            $response = $client->request(
+                'POST',
+                SsoHelper::getRequestPasswordResetUrl(),
+                $options
+            );
+            $body = json_decode($response->getBody()->getContents(), true);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == 422) {
+                $errors = json_decode($e->getResponse()->getBody()->getContents(), true);
+                if (isset($errors[0])){
+                    $form->addErrors($errors[0]);
+                }
 
+                return false;
+            }else{
+                throw new \Exception($e->getMessage());
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -209,7 +239,35 @@ class SsoAuthHelper implements AuthHelperInterface
      */
     public function changePassword(PasswordResetForm $form)
     {
+        $options = [];
+        $client = new Client([
+            'timeout'=> 0
+        ]);
+        $options['headers'] = ['X-DATA' => SsoHelper::getSsoJwtToken()];
+        $options['form_params'] = [
+            'validation' => $form->validation,
+        ];
+        try{
+            $response = $client->request(
+                'POST',
+                SsoHelper::getResetPasswordUrl($form->token),
+                $options
+            );
+            $body = json_decode($response->getBody()->getContents(), true);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == 422) {
+                $errors = json_decode($e->getResponse()->getBody()->getContents(), true);
+                if (isset($errors[0])){
+                    $form->addErrors($errors[0]);
+                }
 
+                return false;
+            }else{
+                throw new \Exception($e->getMessage());
+            }
+        }
+
+        return true;
     }
 
     /**
