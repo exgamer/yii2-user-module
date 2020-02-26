@@ -106,7 +106,7 @@ class SsoAuthHelper implements AuthHelperInterface
         try{
             $response = $client->request(
                 'POST',
-                SsoHelper::getSignInUrl('site/index'),
+                SsoHelper::getSignInUrl(),
                 $options
             );
             $body = json_decode($response->getBody()->getContents(), true);
