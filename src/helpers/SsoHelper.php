@@ -4,6 +4,7 @@ namespace concepture\yii2user\helpers;
 use concepture\yii2logic\helpers\JwtHelper;
 use concepture\yii2user\bootstrap\SsoBootstrap;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 /**
@@ -47,7 +48,7 @@ class SsoHelper
         return Yii::$app->params['SSO_HOST']. "/logout?token=" . static::getSsoJwtToken();
     }
 
-    public static function getSsoJwtToken()
+    public static function getSsoJwtToken($data = [])
     {
         $payload = [
             'app_id' => Yii::$app->params['SSO_APP_ID'],
@@ -56,6 +57,8 @@ class SsoHelper
         if (! Yii::$app->user->isGuest){
             $payload['user_id'] = Yii::$app->user->identity->id;
         }
+
+        $payload = ArrayHelper::merge($payload, $data);
 
         return JwtHelper::getJWT($payload);
     }
