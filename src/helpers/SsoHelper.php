@@ -19,20 +19,21 @@ class SsoHelper
 
     public static function getSignInUrl()
     {
-        $host = Url::home(YII_DEBUG?'http':'https');
+        $host = Url::home(YII_DEBUG ? 'http' : 'https');
 
         return Yii::$app->params['SSO_HOST']. "/api/auth/sign-in?redirect={$host}";
     }
 
-    public static function getCheckoutUrl()
+    public static function getCheckoutUrl($route = null)
     {
-        return Yii::$app->params['SSO_HOST']. "/checkout?token=" . static::getSsoJwtToken();
+        return Yii::$app->params['SSO_HOST']. "/checkout?token=" . static::getSsoJwtToken($route);
     }
 
-    public static function getSsoJwtToken()
+    public static function getSsoJwtToken($route = null)
     {
         $payload = [
-            'app_id' => Yii::$app->params['SSO_APP_ID']
+            'app_id' => Yii::$app->params['SSO_APP_ID'],
+            'redirect' => Url::home(YII_DEBUG ? 'http' : 'https') . ($route ?? '')
         ];
         if (! Yii::$app->user->isGuest){
             $payload['user_id'] = Yii::$app->user->identity->id;
