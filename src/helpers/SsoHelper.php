@@ -12,6 +12,11 @@ use yii\helpers\Url;
  */
 class SsoHelper
 {
+    public static function isSsoEnabled()
+    {
+        return isset(Yii::$app->params['SSO_HOST']) && isset(Yii::$app->params['SSO_APP_ID']);
+    }
+
     public static function getSignInUrl()
     {
         $host = Url::home(YII_DEBUG?'http':'https');
