@@ -20,7 +20,7 @@ class SsoHelper
 
     public static function getSignInUrl()
     {
-        $host = Url::home(YII_DEBUG ? 'http' : 'https');
+        $host = Url::to('', true);
 
         return Yii::$app->params['SSO_HOST']. "/api/auth/sign-in?redirect={$host}";
     }
@@ -30,24 +30,21 @@ class SsoHelper
         return Yii::$app->params['SSO_HOST']. "/api/auth/is-identity-exists";
     }
 
-    public static function getCheckoutUrl($route = null)
+    public static function getCheckoutUrl()
     {
-        return Yii::$app->params['SSO_HOST']. "/checkout?token=" . static::getSsoJwtToken($route);
+        return Yii::$app->params['SSO_HOST']. "/checkout?token=" . static::getSsoJwtToken();
     }
 
-    public static function getLogoutUrl($route = null)
+    public static function getLogoutUrl()
     {
-        return Yii::$app->params['SSO_HOST']. "/logout?token=" . static::getSsoJwtToken($route);
+        return Yii::$app->params['SSO_HOST']. "/logout?token=" . static::getSsoJwtToken();
     }
 
-    public static function getSsoJwtToken($route = null)
+    public static function getSsoJwtToken()
     {
-        if (! $route){
-            $route = Yii::$app->defaultRoute;
-        }
         $payload = [
             'app_id' => Yii::$app->params['SSO_APP_ID'],
-            'redirect' => Url::home(YII_DEBUG ? 'http' : 'https') . ($route ?? '')
+            'redirect' => Url::to('', true)
         ];
         if (! Yii::$app->user->isGuest){
             $payload['user_id'] = Yii::$app->user->identity->id;
