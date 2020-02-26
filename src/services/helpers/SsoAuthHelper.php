@@ -115,6 +115,8 @@ class SsoAuthHelper implements AuthHelperInterface
                 if (isset($errors[0])){
                     $form->addErrors($errors[0]);
                 }
+
+                return false;
             }else{
                 throw new \Exception($e->getMessage());
             }
