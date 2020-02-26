@@ -36,6 +36,9 @@ class SsoHelper
 
     public static function getSsoJwtToken($route = null)
     {
+        if (! $route){
+            $route = Yii::$app->defaultRoute;
+        }
         $payload = [
             'app_id' => Yii::$app->params['SSO_APP_ID'],
             'redirect' => Url::home(YII_DEBUG ? 'http' : 'https') . ($route ?? '')
