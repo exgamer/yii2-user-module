@@ -119,7 +119,11 @@ class SsoAuthHelper implements AuthHelperInterface
      */
     public function signOut()
     {
-        return Yii::$app->user->logout();
+        Yii::$app->user->logout();
+
+        return [
+            'redirect' => SsoHelper::getLogoutUrl()
+        ];
     }
 
     /**

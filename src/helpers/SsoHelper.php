@@ -29,6 +29,11 @@ class SsoHelper
         return Yii::$app->params['SSO_HOST']. "/checkout?token=" . static::getSsoJwtToken($route);
     }
 
+    public static function getLogoutUrl()
+    {
+        return Yii::$app->params['SSO_HOST']. "/logout?token=" . static::getSsoJwtToken();
+    }
+
     public static function getSsoJwtToken($route = null)
     {
         $payload = [
