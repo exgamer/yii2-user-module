@@ -32,12 +32,22 @@ class SsoBootstrap implements BootstrapInterface
             $app = $event->sender;
             $request = $app->getRequest();
             $sso = $request->getQueryParam('sso');
-            if (Yii::$app->user->isGuest && !Yii::$app->authService->getAuthHelper()->getSsoCookie()) {
-                if (! $sso) {
+            if (Yii::$app->user->isGuest ) {
+                /**
+                 * @TODO Мб можно придумать решение покрасивше
+                 * После проверки на sso авторизации ставится кука на минуту,
+                 * если кука жива проверка не делается
+                 * сделано для того чтобы постоянно запрос не летел на sso
+                 *
+                 * Для админки это некритично
+                 * но для фронта будет постоянно лететь запрос дял неавтризованных юзеров
+                 */
+                if (! $sso && !Yii::$app->authService->getAuthHelper()->getSsoCookie()) {
                     Yii::$app->authService->getAuthHelper()->setSsoCookie();
                     $response = $app->getResponse();
                     $response->redirect(SsoHelper::getCheckoutUrl(), UrlNormalizer::ACTION_REDIRECT_PERMANENT);
-                }else{
+                }
+                if ($sso){
                     $data = JwtHelper::decodeJWT($sso);
                     if (isset($data['user_id']) && $data['user_id'] !== null){
                         $user = Yii::$app->userService->findById($data['user_id'], ['userRoles']);

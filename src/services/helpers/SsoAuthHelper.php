@@ -171,6 +171,8 @@ class SsoAuthHelper implements AuthHelperInterface
             return true;
         }
 
+        $this->removeSsoCookie();
+
         Yii::$app->user->logout();
 
         return [
@@ -213,6 +215,7 @@ class SsoAuthHelper implements AuthHelperInterface
         $cookies->add(new Cookie([
             'name' => 'sso_checked',
             'value' => true,
+            'expire' => time() + 60,
         ]));
     }
 
