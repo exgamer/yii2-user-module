@@ -23,6 +23,8 @@ use yii\web\UrlNormalizer;
  */
 class SsoBootstrap implements BootstrapInterface
 {
+    public $checkAlways = true;
+
     /**
      * @param Application $app
      */
@@ -33,16 +35,11 @@ class SsoBootstrap implements BootstrapInterface
             $request = $app->getRequest();
             $sso = $request->getQueryParam('sso');
             if (Yii::$app->user->isGuest ) {
-                /**
-                 * @TODO Мб можно придумать решение покрасивше
-                 * После проверки на sso авторизации ставится кука на минуту,
-                 * если кука жива проверка не делается
-                 * сделано для того чтобы постоянно запрос не летел на sso
-                 *
-                 * Для админки это некритично
-                 * но для фронта будет постоянно лететь запрос дял неавтризованных юзеров
-                 */
-                if (! $sso && !Yii::$app->authService->getAuthHelper()->getSsoCookie()) {
+                $ssoCockie = Yii::$app->authService->getAuthHelper()->getSsoCookie();
+                if ($this->checkAlways){
+                    $ssoCockie = false;
+                }
+                if (! $sso && ! $ssoCockie) {
                     Yii::$app->authService->getAuthHelper()->setSsoCookie();
                     $response = $app->getResponse();
                     $response->redirect(SsoHelper::getCheckoutUrl(), UrlNormalizer::ACTION_REDIRECT_PERMANENT);
