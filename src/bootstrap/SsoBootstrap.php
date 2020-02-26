@@ -35,7 +35,7 @@ class SsoBootstrap implements BootstrapInterface
             if (Yii::$app->user->isGuest) {
                 if (! $sso) {
                     $response = $app->getResponse();
-                    $response->redirect(SsoHelper::getCheckoutUrl('site/index'), UrlNormalizer::ACTION_REDIRECT_PERMANENT);
+                    $response->redirect(SsoHelper::getCheckoutUrl(), UrlNormalizer::ACTION_REDIRECT_PERMANENT);
                 }else{
                     $data = JwtHelper::decodeJWT($sso);
                     if (isset($data['user_id']) && $data['user_id'] !== null){
