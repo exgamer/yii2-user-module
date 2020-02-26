@@ -25,6 +25,13 @@ class SsoHelper
         return Yii::$app->params['SSO_HOST']. "/api/auth/sign-in?redirect={$host}";
     }
 
+    public static function getSignUpUrl()
+    {
+        $host = Url::to('', true);
+
+        return Yii::$app->params['SSO_HOST']. "/api/auth/sign-up?redirect={$host}";
+    }
+
     public static function getIdentityExistenceCheckUrl()
     {
         return Yii::$app->params['SSO_HOST']. "/api/auth/is-identity-exists";
