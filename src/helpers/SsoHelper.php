@@ -2,6 +2,7 @@
 namespace concepture\yii2user\helpers;
 
 use concepture\yii2logic\helpers\JwtHelper;
+use concepture\yii2user\bootstrap\SsoBootstrap;
 use Yii;
 use yii\helpers\Url;
 
@@ -14,7 +15,7 @@ class SsoHelper
 {
     public static function isSsoEnabled()
     {
-        return isset(Yii::$app->params['SSO_HOST']) && isset(Yii::$app->params['SSO_APP_ID']);
+        return in_array( SsoBootstrap::class, Yii::$app->bootstrap);
     }
 
     public static function getSignInUrl()
