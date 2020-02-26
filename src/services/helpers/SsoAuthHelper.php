@@ -49,28 +49,9 @@ class SsoAuthHelper implements AuthHelperInterface
                 SsoHelper::getIdentityExistenceCheckUrl(),
                 $options
             );
-            $body = json_decode($response->getBody()->getContents(), true);
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-            if ($e->getResponse()->getStatusCode() == 422) {
-                $errors = json_decode($e->getResponse()->getBody()->getContents(), true);
-                if (isset($errors[0])){
-                    $form->addErrors($errors[0]);
-                }
-            }else{
-                throw new \Exception($e->getMessage());
-            }
-        }
-
-        return;
-
-
-        $credential = $this->userCredentialService()->findByIdentity($form->identity);
-        if ($credential) {
             $error = Yii::t ( 'user', "Логин уже занят" );
             $form->addError('identity', $error);
-
-            return false;
-        }
+        } catch (\GuzzleHttp\Exception\RequestException $e) {}
 
         $user = $this->userService()->createUser($form->username);
         if (! $user){
@@ -80,7 +61,34 @@ class SsoAuthHelper implements AuthHelperInterface
             return false;
         }
 
-        $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
+        $options = [];
+        $client = new Client([
+            'timeout'=> 0
+        ]);
+        $options['headers'] = ['X-DATA' => SsoHelper::getSsoJwtToken(['user_id' => $user->id])];
+        $options['form_params'] = [
+            'identity' => $form->identity,
+            'validation' => $form->validation,
+        ];
+        try{
+            $response = $client->request(
+                'POST',
+                SsoHelper::getSignUpUrl(),
+                $options
+            );
+            $body = json_decode($response->getBody()->getContents(), true);
+        } catch (\GuzzleHttp\Exception\RequestException $e) {
+            if ($e->getResponse()->getStatusCode() == 422) {
+                $errors = json_decode($e->getResponse()->getBody()->getContents(), true);
+                if (isset($errors[0])){
+                    $form->addErrors($errors[0]);
+                }
+
+                return false;
+            }else{
+                throw new \Exception($e->getMessage());
+            }
+        }
 
         return $user;
     }
