@@ -16,6 +16,7 @@ use concepture\yii2user\forms\SignUpForm;
 use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
+use yii\web\Cookie;
 
 
 /**
@@ -199,5 +200,43 @@ class SsoAuthHelper implements AuthHelperInterface
     public function changePassword(PasswordResetForm $form)
     {
 
+    }
+
+    /**
+     * Установка куки sso
+     *
+     * @param string $alias
+     */
+    public function setSsoCookie()
+    {
+        $cookies = Yii::$app->getResponse()->cookies;
+        $cookies->add(new Cookie([
+            'name' => 'sso_checked',
+            'value' => true,
+        ]));
+    }
+
+    /**
+     * Получение куки sso
+     *
+     * @return mixed
+     */
+    public function getSsoCookie()
+    {
+        $cookies = Yii::$app->getRequest()->cookies;
+
+        return $cookies->getValue('sso_checked');
+    }
+
+    /**
+     * удаление куки sso
+     *
+     * @return mixed
+     */
+    public function removeSsoCookie()
+    {
+        $cookies = Yii::$app->response->cookies;
+
+        return $cookies->remove('sso_checked');
     }
 }

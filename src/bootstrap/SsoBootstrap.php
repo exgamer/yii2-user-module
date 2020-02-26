@@ -32,8 +32,9 @@ class SsoBootstrap implements BootstrapInterface
             $app = $event->sender;
             $request = $app->getRequest();
             $sso = $request->getQueryParam('sso');
-            if (Yii::$app->user->isGuest) {
+            if (Yii::$app->user->isGuest && !Yii::$app->authService->getAuthHelper()->getSsoCookie()) {
                 if (! $sso) {
+                    Yii::$app->authService->getAuthHelper()->setSsoCookie();
                     $response = $app->getResponse();
                     $response->redirect(SsoHelper::getCheckoutUrl(), UrlNormalizer::ACTION_REDIRECT_PERMANENT);
                 }else{
