@@ -50,7 +50,7 @@ class SsoHelper
 
     public static function getResetPasswordUrl($token)
     {
-        return Yii::$app->params['SSO_HOST']. "/api/auth/reset-password?" . $token;
+        return Yii::$app->params['SSO_HOST']. "/api/auth/reset-password?token" . $token;
     }
 
     public static function getLogoutUrl()
