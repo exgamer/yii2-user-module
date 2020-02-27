@@ -2,6 +2,7 @@
 namespace concepture\yii2user\models;
 
 use concepture\yii2user\enum\UserCredentialTypeEnum;
+use concepture\yii2user\helpers\SsoHelper;
 use Yii;
 use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
@@ -153,6 +154,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuthKey()
     {
         $cred = $this->getUserCredentialService()->findByType($this->id, UserCredentialTypeEnum::EMAIL);
+        if (! $cred && SsoHelper::isSsoEnabled()){
+            return null;
+        }
 
         return $cred->validation;
     }
