@@ -105,6 +105,12 @@ class AuthService extends Service  implements AuthHelperInterface
         return $this->getAuthHelper()->changePassword($form);
     }
 
+    /**
+     * Лействия после успешной авторизации по стороннему апи
+     *
+     * @param yii\authclient\OAuth2 $client
+     * @return mixed
+     */
     public function onSocialAuthSuccess($client)
     {
         return $this->getAuthHelper()->onSocialAuthSuccess($client);
