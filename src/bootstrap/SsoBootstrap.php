@@ -33,7 +33,7 @@ class SsoBootstrap implements BootstrapInterface
         if (! SsoHelper::isSsoEnabled()){
             return;
         }
-        
+
         Event::on(Application::class, Application::EVENT_BEFORE_REQUEST, function($event) {
             $app = $event->sender;
             $request = $app->getRequest();

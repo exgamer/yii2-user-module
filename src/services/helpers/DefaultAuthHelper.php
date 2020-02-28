@@ -202,4 +202,9 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         return true;
     }
+
+    public function onSocialAuthSuccess($client)
+    {
+        // TODO: Implement onSocialAuthSuccess() method.
+    }
 }

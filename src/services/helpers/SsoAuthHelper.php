@@ -308,4 +308,9 @@ class SsoAuthHelper implements AuthHelperInterface
 
         return $cookies->remove('sso_checked');
     }
+
+    public function onSocialAuthSuccess($client)
+    {
+        // TODO: Implement onSocialAuthSuccess() method.
+    }
 }
