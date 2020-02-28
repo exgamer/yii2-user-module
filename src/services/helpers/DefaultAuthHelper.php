@@ -13,6 +13,7 @@ use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
+use yii\db\ActiveQuery;
 
 /**
  * Class DefaultAuthHelper
@@ -205,6 +206,67 @@ class DefaultAuthHelper implements AuthHelperInterface
 
     public function onSocialAuthSuccess($client)
     {
-        // TODO: Implement onSocialAuthSuccess() method.
+        $attributes = $client->getUserAttributes();
+        $auth = Yii::$app->userSocialAuth->getOneByCondition(function(ActiveQuery $query) use($client, $attributes){
+            $query->andWhere([
+                'source_id' =>  $client->getId(),
+                'source_user_id' =>  $attributes['id'],
+            ]);
+            $query->with('user');
+        });
+        if (! Yii::$app->user->isGuest && ! $auth){
+            $this->userSocialAuthService()->createByClient($client, Yii::$app->user->identity->id);
+            return;
+        }
+
+        if (! Yii::$app->user->isGuest ){
+            return;
+        }
+
+        if ($auth) { // авторизация
+            Yii::$app->user->login($auth->user);
+            return;
+        }
+
+        // регистрация
+//                if (isset($attributes['email']) && User::find()->where(['email' => $attributes['email']])->exists()) {
+//                    Yii::$app->getSession()->setFlash('error', [
+//                        Yii::t('app', "Пользователь с такой электронной почтой как в {client} уже существует, но с ним не связан. Для начала войдите на сайт использую электронную почту, для того, что бы связать её.", ['client' => $client->getTitle()]),
+//                    ]);
+//                } else {
+        if (isset($attributes['email'])){
+            $model = new SignUpForm();
+            $model->identity = $attributes['email'];
+            $model->validation = Yii::$app->security->generateRandomString(6);
+            $username = '';
+            if (isset($attributes['name'])){
+                $username = $attributes['name'];
+            }elseif ($attributes['login']){
+                $username = $attributes['login'];
+            }else{
+                $username = $attributes['email'];
+            }
+
+            $model->username = $username;
+            $this->userService()->getDb()->transaction(function($db) use ($model, $client){
+                $user = $this->authService()->signUp($model);
+                if (! $user) {
+                    return false;
+                }
+
+                if (! $this->userSocialAuthService()->createByClient($client, $user->id)){
+                    return false;
+                }
+
+                Yii::$app->user->login(
+                    $user,
+                    3600
+                );
+
+                return true;
+            });
+        }
+//            }
+
     }
 }
