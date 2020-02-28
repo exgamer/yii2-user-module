@@ -57,6 +57,8 @@ class AuthService extends Service  implements AuthHelperInterface
         return $this->getAuthHelper()->signUp($form);
     }
 
+
+
     /**
      * Авторизация пользователя
      *
@@ -101,5 +103,10 @@ class AuthService extends Service  implements AuthHelperInterface
     public function changePassword(PasswordResetForm $form)
     {
         return $this->getAuthHelper()->changePassword($form);
+    }
+
+    public function onSocialAuthSuccess($client)
+    {
+        return $this->getAuthHelper()->onSocialAuthSuccess($client);
     }
 }
