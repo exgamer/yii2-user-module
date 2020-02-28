@@ -2,6 +2,7 @@
 namespace concepture\yii2user\services;
 
 use concepture\yii2logic\services\traits\StatusTrait;
+use concepture\yii2user\forms\UserSocialAuthForm;
 use yii\db\ActiveQuery;
 use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
@@ -22,4 +23,22 @@ use concepture\yii2handbook\services\traits\ReadSupportTrait as HandbookReadSupp
 class UserSocialAuthService extends Service
 {
     use ServicesTrait;
+
+    /**
+     * @param $client
+     * @param $user_id
+     * @return ActiveRecord
+     */
+    public function createByClient($client, $user_id)
+    {
+        $attributes = $client->getUserAttributes();
+        $form = new UserSocialAuthForm();
+        $form->user_id = $user_id;
+        $form->source_id = $client->getId();
+        $form->source_user_id = $attributes['id'];
+        $form->source_name = $client->defaultName();
+        $form->source_title = $client->defaultTitle();
+
+        return $this->create($form);
+    }
 }
