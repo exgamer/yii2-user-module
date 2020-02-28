@@ -7,6 +7,9 @@ return [
     'userCredentialService' => [
         'class' => 'concepture\yii2user\services\UserCredentialService'
     ],
+    'userSocialAuthService' => [
+        'class' => 'concepture\yii2user\services\UserSocialAuthService'
+    ],
     'authService' => [
         'class' => 'concepture\yii2user\services\AuthService'
     ],
