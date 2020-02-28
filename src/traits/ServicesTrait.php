@@ -9,6 +9,7 @@ use concepture\yii2user\services\UserCredentialService;
 use concepture\yii2user\services\UserRoleHandbookService;
 use concepture\yii2user\services\UserRoleService;
 use concepture\yii2user\services\UserService;
+use concepture\yii2user\services\UserSocialAuthService;
 use Yii;
 
 /**
@@ -32,6 +33,14 @@ trait ServicesTrait
     public function userCredentialService()
     {
         return Yii::$app->userCredentialService;
+    }
+
+    /**
+     * @return UserSocialAuthService
+     */
+    public function userSocialAuthService()
+    {
+        return Yii::$app->userSocialAuthService;
     }
 
     /**
