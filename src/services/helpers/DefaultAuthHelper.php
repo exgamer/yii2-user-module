@@ -306,6 +306,12 @@ class DefaultAuthHelper implements AuthHelperInterface
         });
     }
 
+    /**
+     * Возвращает email из аттрибутов пользователя дял авторизации по соц сети
+     *
+     * @param $client
+     * @return |null
+     */
     protected function getEmailFromClient($client)
     {
         $attributes = $client->getUserAttributes();
@@ -331,6 +337,12 @@ class DefaultAuthHelper implements AuthHelperInterface
 
     }
 
+    /**
+     * Возвращает имя пользователя из аттрибутов пользователя дял авторизации по соц сети
+     *
+     * @param $client
+     * @return |null
+     */
     protected function getUsernameFromClient($client)
     {
         $attributes = $client->getUserAttributes();
