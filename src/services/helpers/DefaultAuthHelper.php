@@ -255,12 +255,8 @@ class DefaultAuthHelper implements AuthHelperInterface
         $model = new SignUpForm();
         $model->identity = $identity;
         $model->validation = Yii::$app->security->generateRandomString(6);
-        $username = '';
-        if (isset($attributes['name'])){
-            $username = $attributes['name'];
-        }elseif ($attributes['login']){
-            $username = $attributes['login'];
-        }else{
+        $username = $this->getUsernameFromClient($client);
+        if (! $username){
             $username = $identity;
         }
 
@@ -282,5 +278,31 @@ class DefaultAuthHelper implements AuthHelperInterface
 
             return true;
         });
+    }
+
+    protected function getUsernameFromClient($client)
+    {
+        $attributes = $client->getUserAttributes();
+        switch ($client->getId()){
+            case 'vkontakte':
+                return $attributes['first_name'] . " " . $attributes['last_name'];
+            case 'facebook':
+                return $attributes['name'];
+            case 'github':
+            case 'google':
+                return $attributes['name'];
+            case 'linkedin':
+                return $attributes['firstName'] . " " . $attributes['lastName'];
+            case 'live':
+                return null;
+            case 'twitter':
+                return null;
+            case 'yandex':
+                return null;
+
+            default:
+                return null;
+        }
+
     }
 }
