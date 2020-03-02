@@ -30,8 +30,8 @@ class UserSocialAuthService extends Service
         $attributes = $client->getUserAttributes();
         $form = new UserSocialAuthForm();
         $form->user_id = $user_id;
-        $form->source_id = $client->getId();
-        $form->source_user_id = $attributes['id'];
+        $form->source_id = (string) $client->getId();
+        $form->source_user_id = (string) $attributes['id'];
         $form->source_name = $client->getName();
         $form->source_title = $client->getTitle();
 
