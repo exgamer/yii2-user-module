@@ -216,57 +216,61 @@ class DefaultAuthHelper implements AuthHelperInterface
         });
         if (! Yii::$app->user->isGuest && ! $auth){
             $this->userSocialAuthService()->createByClient($client, Yii::$app->user->identity->id);
-            return;
+            return true;
         }
 
         if (! Yii::$app->user->isGuest ){
-            return;
+            return true;
         }
 
         if ($auth) { // авторизация
             Yii::$app->user->login($auth->user);
-            return;
+            return true;
         }
 
-        // регистрация
-//                if (isset($attributes['email']) && User::find()->where(['email' => $attributes['email']])->exists()) {
-//                    Yii::$app->getSession()->setFlash('error', [
-//                        Yii::t('app', "Пользователь с такой электронной почтой как в {client} уже существует, но с ним не связан. Для начала войдите на сайт использую электронную почту, для того, что бы связать её.", ['client' => $client->getTitle()]),
-//                    ]);
-//                } else {
+        $identity = null;
         if (isset($attributes['email'])){
-            $model = new SignUpForm();
-            $model->identity = $attributes['email'];
-            $model->validation = Yii::$app->security->generateRandomString(6);
-            $username = '';
-            if (isset($attributes['name'])){
-                $username = $attributes['name'];
-            }elseif ($attributes['login']){
-                $username = $attributes['login'];
-            }else{
-                $username = $attributes['email'];
+            $identity = $attributes['email'];
+            $existCredential = $this->userCredentialService()->findByIdentity($identity);
+            /**
+             * @TODO если емаил уже есть ниче не делаем и тут надо решить выбивать ли исключение ил просто реутрн фолс оставить
+             */
+            if (! empty($existCredential)){
+
+                return false;
             }
 
-            $model->username = $username;
-            $this->userService()->getDb()->transaction(function($db) use ($model, $client){
-                $user = $this->authService()->signUp($model);
-                if (! $user) {
-                    return false;
-                }
-
-                if (! $this->userSocialAuthService()->createByClient($client, $user->id)){
-                    return false;
-                }
-
-                Yii::$app->user->login(
-                    $user,
-                    3600
-                );
-
-                return true;
-            });
         }
-//            }
 
+        $model = new SignUpForm();
+        $model->identity = $identity;
+        $model->validation = Yii::$app->security->generateRandomString(6);
+        $username = '';
+        if (isset($attributes['name'])){
+            $username = $attributes['name'];
+        }elseif ($attributes['login']){
+            $username = $attributes['login'];
+        }else{
+            $username = $identity;
+        }
+
+        $model->username = $username;
+        $this->userService()->getDb()->transaction(function($db) use ($model, $client){
+            $user = $this->authService()->signUp($model);
+            if (! $user) {
+                return false;
+            }
+
+            if (! $this->userSocialAuthService()->createByClient($client, $user->id)){
+                return false;
+            }
+
+            Yii::$app->user->login(
+                $user,
+                3600
+            );
+
+            return true;
+        });
     }
 }
