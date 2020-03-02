@@ -14,6 +14,7 @@ use concepture\yii2user\traits\ServicesTrait;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
 use yii\db\ActiveQuery;
+use yii\db\Exception;
 
 /**
  * Class DefaultAuthHelper
@@ -214,6 +215,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             ]);
             $query->with('user');
         });
+
         if (! Yii::$app->user->isGuest && ! $auth){
             $this->userSocialAuthService()->createByClient($client, Yii::$app->user->identity->id);
             return true;
@@ -242,6 +244,14 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         }
 
+        /**
+         * Если емеила нет генерим логин по микротаим
+         * чтобы отработала регистрация
+         */
+        if (! $identity){
+            $identity = (int) microtime(true). '@no.email';
+        }
+
         $model = new SignUpForm();
         $model->identity = $identity;
         $model->validation = Yii::$app->security->generateRandomString(6);
@@ -258,11 +268,11 @@ class DefaultAuthHelper implements AuthHelperInterface
         $this->userService()->getDb()->transaction(function($db) use ($model, $client){
             $user = $this->authService()->signUp($model);
             if (! $user) {
-                return false;
+                throw new Exception();
             }
 
             if (! $this->userSocialAuthService()->createByClient($client, $user->id)){
-                return false;
+                throw new Exception();
             }
 
             Yii::$app->user->login(
