@@ -207,7 +207,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     public function onSocialAuthSuccess($client)
     {
         $attributes = $client->getUserAttributes();
-        $auth = Yii::$app->userSocialAuth->getOneByCondition(function(ActiveQuery $query) use($client, $attributes){
+        $auth = $this->userSocialAuthService()->getOneByCondition(function(ActiveQuery $query) use($client, $attributes){
             $query->andWhere([
                 'source_id' =>  $client->getId(),
                 'source_user_id' =>  $attributes['id'],
