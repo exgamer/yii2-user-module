@@ -350,7 +350,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             case 'vkontakte':
                 return $attributes['first_name'] . " " . $attributes['last_name'];
             case 'facebook':
-                return $attributes['name'];
+                return null;
             case 'github':
                 return $attributes['name'];
             case 'google':
