@@ -205,6 +205,31 @@ class DefaultAuthHelper implements AuthHelperInterface
         return true;
     }
 
+    /**
+     * Метод для вызова в случае успешной авторизации по соц сети
+     *
+     *Пример
+     *
+     *     public function actions()
+     *       {
+     *           return [
+     *           'auth' => [
+     *                   'class' => 'yii\authclient\AuthAction',
+     *                   'successCallback' => [$this, 'onAuthSuccess'],
+     *               ],
+     *           ];
+     *       }
+     *
+     *       public function onAuthSuccess($client)
+     *       {
+     *            Yii::$app->authService->onSocialAuthSuccess($client);
+     *       }
+     *
+     *
+     *
+     * @param $client
+     * @return bool
+     */
     public function onSocialAuthSuccess($client)
     {
         $attributes = $client->getUserAttributes();
