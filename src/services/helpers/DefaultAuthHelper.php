@@ -231,8 +231,9 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         $identity = null;
-        if (isset($attributes['email'])){
-            $identity = $attributes['email'];
+        $email = $this->getEmailFromClient($client);
+        if ($email){
+            $identity = $email;
             $existCredential = $this->userCredentialService()->findByIdentity($identity);
             /**
              * @TODO если емаил уже есть ниче не делаем и тут надо решить выбивать ли исключение ил просто реутрн фолс оставить
@@ -278,6 +279,31 @@ class DefaultAuthHelper implements AuthHelperInterface
 
             return true;
         });
+    }
+
+    protected function getEmailFromClient($client)
+    {
+        $attributes = $client->getUserAttributes();
+        switch ($client->getId()){
+            case 'yandex':
+                if (isset($attributes['default_email'])){
+                    return $attributes['default_email'];
+                }
+            case 'vkontakte':
+            case 'facebook':
+            case 'github':
+            case 'google':
+            case 'linkedin':
+            case 'live':
+            case 'twitter':
+                if (isset($attributes['email'])){
+                    return $attributes['email'];
+                }
+
+            default:
+                return null;
+        }
+
     }
 
     protected function getUsernameFromClient($client)
