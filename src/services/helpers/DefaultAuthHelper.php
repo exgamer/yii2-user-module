@@ -289,6 +289,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             case 'facebook':
                 return $attributes['name'];
             case 'github':
+                return $attributes['name'];
             case 'google':
                 return $attributes['name'];
             case 'linkedin':
@@ -298,7 +299,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             case 'twitter':
                 return null;
             case 'yandex':
-                return null;
+                return $attributes['first_name'] . " " . $attributes['last_name'];
 
             default:
                 return null;
