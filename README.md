@@ -79,3 +79,80 @@ composer.json
              ],
          ],
      ]
+
+
+
+
+
+# Авторизация через соц сети
+1. В конфиге добавить 
+
+```php
+<?php
+        
+    $config =  [
+        'components' => [
+            'authClientCollection' => [
+                'class' => 'yii\authclient\Collection',
+                'clients' => [
+                  'github' => [
+                      'class' => 'yii\authclient\clients\GitHub',
+                      'validateAuthState' => false,
+                      'clientId' => '9999a44d4e5fc12b742f',
+                      'clientSecret' => '1196f1cc2b3801dd384100de169220e45a7ed183',
+                  ],
+    
+                ],
+            ]
+        ]               
+    ]
+
+````
+
+2. В контроллере добавить экшн
+
+```php
+
+<?php
+
+    namespace kamaelkz\yii2admin\v1\controllers;
+    
+    use Yii;
+    
+    class DefaultController extends BaseController
+    {
+    
+    
+        /**
+         * {@inheritdoc}
+         */
+        public function actions()
+        {
+            return [
+                'auth' => [
+                    'class' => 'yii\authclient\AuthAction',
+                    'successCallback' => [$this, 'onAuthSuccess'],
+                ],
+            ];
+        }
+    
+        public function onAuthSuccess($client)
+        {
+            Yii::$app->authService->onSocialAuthSuccess($client);
+        }
+    }
+
+```
+
+3. вывести на представлении виджет
+
+```php
+
+<?php
+
+    echo yii\authclient\widgets\AuthChoice::widget([
+        'baseAuthUrl' => ['site/auth'],
+        'popupMode' => false,
+    ]);
+
+```
