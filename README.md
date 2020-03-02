@@ -97,7 +97,7 @@ composer.json
                 'clients' => [
                   'github' => [
                       'class' => 'yii\authclient\clients\GitHub',
-                      'validateAuthState' => false,
+                      'validateAuthState' => false, // вот это нужно добавлять в конфиг!!!
                       'clientId' => '9999a44d4e5fc12b742f',
                       'clientSecret' => '1196f1cc2b3801dd384100de169220e45a7ed183',
                   ],
