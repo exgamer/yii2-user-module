@@ -32,8 +32,8 @@ class UserSocialAuthService extends Service
         $form->user_id = $user_id;
         $form->source_id = $client->getId();
         $form->source_user_id = $attributes['id'];
-        $form->source_name = $client->defaultName();
-        $form->source_title = $client->defaultTitle();
+        $form->source_name = $client->getName();
+        $form->source_title = $client->getTitle();
 
         return $this->create($form);
     }
