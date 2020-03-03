@@ -232,7 +232,6 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function onSocialAuthSuccess($client)
     {
-        $returnUrl = Yii::$app->getSession()->get(Yii::$app->user->returnUrlParam);
         $attributes = $client->getUserAttributes();
         $auth = $this->userSocialAuthService()->getOneByCondition(function(ActiveQuery $query) use($client, $attributes){
             $query->andWhere([
@@ -253,9 +252,6 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         if ($auth) { // авторизация
             Yii::$app->user->login($auth->user, 3600);
-            if ($returnUrl){
-                Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, $returnUrl);
-            }
 
             return true;
         }
@@ -306,10 +302,6 @@ class DefaultAuthHelper implements AuthHelperInterface
                 $user,
                 3600
             );
-
-            if ($returnUrl){
-                Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, $returnUrl);
-            }
 
             return true;
         });
