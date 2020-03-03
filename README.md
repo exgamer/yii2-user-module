@@ -101,7 +101,24 @@ composer.json
                       'clientId' => '9999a44d4e5fc12b742f',
                       'clientSecret' => '1196f1cc2b3801dd384100de169220e45a7ed183',
                   ],
-    
+                  'vkontakte' => [
+                      'class' => 'yii\authclient\clients\VKontakte',
+                      'validateAuthState' => false,
+                      'clientId' => '7342228 ',
+                      'clientSecret' => 'X237p3EgVMjBVQM03WJn',
+                  ],
+                  'google' => [
+                      'class' => 'yii\authclient\clients\Google',
+                      'validateAuthState' => false,
+                      'clientId' => '247411900945-nk50mq6gae29i26vl8r752tav14cv6s2.apps.googleusercontent.com',
+                      'clientSecret' => 'SZQcbGdRKNPBsMLSwjp9RJLK',
+                  ],
+                  'yandex' => [
+                      'class' => 'yii\authclient\clients\Yandex',
+                      'validateAuthState' => false,
+                      'clientId' => '662b41f23de54e798dac3240f187e8a7',
+                      'clientSecret' => 'c1d37b5e597f46a1af11fe9459148925',
+                  ],
                 ],
             ]
         ]               

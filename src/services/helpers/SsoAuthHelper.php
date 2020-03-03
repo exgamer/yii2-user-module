@@ -311,6 +311,6 @@ class SsoAuthHelper implements AuthHelperInterface
 
     public function onSocialAuthSuccess($client)
     {
-        // TODO: Implement onSocialAuthSuccess() method.
+        // @TODO реализовать авторизацию через социалки для sso
     }
 }
