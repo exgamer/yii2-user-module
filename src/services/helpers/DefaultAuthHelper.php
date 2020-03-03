@@ -348,23 +348,16 @@ class DefaultAuthHelper implements AuthHelperInterface
         $attributes = $client->getUserAttributes();
         switch ($client->getId()){
             case 'vkontakte':
+            case 'yandex':
                 return $attributes['first_name'] . " " . $attributes['last_name'];
             case 'facebook':
-                return null;
             case 'github':
-                return $attributes['name'];
             case 'google':
                 return $attributes['name'];
             case 'linkedin':
                 return $attributes['firstName'] . " " . $attributes['lastName'];
             case 'live':
-                return null;
             case 'twitter':
-                return null;
-            case 'yandex':
-                return $attributes['first_name'] . " " . $attributes['last_name'];
-
-            default:
                 return null;
         }
 
