@@ -251,7 +251,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         if ($auth) { // авторизация
-            Yii::$app->user->login($auth->user);
+            Yii::$app->user->login($auth->user, 3600);
             return true;
         }
 
