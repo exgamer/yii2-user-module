@@ -297,10 +297,14 @@ class DefaultAuthHelper implements AuthHelperInterface
                 throw new Exception();
             }
 
+            $returnUrl = Yii::$app->getSession()->get(Yii::$app->user->returnUrlParam);
             Yii::$app->user->login(
                 $user,
                 3600
             );
+            if ($returnUrl){
+                Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, $returnUrl);
+            }
 
             return true;
         });
