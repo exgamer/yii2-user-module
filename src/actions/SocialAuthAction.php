@@ -19,7 +19,15 @@ class SocialAuthAction extends AuthAction
     public function run()
     {
         if (Yii::$app->request->referrer) {
-            Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, Yii::$app->request->referrer);
+            $redirect = Yii::$app->request->referrer;
+            $query = parse_url($redirect, PHP_URL_QUERY);
+            if ($query) {
+                $redirect .= '&#social-ancor';
+            } else {
+                $redirect .= '?#social-ancor';
+            }
+
+            Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, $redirect);
         }
 
         return parent::run();
