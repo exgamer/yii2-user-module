@@ -147,7 +147,7 @@ composer.json
         {
             return [
                 'auth' => [
-                    'class' => 'yii\authclient\AuthAction',
+                    'class' => 'concepture\yii2user\actions\SocialAuthAction',
                     'successCallback' => [$this, 'onAuthSuccess'],
                 ],
             ];
