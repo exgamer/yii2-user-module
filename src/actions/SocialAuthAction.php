@@ -27,6 +27,8 @@ class SocialAuthAction extends AuthAction
                 $redirect .= '?#social-anchor';
             }
 
+            $redirect = str_replace('??', '?', $redirect);
+
             Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, $redirect);
         }
 
