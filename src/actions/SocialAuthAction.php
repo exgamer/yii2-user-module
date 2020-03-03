@@ -2,11 +2,19 @@
 namespace concepture\yii2user\actions;
 
 use yii\authclient\AuthAction;
+use yii\base\Action;
+use yii\base\Exception;
+use yii\base\InvalidConfigException;
+use yii\base\NotSupportedException;
+use yii\di\Instance;
+use yii\helpers\Url;
+use yii\web\Response;
+use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 use Yii;
+use yii\web\User;
 
 /**
- * Класс  переопределен чтобы дать возможность редиректа на эту же страницу после авторизации
- *
  * Class SocialAuthAction
  * @package concepture\yii2user\actions
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
@@ -14,7 +22,7 @@ use Yii;
 class SocialAuthAction extends AuthAction
 {
     /**
-     * @return mixed
+     * Runs the action.
      */
     public function run()
     {
@@ -28,22 +36,26 @@ class SocialAuthAction extends AuthAction
             }
 
             $redirect = str_replace('??', '?', $redirect);
-
-            Yii::$app->getSession()->set(Yii::$app->user->returnUrlParam, $redirect);
+            Yii::$app->response->cookies->add(new \yii\web\Cookie([
+                'name' => 'social_auth_redirect',
+                'value' => $redirect
+            ]));
         }
 
         return parent::run();
     }
 
-    /**
-     * @return mixed
-     */
     protected function defaultSuccessUrl()
     {
-        $url = $this->user->getReturnUrl();
-        Yii::$app->getSession()->remove(Yii::$app->user->returnUrlParam);
+        if (Yii::$app->request->cookies->has('social_auth_redirect')){
 
-        return $url;
+            $url =  Yii::$app->request->cookies->getValue('social_auth_redirect');
+            Yii::$app->response->cookies->remove('social_auth_redirect');
+
+            return $url;
+        }
+
+        return parent::defaultSuccessUrl();
     }
 
 }
