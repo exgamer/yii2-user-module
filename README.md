@@ -125,6 +125,12 @@ composer.json
                       'clientId' => '570749406859198',
                       'clientSecret' => 'c98ae1e325cd5f4d959e92c8f1def251',
                   ],
+                    'mailru' => [
+                        'class' => 'concepture\yii2user\authclients\MailRu',
+                        'validateAuthState' => false,
+                        'clientId' => '570749406859198',
+                        'clientSecret' => 'c98ae1e325cd5f4d959e92c8f1def251',
+                    ],
                 ],
             ]
         ]               
@@ -184,3 +190,4 @@ composer.json
 ```
 
 4. Если используется инстаграмм в стилях должен быть класс instagram с иконкой !!!!!!!!!!
+4. Если используется mailru в стилях должен быть класс mailru с иконкой !!!!!!!!!!

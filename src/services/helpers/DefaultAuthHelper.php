@@ -328,6 +328,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             case 'linkedin':
             case 'live':
             case 'twitter':
+            case 'mailru':
             case 'instagram':
                 if (isset($attributes['email'])){
                     return $attributes['email'];
@@ -360,6 +361,8 @@ class DefaultAuthHelper implements AuthHelperInterface
                 if (isset($attributes['name'])){
                     return $attributes['name'];
                 }
+            case 'mailru':
+                return $attributes['nick'];
             case 'facebook':
             case 'github':
             case 'google':
