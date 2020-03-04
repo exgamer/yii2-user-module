@@ -131,6 +131,12 @@ composer.json
                         'clientId' => '570749406859198',
                         'clientSecret' => 'c98ae1e325cd5f4d959e92c8f1def251',
                     ],
+                    'odnoklassniki' => [
+                        'class' => 'concepture\yii2user\authclients\Odnoklassniki',
+                        'applicationKey' => getenv('ODNOCLASSNIKI_APP_KEY'),
+                        'clientId' => getenv('ODNOCLASSNIKI_CLIENT_ID'),
+                        'clientSecret' => getenv('ODNOCLASSNIKI_SECRET'),
+                    ],
                 ],
             ]
         ]               
@@ -190,4 +196,5 @@ composer.json
 ```
 
 4. Если используется инстаграмм в стилях должен быть класс instagram с иконкой !!!!!!!!!!
-4. Если используется mailru в стилях должен быть класс mailru с иконкой !!!!!!!!!!
+5. Если используется mailru в стилях должен быть класс mailru с иконкой !!!!!!!!!!
+6. Если используется odnoklassniki в стилях должен быть класс odnoklassniki с иконкой !!!!!!!!!!

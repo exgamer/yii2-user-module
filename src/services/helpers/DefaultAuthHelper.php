@@ -330,6 +330,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             case 'twitter':
             case 'mailru':
             case 'instagram':
+            case 'odnoklassniki':
                 if (isset($attributes['email'])){
                     return $attributes['email'];
                 }
@@ -352,6 +353,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         switch ($client->getId()){
             case 'vkontakte':
             case 'yandex':
+            case 'odnoklassniki':
                 return $attributes['first_name'] . " " . $attributes['last_name'];
             case 'instagram':
                 if (isset($attributes['username'])){
