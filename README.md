@@ -119,6 +119,12 @@ composer.json
                       'clientId' => '662b41f23de54e798dac3240f187e8a7',
                       'clientSecret' => 'c1d37b5e597f46a1af11fe9459148925',
                   ],
+                  'instagram' => [
+                      'class' => 'concepture\yii2user\authclients\Instagram',
+                      'validateAuthState' => false,
+                      'clientId' => '570749406859198',
+                      'clientSecret' => 'c98ae1e325cd5f4d959e92c8f1def251',
+                  ],
                 ],
             ]
         ]               
