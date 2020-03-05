@@ -7,6 +7,14 @@ use yii\authclient\OAuth2;
 /**
  * https://apiok.ru/dev/app/create
  *
+ *   'odnoklassniki' => [
+ *       'class' => 'kotchuprik\authclient\Odnoklassniki',
+ *          'applicationKey' => 'odnoklassniki_app_public_key',
+ *          'clientId' => 'odnoklassniki_app_id',
+ *          'clientSecret' => 'odnoklassniki_client_secret',
+ *       ],
+ *    ],
+ *
  * Class Odnoklassniki
  * @package concepture\yii2user\authclients
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
