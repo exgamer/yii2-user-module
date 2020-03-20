@@ -2,7 +2,7 @@
 namespace concepture\yii2user\forms;
 
 use Yii;
-use concepture\yii2logic\forms\Form;
+use concepture\yii2logic\forms\Model;
 
 /**
  * Форма для запроса ссылки на смену пароля
@@ -11,7 +11,7 @@ use concepture\yii2logic\forms\Form;
  * @package concepture\yii2user\forms
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
-class EmailPasswordResetRequestForm extends Form
+class EmailPasswordResetRequestForm extends Model
 {
     public $identity;
     public $route = 'site/reset-password';

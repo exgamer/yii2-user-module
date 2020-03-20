@@ -3,7 +3,7 @@ namespace concepture\yii2user\forms;
 
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
-use concepture\yii2logic\forms\Form;
+use concepture\yii2logic\forms\Model;
 
 /**
  * Форма авторизации пользователя
@@ -12,7 +12,7 @@ use concepture\yii2logic\forms\Form;
  * @package concepture\yii2user\forms
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
-class SignInForm extends Form
+class SignInForm extends Model
 {
     public $username;
     public $identity;

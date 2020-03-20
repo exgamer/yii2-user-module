@@ -1,7 +1,7 @@
 <?php
 namespace concepture\yii2user\forms;
 
-use concepture\yii2logic\forms\Form;
+use concepture\yii2logic\forms\Model;
 use Yii;
 
 /**
@@ -11,7 +11,7 @@ use Yii;
  * @package concepture\yii2user\forms
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
-class PasswordResetForm extends Form
+class PasswordResetForm extends Model
 {
     public $token;
     public $validation;
