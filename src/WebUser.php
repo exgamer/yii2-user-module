@@ -1,8 +1,11 @@
 <?php
+
 namespace concepture\yii2user;
 
 use Yii;
 use yii\web\User;
+
+use concepture\yii2user\services\UserRoleService;
 
 /**
  * Класс описывающий атворизованного юзера
@@ -13,6 +16,30 @@ use yii\web\User;
  */
 class WebUser extends User
 {
+    /**
+     * @var array
+     */
+    protected $roles = [];
+
+    /**
+     * @return UserRoleService
+     */
+    protected function getUserRoleService()
+    {
+        return Yii::$app->userRoleService;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function init()
+    {
+        parent::init();
+        if(! $this->isGuest) {
+            $this->roles = $this->getUserRoleService()->getRolesByUserId($this->getIdentity()->getId());
+        }
+    }
+
     /**
      * @TODO костылек для начала работы
      *
@@ -27,8 +54,7 @@ class WebUser extends User
             return false;
         }
 
-        $roles = Yii::$app->userRoleService->getRolesByUserId($this->identity->id);
-        if (isset($roles[$permissionName])){
+        if (isset($this->roles[$permissionName])){
             return true;
         }
 
