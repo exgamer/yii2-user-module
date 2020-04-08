@@ -59,8 +59,7 @@ abstract class Controller extends BaseController
                     ],
                     'allow' => true,
                     'roles' => [
-                        // TODO change
-                        UserRoleEnum::ADMIN,
+                        UserRoleEnum::SUPER_ADMIN,
                     ],
                 ],
             ],
