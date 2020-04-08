@@ -6,6 +6,7 @@ use concepture\yii2user\forms\EmailCredentialForm;
 use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\search\UserCredentialSearch;
 use concepture\yii2user\traits\ServicesTrait;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use Yii;
 
@@ -20,13 +21,16 @@ class UserCredentialController extends Controller
 
     protected function getAccessRules()
     {
-        return [
+        return ArrayHelper::merge(
+            parent::getAccessRules(),
             [
-                'actions' => ['index', 'view','create', 'update', 'status-change'],
-                'allow' => true,
-                'roles' => [UserRoleEnum::ADMIN],
-            ]
-        ];
+                [
+                    'actions' => ['index', 'view','create', 'update', 'status-change'],
+                    'allow' => true,
+                    'roles' => [UserRoleEnum::ADMIN],
+                ],
+            ],
+        );
     }
 
     public function actions()

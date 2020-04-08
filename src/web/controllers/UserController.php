@@ -6,8 +6,11 @@ use concepture\yii2user\enum\UserRoleEnum;
 use concepture\yii2logic\actions\web\AutocompleteListAction;
 use concepture\yii2logic\actions\web\StatusChangeAction;
 use concepture\yii2logic\actions\web\UndeleteAction;
+use kamaelkz\yii2admin\v1\modules\audit\actions\AuditAction;
+use kamaelkz\yii2admin\v1\modules\audit\actions\AuditRollbackAction;
 use kamaelkz\yii2cdnuploader\actions\web\ImageDeleteAction;
 use kamaelkz\yii2cdnuploader\actions\web\ImageUploadAction;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class UserController
@@ -16,15 +19,21 @@ use kamaelkz\yii2cdnuploader\actions\web\ImageUploadAction;
  */
 class UserController extends Controller
 {
+    /**
+     * @return array
+     */
     protected function getAccessRules()
     {
-        return [
+        return ArrayHelper::merge(
+            parent::getAccessRules(),
             [
-                'actions' => ['index', 'create','update', 'view','delete', 'list', 'undelete', 'status-change', 'image-upload', 'image-delete'],
-                'allow' => true,
-                'roles' => [UserRoleEnum::ADMIN],
-            ]
-        ];
+                [
+                    'actions' => ['index', 'create','update', 'view','delete', 'list', 'undelete', 'status-change', 'image-upload', 'image-delete'],
+                    'allow' => true,
+                    'roles' => [UserRoleEnum::ADMIN],
+                ],
+            ],
+        );
     }
 
     public function actions()
