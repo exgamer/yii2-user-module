@@ -1,14 +1,14 @@
 <?php
 namespace concepture\yii2user\web\controllers;
 
-use concepture\yii2user\enum\UserRoleEnum;
-use concepture\yii2user\forms\EmailCredentialForm;
-use concepture\yii2user\forms\UserCredentialForm;
-use concepture\yii2user\search\UserCredentialSearch;
-use concepture\yii2user\traits\ServicesTrait;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
-use Yii;
+use concepture\yii2user\enum\UserRoleEnum;
+use concepture\yii2user\traits\ServicesTrait;
+use concepture\yii2user\forms\UserCredentialForm;
+use concepture\yii2user\forms\EmailCredentialForm;
+use concepture\yii2user\search\UserCredentialSearch;
 
 /**
  * Class UserCredentialController
@@ -25,7 +25,7 @@ class UserCredentialController extends Controller
             parent::getAccessRules(),
             [
                 [
-                    'actions' => ['index', 'view','create', 'update', 'status-change'],
+                    'actions' => ['status-change'],
                     'allow' => true,
                     'roles' => [UserRoleEnum::ADMIN],
                 ],

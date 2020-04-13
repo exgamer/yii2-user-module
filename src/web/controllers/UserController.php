@@ -2,15 +2,13 @@
 
 namespace concepture\yii2user\web\controllers;
 
+use yii\helpers\ArrayHelper;
 use concepture\yii2user\enum\UserRoleEnum;
-use concepture\yii2logic\actions\web\AutocompleteListAction;
-use concepture\yii2logic\actions\web\StatusChangeAction;
 use concepture\yii2logic\actions\web\UndeleteAction;
-use kamaelkz\yii2admin\v1\modules\audit\actions\AuditAction;
-use kamaelkz\yii2admin\v1\modules\audit\actions\AuditRollbackAction;
+use concepture\yii2logic\actions\web\StatusChangeAction;
 use kamaelkz\yii2cdnuploader\actions\web\ImageDeleteAction;
 use kamaelkz\yii2cdnuploader\actions\web\ImageUploadAction;
-use yii\helpers\ArrayHelper;
+use concepture\yii2logic\actions\web\AutocompleteListAction;
 
 /**
  * Class UserController
@@ -28,7 +26,7 @@ class UserController extends Controller
             parent::getAccessRules(),
             [
                 [
-                    'actions' => ['index', 'create','update', 'view','delete', 'list', 'undelete', 'status-change', 'image-upload', 'image-delete'],
+                    'actions' => ['list', 'undelete', 'status-change', 'image-upload', 'image-delete'],
                     'allow' => true,
                     'roles' => [UserRoleEnum::ADMIN],
                 ],
