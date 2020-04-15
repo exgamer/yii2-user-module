@@ -9,6 +9,6 @@ class RbacController extends ConsoleCommand
 {
     public function actionGenerate()
     {
-
+        Yii::$app->rbacService->generate();
     }
 }
