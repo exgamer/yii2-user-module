@@ -31,6 +31,13 @@ class RbacService extends Service
         return Yii::$app->authManager;
     }
 
+    public function assignRole($userId, $roleName)
+    {
+        $role = $this->getRole($roleName);
+
+        return $this->getAuthManager()->assign($role, $userId);
+    }
+
     protected function getRoles()
     {
         return $this->getAuthManager()->getRoles();
