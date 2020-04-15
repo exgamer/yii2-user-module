@@ -2,6 +2,21 @@
 
 # RBAC
 
+### !!! в build.sh перед миграциями пакета 
+
+php yii migrate --migrationPath=@yii/rbac/migrations --interactive=0 --alias=$ALIAS
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
+php yii user/rbac/generate  --interactive=0 --alias=$ALIAS
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
+
+###
+
+
+
 # Миграции для инициализации таблиц rbac
 
  php yii migrate --migrationPath=@yii/rbac/migrations
