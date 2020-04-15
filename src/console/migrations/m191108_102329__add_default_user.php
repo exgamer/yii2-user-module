@@ -1,9 +1,10 @@
 <?php
 
-use concepture\yii2user\enum\AccessEnum;
 use yii\db\Migration;
 use concepture\yii2user\forms\SignUpForm;
 use concepture\yii2user\forms\UserRoleHandbookForm;
+use concepture\yii2user\forms\UserRoleForm;
+use concepture\yii2user\enum\UserRoleEnum;
 
 /**
  * Class m190706_141342__add_default_user
@@ -21,7 +22,10 @@ class m191108_102329__add_default_user extends Migration
         $form->identity = "admin@example.com";
         $form->validation = "123456";
         $model = Yii::$app->authService->signUp($form);
-        Yii::$app->rbacService->assign(AccessEnum::ADMIN, $model->id);
+        $form = new UserRoleForm();
+        $form->role = UserRoleEnum::ADMIN;
+        $form->user_id = $model->id;
+        Yii::$app->userRoleService->create($form);
     }
 
     /**
