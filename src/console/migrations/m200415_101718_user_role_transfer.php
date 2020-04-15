@@ -23,7 +23,7 @@ class m200415_101718_user_role_transfer extends Migration
             $insert [] = "(" . implode(',', $data) . ")";
         }
         $this->execute("INSERT INTO user_auth_assignment (item_name, user_id) VALUES " . implode(",", $insert));
-
+//        $this->dropTable('user_role');
     }
 
     /**
