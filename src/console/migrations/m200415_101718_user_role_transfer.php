@@ -16,7 +16,7 @@ class m200415_101718_user_role_transfer extends Migration
         $insert = [];
         foreach ($roles as $role){
             $data = [
-                str_replace("_", "", $role['role']),
+                "'" . str_replace("_", "", $role['role']) . "'",
                 $role['user_id'],
             ];
 
