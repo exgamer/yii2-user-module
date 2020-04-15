@@ -18,16 +18,16 @@ class UserCredentialController extends Controller
 {
     use ServicesTrait;
 
-    protected function getAccessRules()
-    {
-        return [
-            [
-                'actions' => ['index', 'view','create', 'update', 'status-change'],
-                'allow' => true,
-                'roles' => [UserRoleEnum::ADMIN],
-            ]
-        ];
-    }
+//    protected function getAccessRules()
+//    {
+//        return [
+//            [
+//                'actions' => ['index', 'view','create', 'update', 'status-change'],
+//                'allow' => true,
+//                'roles' => [UserRoleEnum::ADMIN],
+//            ]
+//        ];
+//    }
 
     public function actions()
     {

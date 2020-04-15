@@ -14,14 +14,14 @@ use kamaelkz\yii2admin\v1\controllers\BaseController;
  */
 abstract class Controller extends BaseController
 {
-    protected function getAccessRules()
-    {
-        return [
-            [
-                'actions' => ['index', 'create','update', 'view','delete'],
-                'allow' => true,
-                'roles' => [UserRoleEnum::ADMIN],
-            ]
-        ];
-    }
+//    protected function getAccessRules()
+//    {
+//        return [
+//            [
+//                'actions' => ['index', 'create','update', 'view','delete'],
+//                'allow' => true,
+//                'roles' => [UserRoleEnum::ADMIN],
+//            ]
+//        ];
+//    }
 }

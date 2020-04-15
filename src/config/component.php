@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'authManager' => [
+        'class' => 'yii\rbac\DbManager',
+        'itemTable'=>'user_auth_item',
+        'ruleTable'=>'user_auth_rule',
+        'assignmentTable'=>'user_auth_assignment', // роли
+        'itemChildTable'=>'user_auth_item_child',
+    ],
     'userService' => [
         'class' => 'concepture\yii2user\services\UserService'
     ],
@@ -18,5 +25,8 @@ return [
     ],
     'emailHandbookService' => [
         'class' => 'concepture\yii2user\services\EmailHandbookService'
+    ],
+    'rbacService' => [
+        'class' => 'concepture\yii2user\services\RbacService'
     ],
 ];
