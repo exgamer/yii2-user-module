@@ -15,8 +15,13 @@ class m200415_101718_user_role_transfer extends Migration
         $roles = $this->db->createCommand('SELECT * FROM user_role')->queryAll();
         $insert = [];
         foreach ($roles as $role){
+            $n = $role['role'];
+            if ($n == 'superadmin'){
+                $n = "SUPERADMIN";
+            }
+
             $data = [
-                "'" . str_replace("_", "", $role['role']) . "'",
+                "'" . str_replace("_", "", $n) . "'",
                 $role['user_id'],
             ];
 
