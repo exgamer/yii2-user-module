@@ -33,7 +33,6 @@ class RbacService extends Service
 
     public function assign($userId, $name)
     {
-        $this->getAuthManager()->invalidateCache();
         $role = $this->getRole($name);
         if (! $role){
             $role = $this->getPermission($name);
@@ -43,12 +42,14 @@ class RbacService extends Service
             throw new \Exception($name . " role or permission not found");
         }
 
-        return $this->getAuthManager()->assign($role, $userId);
+        $result =  $this->getAuthManager()->assign($role, $userId);
+        $this->getAuthManager()->invalidateCache();
+
+        return $result;
     }
 
     public function revoke($userId, $name)
     {
-        $this->getAuthManager()->invalidateCache();
         $role = $this->getRole($name);
         if (! $role){
             $role = $this->getPermission($name);
@@ -58,7 +59,10 @@ class RbacService extends Service
             throw new \Exception($name . " role or permission not found");
         }
 
-        return $this->getAuthManager()->revoke($role, $userId);
+        $result =  $this->getAuthManager()->revoke($role, $userId);
+        $this->getAuthManager()->invalidateCache();
+
+        return $result;
     }
 
     public function getRoles()
