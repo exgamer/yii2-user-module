@@ -183,6 +183,7 @@ trait RbacGenerateTrait
      */
     public function generate()
     {
+        $this->getAuthManager()->invalidateCache();
         $db = $this->getAuthManager()->db;
         $transaction = $db->beginTransaction();
         try {

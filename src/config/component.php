@@ -3,6 +3,7 @@
 return [
     'authManager' => [
         'class' => 'yii\rbac\DbManager',
+        'cache' => 'cache',
         'itemTable'=>'user_auth_item',
         'ruleTable'=>'user_auth_rule',
         'assignmentTable'=>'user_auth_assignment', // роли

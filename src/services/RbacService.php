@@ -33,6 +33,7 @@ class RbacService extends Service
 
     public function assign($userId, $name)
     {
+        $this->getAuthManager()->invalidateCache();
         $role = $this->getRole($name);
         if (! $role){
             $role = $this->getPermission($name);
@@ -47,6 +48,7 @@ class RbacService extends Service
 
     public function revoke($userId, $name)
     {
+        $this->getAuthManager()->invalidateCache();
         $role = $this->getRole($name);
         if (! $role){
             $role = $this->getPermission($name);
