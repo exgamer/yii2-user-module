@@ -10,6 +10,7 @@ use concepture\yii2user\traits\ServicesTrait;
 use yii\web\NotFoundHttpException;
 
 /**
+ * @deprecated
  * Class UserRoleController
  * @package concepture\yii2user\web\controllers
  * @author Olzhas Kulzhambekov <exgamer@live.ru>

@@ -11,6 +11,8 @@ use yii\data\ActiveDataProvider;
 
 
 /**
+ * @deprecated
+ *
  * Search модель для ролей пользователя
  *
  * Class UserRoleSearch

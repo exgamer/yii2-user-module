@@ -5,6 +5,8 @@ namespace concepture\yii2user\enum;
 use concepture\yii2logic\enum\Enum;
 use Yii;
 /**
+ * @deprecated
+ *
  * Виды ролей пользователя
  *
  * Class UserRoleEnum

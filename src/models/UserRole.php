@@ -8,6 +8,8 @@ use concepture\yii2logic\models\ActiveRecord;
 
 
 /**
+ * @deprecated
+ *
  * Модель ролей пользователя
  *
  * Class UserRole

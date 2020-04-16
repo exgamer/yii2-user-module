@@ -5,6 +5,7 @@ use concepture\yii2logic\services\Service;
 
 
 /**
+ * @deprecated
  * Сервис содержит бизнес логику для работы с ролям ипользователя
  *
  * Class UserRoleService

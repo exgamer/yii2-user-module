@@ -5,6 +5,7 @@ use Yii;
 use concepture\yii2logic\forms\Form;
 
 /**
+ * @deprecated
  * Форма для сущности ролей пользователя
  *
  * Class UserRoleForm
