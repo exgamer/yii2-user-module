@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\rbac\DbManager;
 use concepture\yii2user\services\traits\RbacGenerateTrait;
+use yii\rbac\Item;
 
 /**
  * Сервис для rbac
@@ -24,6 +25,8 @@ class RbacService extends Service
     use RbacGenerateTrait;
 
     /**
+     * Возвращает authManager
+     *
      * @return DbManager
      */
     protected function getAuthManager()
@@ -31,6 +34,14 @@ class RbacService extends Service
         return Yii::$app->authManager;
     }
 
+    /**
+     * назначение роли/полномочия пользователю
+     *
+     * @param $userId
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
     public function assign($userId, $name)
     {
         $role = $this->getRole($name);
@@ -48,6 +59,16 @@ class RbacService extends Service
         return $result;
     }
 
+    /**
+     * Забирает роль/полномочие у пользователя
+     *
+     * !!! Нельзя забрать роль/полномочие которое является наследником явно назваченной роли/полномочия
+     *
+     * @param $userId
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
     public function revoke($userId, $name)
     {
         $role = $this->getRole($name);
@@ -65,31 +86,60 @@ class RbacService extends Service
         return $result;
     }
 
+    /**
+     * Возвращает роли системы
+     *
+     * @return array
+     */
     public function getRoles()
     {
         return $this->getAuthManager()->getRoles();
     }
 
+    /**
+     * Возвращает полномочия системы
+     * @return array
+     */
     public function getPermissions()
     {
         return $this->getAuthManager()->getPermissions();
     }
 
+    /**
+     * Возвращает роли пользователя
+     * @param $userId
+     * @return array
+     */
     public function getRolesByUser($userId)
     {
         return $this->getAuthManager()->getRolesByUser($userId);
     }
 
+    /**
+     * Возвращает полномочия пользователя
+     * @param $userId
+     * @return mixed
+     */
     public function getPermissionsByUser($userId)
     {
         return $this->getAuthManager()->getPermissionsByUser($userId);
     }
 
+    /**
+     * Возвращает полномочие по имени
+     * @param $name
+     * @return Item
+     */
     public function getPermission($name)
     {
         return $this->getAuthManager()->getPermission($name);
     }
 
+    /**
+     * Возвращает роль по имени
+     * @param $name
+     * @return Item
+     */
     public function getRole($name)
     {
         return $this->getAuthManager()->getRole($name);
@@ -134,7 +184,7 @@ class RbacService extends Service
     }
 
     /**
-     * Удаление роли в rbac
+     * Удаление роли из rbac
      *
      * @param string $name
      * @return
@@ -151,7 +201,7 @@ class RbacService extends Service
      * Добавление полномочия в rbac
      *
      * @param UserAuthRolesForm $form
-     * @return
+     * @return Item
      */
     public function addPermission(UserAuthPermissionForm $form)
     {
@@ -175,7 +225,7 @@ class RbacService extends Service
      * Удаление полномочия в rbac
      *
      * @param string $name
-     * @return
+     * @return boolean
      */
     public function removePermission($name)
     {

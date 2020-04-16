@@ -8,12 +8,13 @@ use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
+ * Треит с методами для генерации ролей и полномочий для rbac
+ *
  * Trait RbacGenerateTrait
- * @package concepture\yii2user\services\traits
+ * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
 trait RbacGenerateTrait
 {
-
     /**
      * Возвращает массив классов контроллеров
      * из backend, пакетов concepture и kamaelkz
