@@ -146,7 +146,7 @@ class RbacService extends Service
     }
 
     /**
-     * Привязка дочернего элемента к роли
+     * Привязка дочернего элемента к роли/полномочию
      *
      * @param $parent
      * @param $child
