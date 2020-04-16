@@ -75,7 +75,6 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
             <?= GridView::widget([
                 'dataProvider' => $userRolesDataProvider,
                 'searchVisible' => false,
-                'dragAndDrop' => true,
                 'columns' => [
                     [
                         'attribute' => 'name',
