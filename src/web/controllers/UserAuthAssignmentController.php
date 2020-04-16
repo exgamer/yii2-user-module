@@ -194,7 +194,7 @@ class UserAuthAssignmentController extends Controller
         try {
             $result = $this->rbacService()->revoke($user_id, $role);
             if ($result === false){
-                throw new \Exception(Yii::t('yii2admin', 'Невозможно удалить полномочие. Возможно пользователю назначена роль, включающая в себя полномочие !'));
+                throw new \Exception(Yii::t('yii2admin', 'Невозможно удалить полномочие, которое не назначено напрямую!'));
             }
 
             return $this->responseNotify();
