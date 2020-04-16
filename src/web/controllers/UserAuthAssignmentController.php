@@ -56,10 +56,6 @@ class UserAuthAssignmentController extends Controller
 
     public function actionIndex($user_id, $type = Item::TYPE_ROLE)
     {
-        if (! in_array($type, [Item::TYPE_ROLE, Item::TYPE_PERMISSION])){
-            throw new \Exception($type . " unknown type");
-        }
-        
         switch ($type){
             case Item::TYPE_ROLE:
                 $itemsMethod = 'getRoles';
@@ -150,6 +146,7 @@ class UserAuthAssignmentController extends Controller
         return $this->render('index', [
             'roleSearchModel' => $roleSearchModel,
             'user_id' => $user_id,
+            'type' => $type,
             'rolesDataProvider' => $rolesDataProvider,
             'userRolesDataProvider' => $userRolesDataProvider,
         ]);
