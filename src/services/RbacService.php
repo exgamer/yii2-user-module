@@ -165,7 +165,7 @@ class RbacService extends Service
     /**
      * Добавление роли в rbac
      *
-     * @param UserAuthRolesForm $form
+     * @param UserAuthRoleForm $form
      * @return
      */
     public function addRole(UserAuthRoleForm $form)
