@@ -19,6 +19,13 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
 
     <div class="row">
         <div class="col-md-6">
+            <div class="card">
+                <div class="card-header header-elements-inline">
+                    <h5 class="card-title">
+                        <?= Yii::t('yii2admin', 'Список ролей'); ?>
+                    </h5>
+                </div>
+            </div>
             <?= GridView::widget([
                 'dataProvider' => $rolesDataProvider,
                 'searchVisible' => true,
