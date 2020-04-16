@@ -9,7 +9,7 @@ use kamaelkz\yii2admin\v1\widgets\lists\grid\EditableColumn;
 use kamaelkz\yii2admin\v1\enum\FlashAlertEnum;
 use kamaelkz\yii2admin\v1\widgets\notifications\alert\Alert;
 
-$this->setTitle(Yii::t('yii2admin', 'Назначение ролей'));
+$this->setTitle($title);
 $this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Список пользователей'), 'url' => ['user/index']]);
 $this->pushBreadcrumbs($this->title);
 $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Список пользователей'),'icon-list');
@@ -22,7 +22,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
             <div class="card">
                 <div class="card-header header-elements-inline">
                     <h5 class="card-title">
-                        <?= Yii::t('yii2admin', 'Список ролей'); ?>
+                        <?= $left_side_header; ?>
                     </h5>
                 </div>
             </div>
@@ -36,7 +36,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'label' => Yii::t('yii2admin', 'Роль'),
+                        'label' => $item_caption,
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
@@ -68,7 +68,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
             <div class="card">
                 <div class="card-header header-elements-inline">
                     <h5 class="card-title">
-                        <?= Yii::t('yii2admin', 'Назначенные роли'); ?>
+                        <?= $right_side_header; ?>
                     </h5>
                 </div>
             </div>
@@ -78,7 +78,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                 'columns' => [
                     [
                         'attribute' => 'name',
-                        'label' => Yii::t('yii2admin', 'Роль'),
+                        'label' => $item_caption,
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',

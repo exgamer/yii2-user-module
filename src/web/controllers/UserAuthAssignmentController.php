@@ -60,10 +60,18 @@ class UserAuthAssignmentController extends Controller
             case Item::TYPE_ROLE:
                 $itemsMethod = 'getRoles';
                 $userItemsMethod = 'getRolesByUser';
+                $title = Yii::t('yii2admin', 'Назначение ролей');
+                $left_side_header = Yii::t('yii2admin', 'Список ролей');
+                $right_side_header = Yii::t('yii2admin', 'Назначенные роли');
+                $item_caption = Yii::t('yii2admin', 'Роль');
                 break;
             case Item::TYPE_PERMISSION:
                 $itemsMethod = 'getPermissions';
                 $userItemsMethod = 'getPermissionsByUser';
+                $title = Yii::t('yii2admin', 'Назначение полномочий');
+                $left_side_header = Yii::t('yii2admin', 'Список полномочий');
+                $right_side_header = Yii::t('yii2admin', 'Назначенные полномочия');
+                $item_caption = Yii::t('yii2admin', 'Полномочие');
                 break;
         }
 
@@ -147,6 +155,10 @@ class UserAuthAssignmentController extends Controller
             'roleSearchModel' => $roleSearchModel,
             'user_id' => $user_id,
             'type' => $type,
+            'title' => $title,
+            'item_caption' => $item_caption,
+            'left_side_header' => $left_side_header,
+            'right_side_header' => $right_side_header,
             'rolesDataProvider' => $rolesDataProvider,
             'userRolesDataProvider' => $userRolesDataProvider,
         ]);
