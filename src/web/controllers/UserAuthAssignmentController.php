@@ -6,6 +6,7 @@ use concepture\yii2user\search\UserAuthAssignmentSearch;
 use concepture\yii2user\services\RbacService;
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\rbac\Item;
 use yii\web\NotFoundHttpException;
 use concepture\yii2handbook\services\EntityTypePositionSortService;
 use concepture\yii2logic\filters\AjaxFilter;
@@ -53,12 +54,23 @@ class UserAuthAssignmentController extends Controller
 //        return $behaviors;
 //    }
 
-    public function actionIndex($user_id)
+    public function actionIndex($user_id, $type = Item::TYPE_ROLE)
     {
+        switch ($type){
+            case Item::TYPE_ROLE:
+                $itemsMethod = 'getRoles';
+                $userItemsMethod = 'getRolesByUser';
+                break;
+            case Item::TYPE_PERMISSION:
+                $itemsMethod = 'getPermissions';
+                $userItemsMethod = 'getPermissionsByUser';
+                break;
+        }
+
         $roleSearchModel = new UserAuthAssignmentSearch();
         $roleSearchModel->load(Yii::$app->request->queryParams,'');
         $rolesDataProvider =  new ArrayDataProvider([
-            'allModels' =>  $this->rbacService()->getRoles(),
+            'allModels' =>  $this->rbacService()->{$itemsMethod}(),
             'sort' => [
                 'attributes' => ['name'],
             ],
@@ -68,7 +80,7 @@ class UserAuthAssignmentController extends Controller
         ]);
 
         $userRolesDataProvider = new ArrayDataProvider([
-            'allModels' =>  $this->rbacService()->getRolesByUser($user_id),
+            'allModels' =>  $this->rbacService()->{$userItemsMethod}($user_id),
             'sort' => [
                 'attributes' => ['name'],
             ],
@@ -147,7 +159,7 @@ class UserAuthAssignmentController extends Controller
     public function actionCreate($user_id, $role)
     {
         try {
-            if (($this->rbacService()->assignRole($user_id, $role)) !== false) {
+            if (($this->rbacService()->assign($user_id, $role)) !== false) {
 
                 return $this->responseNotify();
             }
@@ -167,7 +179,7 @@ class UserAuthAssignmentController extends Controller
     public function actionDelete($user_id, $role)
     {
         try {
-            $this->rbacService()->revokeRole($user_id, $role);
+            $this->rbacService()->revoke($user_id, $role);
 
             return $this->responseNotify();
         } catch (\Exception $e) {

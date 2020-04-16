@@ -31,16 +31,30 @@ class RbacService extends Service
         return Yii::$app->authManager;
     }
 
-    public function assignRole($userId, $roleName)
+    public function assign($userId, $name)
     {
-        $role = $this->getRole($roleName);
+        $role = $this->getRole($name);
+        if (! $role){
+            $role = $this->getPermission($name);
+        }
+
+        if (! $role){
+            throw new \Exception($name . " role or permission not found");
+        }
 
         return $this->getAuthManager()->assign($role, $userId);
     }
 
-    public function revokeRole($userId, $roleName)
+    public function revoke($userId, $name)
     {
-        $role = $this->getRole($roleName);
+        $role = $this->getRole($name);
+        if (! $role){
+            $role = $this->getPermission($name);
+        }
+
+        if (! $role){
+            throw new \Exception($name . " role or permission not found");
+        }
 
         return $this->getAuthManager()->revoke($role, $userId);
     }
@@ -50,9 +64,19 @@ class RbacService extends Service
         return $this->getAuthManager()->getRoles();
     }
 
+    public function getPermissions()
+    {
+        return $this->getAuthManager()->getPermissions();
+    }
+
     public function getRolesByUser($userId)
     {
         return $this->getAuthManager()->getRolesByUser($userId);
+    }
+
+    public function getPermissionsByUser($userId)
+    {
+        return $this->getAuthManager()->getPermissionsByUser($userId);
     }
 
     public function getPermission($name)
