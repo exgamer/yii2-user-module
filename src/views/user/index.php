@@ -48,7 +48,7 @@ $this->viewHelper()->pushPageHeader();
 
         [
             'class'=>'yii\grid\ActionColumn',
-            'template'=>'{credentials} {roles} {permissions} {view} {update} {activate} {deactivate} {delete}',
+            'template'=>'{credentials} {roles} {permissions} {update} {activate} {deactivate} {delete}',
             'buttons'=>[
                 'credentials'=> function ($url, $model) {
                     return Html::a(
