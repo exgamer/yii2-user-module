@@ -192,7 +192,10 @@ class UserAuthAssignmentController extends Controller
     public function actionDelete($user_id, $role)
     {
         try {
-            $this->rbacService()->revoke($user_id, $role);
+            $result = $this->rbacService()->revoke($user_id, $role);
+            if ($result === false){
+                throw new \Exception(Yii::t('yii2admin', 'Невозможно удалить полномочие. Возможно пользователю назначена роль, включающая в себя полномочие !'));
+            }
 
             return $this->responseNotify();
         } catch (\Exception $e) {
