@@ -59,6 +59,7 @@ class UserAuthAssignmentController extends Controller
         if (! in_array($type, [Item::TYPE_ROLE, Item::TYPE_PERMISSION])){
             throw new \Exception($type . " unknown type");
         }
+        
         switch ($type){
             case Item::TYPE_ROLE:
                 $itemsMethod = 'getRoles';
