@@ -2,14 +2,17 @@
 use concepture\yii2user\enum\AccessEnum;
 
 return [
+    'excluded_controller_names' => [
+        'DEFAULT',
+        'CHANGELOCK',
+        'WIDGETS',
+        'CRUD',
+        'MAGICMODAL',
+    ],
     'permissions' => [
         AccessEnum::SUPERADMIN,
         AccessEnum::ADMIN,
     ],
-//    AccessEnum::FEEDBACK_ADMIN ,
-//    AccessEnum::FEEDBACK_EDITOR ,
-//    AccessEnum::FEEDBACK_READER ,
-//    AccessEnum::FEEDBACK_STAFF ,
     'default_roles' => [
         'ADMIN',
         'EDITOR',

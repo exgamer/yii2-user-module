@@ -38,17 +38,29 @@ class RbacService extends Service
         return $this->getAuthManager()->assign($role, $userId);
     }
 
-    protected function getRoles()
+    public function revokeRole($userId, $roleName)
+    {
+        $role = $this->getRole($roleName);
+
+        return $this->getAuthManager()->revoke($role, $userId);
+    }
+
+    public function getRoles()
     {
         return $this->getAuthManager()->getRoles();
     }
 
-    protected function getPermission($name)
+    public function getRolesByUser($userId)
+    {
+        return $this->getAuthManager()->getRolesByUser($userId);
+    }
+
+    public function getPermission($name)
     {
         return $this->getAuthManager()->getPermission($name);
     }
 
-    protected function getRole($name)
+    public function getRole($name)
     {
         return $this->getAuthManager()->getRole($name);
     }

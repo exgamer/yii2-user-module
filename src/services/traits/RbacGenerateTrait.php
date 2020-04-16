@@ -138,10 +138,15 @@ trait RbacGenerateTrait
         $defaultConfig = $this->getDefaultConfig();
         $defaultRoles = $defaultConfig['default_roles'];
         $defaultDependencies = $defaultConfig['default_dependencies'];
+        $excludedControllerNames = $defaultConfig['excluded_controller_names'];
         $controllerConfig = [];
         $access = [];
         $dependencies = [];
         foreach ($controllerNames as $name){
+            if (array_search($name, $excludedControllerNames) !== false){
+                continue;
+            }
+
             foreach ($defaultRoles as $role){
                 $roleName = $name . "_" . $role;
                 $access[] = $roleName;
@@ -361,4 +366,3 @@ trait RbacGenerateTrait
         return isset($array[1]) ?  $access : null;
     }
 }
-

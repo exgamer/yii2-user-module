@@ -65,7 +65,7 @@ $this->viewHelper()->pushPageHeader();
                 'roles'=> function ($url, $model) {
                     return Html::a(
                         '<i class="icon-users"></i>' . Yii::t('yii2admin', 'Роли'),
-                        ['/user/user-role/index', 'user_id' => $model['id']],
+                        ['/user/user-auth-assignment/index', 'user_id' => $model['id']],
                         [
                             'class' => 'dropdown-item',
                             'aria-label' => Yii::t('yii2admin', 'Роли'),

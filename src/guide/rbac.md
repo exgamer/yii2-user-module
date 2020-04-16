@@ -110,6 +110,10 @@ class UpdatePostRule extends Rule
 use common\enum\AccessEnum;
 
 return [
+    'excluded_controller_names' => [
+        'DEFAULT',
+        'CHANGELOCK',
+    ],
     'permissions' => [
         AccessEnum::BOOKMAKER_ADMIN => [
     //        'description' => 'трулала',
