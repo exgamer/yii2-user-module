@@ -1,5 +1,6 @@
 <?php
 use concepture\yii2user\enum\AccessEnum;
+use concepture\yii2user\rbac\rules\StaffRule;
 
 return [
     'excluded_controller_names' => [
@@ -18,7 +19,7 @@ return [
         'EDITOR',
         'READER',
         'STAFF' => [
-            'rule' => \concepture\yii2user\rbac\rules\StaffRule::class,
+            'rule' => StaffRule::class,
         ]
     ],
     'default_dependencies' => [
