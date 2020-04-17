@@ -19,6 +19,76 @@ use Yii;
 class AccessHelper
 {
     /**
+     * дефолтные экшоны чтения данных
+     * @var string[]
+     */
+    static $_read_actions = [
+        'index',
+        'list',
+        'view',
+    ];
+
+    /**
+     * дефолтные экшоны модификации данных
+     * @var string[]
+     */
+    static $_edit_actions = [
+        'create',
+        'update',
+        'delete',
+        'undelete',
+        'status-change',
+        'image-upload',
+        'image-delete',
+        'editable-column',
+        'create-validate-attribute',
+        'update-validate-attribute',
+    ];
+
+    /**
+     * экшоны модуля сортировки
+     * @var string[]
+     */
+    static $_sort_actions = [
+        'sort',
+        'position-sort-index',
+    ];
+
+    public function getPermissionsByAction($controller, $action)
+    {
+        if (in_array($action, static::$_read_actions) ){
+            return [
+                AccessEnum::SUPERADMIN,
+                AccessEnum::ADMIN,
+                static::getAccessPermission($controller, PermissionEnum::ADMIN),
+                static::getAccessPermission($controller, PermissionEnum::STAFF),
+                static::getAccessPermission($controller, PermissionEnum::EDITOR),
+                static::getAccessPermission($controller, PermissionEnum::READER),
+            ];
+        }
+
+        if (in_array($action, static::$_edit_actions) ){
+            return [
+                AccessEnum::SUPERADMIN,
+                AccessEnum::ADMIN,
+                static::getAccessPermission($controller, PermissionEnum::ADMIN),
+                static::getAccessPermission($controller, PermissionEnum::STAFF),
+                static::getAccessPermission($controller, PermissionEnum::EDITOR),
+            ];
+        }
+
+        if (in_array($action, static::$_sort_actions) ){
+            return [
+                AccessEnum::SUPERADMIN,
+                AccessEnum::ADMIN,
+                static::getAccessPermission($controller, PermissionEnum::ADMIN),
+                static::getAccessPermission($controller, PermissionEnum::EDITOR),
+            ];
+        }
+    }
+
+
+    /**
      * Возвращает базовые правила доступа
      * @param $controller
      * @return array
@@ -30,11 +100,7 @@ class AccessHelper
          * Просмотр
          */
         $rules[] = [
-            'actions' => [
-                'index',
-                'list',
-                'view',
-            ],
+            'actions' => static::$_read_actions,
             'allow' => true,
             'roles' => [
                 AccessEnum::SUPERADMIN,
@@ -49,16 +115,7 @@ class AccessHelper
          * Модификация
          */
         $rules[] = [
-            'actions' => [
-                'create',
-                'update',
-                'delete',
-                'undelete',
-                'status-change',
-                'image-upload',
-                'image-delete',
-                EditableColumnAction::actionName(),
-            ],
+            'actions' => static::$_edit_actions,
             'allow' => true,
             'roles' => [
                 AccessEnum::SUPERADMIN,
@@ -72,10 +129,7 @@ class AccessHelper
          * Сортировка
          */
         $rules[] = [
-            'actions' => [
-                SortAction::actionName(),
-                PositionSortIndexAction::actionName()
-            ],
+            'actions' => static::$_sort_actions,
             'allow' => true,
             'roles' => [
                 AccessEnum::SUPERADMIN,

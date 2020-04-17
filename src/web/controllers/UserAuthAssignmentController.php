@@ -132,7 +132,7 @@ class UserAuthAssignmentController extends Controller
 
         if (! empty($usedRoles)){
             $roles = [];
-            foreach ($rolesDataProvider->getModels() as $key => $model){
+            foreach ($this->rbacService()->{$itemsMethod}() as $key => $model){
                 if (isset($usedRoles[$model->name])){
                     continue;
                 }
