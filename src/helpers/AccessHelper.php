@@ -57,11 +57,30 @@ class AccessHelper
     /**
      * Проверка прав доступа
      * @param $name
-     * @param null $controller
-     * @return bool
      */
-    public static function checkAccesRules($name ,$controller = null)
+    public static function checkAccesRules($name)
     {
+        $action = null;
+        $controller = null;
+        if (is_array($name)) {
+            $tmp = trim($name[0], '/');
+            $tmpArray = explode('/', $tmp);
+            if (count($tmpArray) == 1) {
+                $action = $tmpArray[0];
+                $controller = Yii::$app->controller;
+            }
+
+            if (count($tmpArray) > 1) {
+                $tmp1 = $tmpArray;
+                $action = array_pop($tmp1);
+                $controller = array_pop($tmp1);
+            }
+        }
+
+        if ($action){
+            $name = $action;
+        }
+
         if (in_array($name, [ 'activate', 'deactivate' ])){
             $name = 'status-change';
         }
