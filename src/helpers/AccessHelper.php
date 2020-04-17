@@ -58,7 +58,7 @@ class AccessHelper
      * Проверка прав доступа
      * @param $name
      */
-    public static function checkAccesRules($name)
+    public static function checkAcces($name)
     {
         $action = null;
         $controller = null;
