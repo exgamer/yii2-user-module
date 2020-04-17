@@ -57,14 +57,20 @@ class AccessHelper
     /**
      * Проверка прав доступа
      * @param $name
+     * @param null $controller
+     * @return bool
      */
-    public static function checkAccesRules($name)
+    public static function checkAccesRules($name ,$controller = null)
     {
         if (in_array($name, [ 'activate', 'deactivate' ])){
             $name = 'status-change';
         }
 
-        $permissions = AccessHelper::getPermissionsByAction(Yii::$app->controller, $name);
+        if (! $controller){
+            $controller = Yii::$app->controller;
+        }
+
+        $permissions = AccessHelper::getPermissionsByAction($controller, $name);
         foreach ($permissions as $permission){
             if (Yii::$app->user->can($permission)){
                 return true;
@@ -163,8 +169,11 @@ class AccessHelper
      */
     public static function getAccessPermission($controller, $permission)
     {
-        $name = ClassHelper::getShortClassName($controller, 'Controller', true);
-
+        if (is_object($controller)) {
+            $name = ClassHelper::getShortClassName($controller, 'Controller', true);
+        }else{
+            $name = str_replace("-", '', strtoupper($controller));
+        }
 
         return $name . "_" . $permission;
     }
