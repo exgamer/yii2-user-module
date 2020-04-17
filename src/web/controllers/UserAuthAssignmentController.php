@@ -124,8 +124,8 @@ class UserAuthAssignmentController extends Controller
         }
 
         $usedRoles = [];
-        if (count($userRolesDataProvider->getModels())){
-            foreach ($userRolesDataProvider->getModels() as $model){
+        if (count($this->rbacService()->{$userItemsMethod}($user_id))){
+            foreach ($this->rbacService()->{$userItemsMethod}($user_id) as $model){
                 $usedRoles[$model->name] = $model->name;
             }
         }
