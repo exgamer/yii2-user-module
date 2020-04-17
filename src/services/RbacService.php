@@ -2,6 +2,7 @@
 namespace concepture\yii2user\services;
 
 use concepture\yii2logic\helpers\ClassHelper;
+use concepture\yii2user\enum\AccessEnum;
 use concepture\yii2user\forms\UserAuthPermissionForm;
 use Yii;
 use concepture\yii2user\forms\UserAuthRoleForm;
@@ -93,7 +94,16 @@ class RbacService extends Service
      */
     public function getRoles()
     {
-        return $this->getAuthManager()->getRoles();
+        $roles = $this->getAuthManager()->getRoles();
+        $base = [];
+        foreach ($roles as $key => $role){
+            if (in_array($key, AccessEnum::all())){
+                $base[$key] = $role;
+                unset($roles[$key]);
+            }
+        }
+
+        return $base + $roles;
     }
 
     /**
