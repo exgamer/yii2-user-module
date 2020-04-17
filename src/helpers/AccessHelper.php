@@ -54,9 +54,32 @@ class AccessHelper
         'position-sort-index',
     ];
 
-    public function getPermissionsByAction($controller, $action)
+    /**
+     * Проверка прав доступа
+     * @param $name
+     */
+    public static function checkAccesRules($name)
     {
-        if (in_array($action, static::$_read_actions) ){
+        $permissions = AccessHelper::getPermissionsByAction(Yii::$app->controller, $name);
+        foreach ($permissions as $permission){
+            if (Yii::$app->user->can($permission)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Возвращает полномочия по экшену или массиву экшенов
+     * @param $controller
+     * @param $action
+     * @return array
+     */
+    public static function getPermissionsByAction($controller, $action)
+    {
+        if ((! is_array($action) && in_array($action, static::$_read_actions) )
+            || (is_array($action) && $action === static::$_read_actions)){
             return [
                 AccessEnum::SUPERADMIN,
                 AccessEnum::ADMIN,
@@ -67,7 +90,8 @@ class AccessHelper
             ];
         }
 
-        if (in_array($action, static::$_edit_actions) ){
+        if ((! is_array($action) && in_array($action, static::$_edit_actions) )
+            || (is_array($action) && $action === static::$_edit_actions)){
             return [
                 AccessEnum::SUPERADMIN,
                 AccessEnum::ADMIN,
@@ -77,7 +101,8 @@ class AccessHelper
             ];
         }
 
-        if (in_array($action, static::$_sort_actions) ){
+        if ((! is_array($action) && in_array($action, static::$_sort_actions) )
+            || (is_array($action) && $action === static::$_sort_actions)){
             return [
                 AccessEnum::SUPERADMIN,
                 AccessEnum::ADMIN,
@@ -85,6 +110,8 @@ class AccessHelper
                 static::getAccessPermission($controller, PermissionEnum::EDITOR),
             ];
         }
+
+        return [];
     }
 
 
@@ -102,14 +129,7 @@ class AccessHelper
         $rules[] = [
             'actions' => static::$_read_actions,
             'allow' => true,
-            'roles' => [
-                AccessEnum::SUPERADMIN,
-                AccessEnum::ADMIN,
-                static::getAccessPermission($controller, PermissionEnum::ADMIN),
-                static::getAccessPermission($controller, PermissionEnum::STAFF),
-                static::getAccessPermission($controller, PermissionEnum::EDITOR),
-                static::getAccessPermission($controller, PermissionEnum::READER),
-            ],
+            'roles' => static::getPermissionsByAction($controller, static::$_read_actions),
         ];
         /**
          * Модификация
@@ -117,13 +137,7 @@ class AccessHelper
         $rules[] = [
             'actions' => static::$_edit_actions,
             'allow' => true,
-            'roles' => [
-                AccessEnum::SUPERADMIN,
-                AccessEnum::ADMIN,
-                static::getAccessPermission($controller, PermissionEnum::ADMIN),
-                static::getAccessPermission($controller, PermissionEnum::STAFF),
-                static::getAccessPermission($controller, PermissionEnum::EDITOR),
-            ],
+            'roles' => static::getPermissionsByAction($controller, static::$_edit_actions),
         ];
         /**
          * Сортировка
@@ -131,12 +145,7 @@ class AccessHelper
         $rules[] = [
             'actions' => static::$_sort_actions,
             'allow' => true,
-            'roles' => [
-                AccessEnum::SUPERADMIN,
-                AccessEnum::ADMIN,
-                static::getAccessPermission($controller, PermissionEnum::ADMIN),
-                static::getAccessPermission($controller, PermissionEnum::EDITOR),
-            ],
+            'roles' => static::getPermissionsByAction($controller, static::$_sort_actions),
         ];
 
         return $rules;
