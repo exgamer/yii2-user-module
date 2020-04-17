@@ -17,7 +17,9 @@ return [
         'ADMIN',
         'EDITOR',
         'READER',
-        'STAFF',
+        'STAFF' => [
+            'rule' => \concepture\yii2user\rbac\rules\StaffRule::class,
+        ]
     ],
     'default_dependencies' => [
         'ADMIN' => [

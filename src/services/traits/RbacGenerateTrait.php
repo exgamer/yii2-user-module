@@ -148,9 +148,22 @@ trait RbacGenerateTrait
                 continue;
             }
 
-            foreach ($defaultRoles as $role){
+            foreach ($defaultRoles as $key => $value){
+                $role = $key;
+                $config = null;
+                if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
+                    $role = $value;
+                }else{
+                    $config = $value;
+                }
+
                 $roleName = $name . "_" . $role;
-                $access[] = $roleName;
+                if ($config){
+                    $access[$roleName] = $config;
+                }else{
+                    $access[] = $roleName;
+                }
+
                 if (isset($defaultDependencies[$role])){
                     foreach ($defaultDependencies[$role] as $dependentRole){
                         $dependencies[$roleName][] = $name . "_" . $dependentRole;
