@@ -60,6 +60,10 @@ class AccessHelper
      */
     public static function checkAccesRules($name)
     {
+        if (in_array($name, [ 'activate', 'deactivate' ])){
+            $name = 'status-change';
+        }
+
         $permissions = AccessHelper::getPermissionsByAction(Yii::$app->controller, $name);
         foreach ($permissions as $permission){
             if (Yii::$app->user->can($permission)){
