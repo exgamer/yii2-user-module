@@ -92,6 +92,13 @@ class AccessHelper
             $name = 'status-change';
         }
 
+        /**
+         * Если экшен не является дефолтно заданным значит нужно проверку ставить вручную
+         */
+        if (! in_array($name, static::$_edit_actions) && ! in_array($name, static::$_read_actions) && ! in_array($name, static::$_sort_actions)){
+            return true;
+        }
+
         if (! $controller){
             $controller = Yii::$app->controller;
         }
