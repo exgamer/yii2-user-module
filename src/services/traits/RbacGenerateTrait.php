@@ -281,6 +281,9 @@ trait RbacGenerateTrait
                     continue;
                 }
 
+                /**
+                 * Если строка и она входит в массив стандартных полномочий добавляем в них все подобные полномочия
+                 */
                 if (! is_array( $childs ) && in_array($childs, PermissionEnum::all())){
                     $permissions = $db->createCommand("SELECT `name` FROM user_auth_item WHERE `name` LIKE '%{$childs}%' AND `type` = 2  GROUP BY `name`;")->queryAll();
                     if ($permissions){
