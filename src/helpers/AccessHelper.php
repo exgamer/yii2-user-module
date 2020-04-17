@@ -56,6 +56,12 @@ class AccessHelper
 
     /**
      * Проверка прав доступа
+     *
+     * Пример:
+     * 
+     * AccessHelper::checkAccess('create');
+     * AccessHelper::checkAccess(['site/index]);
+     *
      * @param $name
      */
     public static function checkAccess($name)

@@ -173,5 +173,5 @@ class SomeController extends BaseController
 
 ```php
 <?php
-     AccessHelper::checkAccess($route));
+     AccessHelper::checkAccess($route);
 ```
