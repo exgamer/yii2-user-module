@@ -169,9 +169,9 @@ class SomeController extends BaseController
 # команда для генерации ролей привилеий и правил
    php yii user/rbac/generate 
 
-# Првоерка на доступ к роуту или экшену
+# Проверка на доступ к роуту или экшену
 
 ```php
 <?php
-     AccessHelper::checkAcces($route));
+     AccessHelper::checkAccess($route));
 ```
