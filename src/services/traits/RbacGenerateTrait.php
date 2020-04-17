@@ -2,6 +2,7 @@
 namespace concepture\yii2user\services\traits;
 
 use concepture\yii2logic\helpers\ClassHelper;
+use concepture\yii2user\enum\PermissionEnum;
 use concepture\yii2user\forms\UserAuthPermissionForm;
 use concepture\yii2user\forms\UserAuthRoleForm;
 use Yii;
@@ -279,6 +280,23 @@ trait RbacGenerateTrait
 
                     continue;
                 }
+
+                if (! is_array( $childs ) && in_array($childs, PermissionEnum::all())){
+                    $permissions = $db->createCommand("SELECT `name` FROM user_auth_item WHERE `name` LIKE '%{$childs}%' AND `type` = 2  GROUP BY `name`;")->queryAll();
+                    if ($permissions){
+                        foreach ($permissions as $p){
+                            $item = $this->getPermission($p['name']);
+                            if (! $item){
+                                continue;
+                            }
+
+                            $this->addChild($parentItem, $item);
+                        }
+                    }
+
+                    continue;
+                }
+
 
                 foreach ($childs as $child){
                     $childItem = $this->getPermission($child);

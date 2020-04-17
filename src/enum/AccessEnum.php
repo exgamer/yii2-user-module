@@ -23,4 +23,7 @@ class AccessEnum extends Enum
      * Роль добавлена для обратной совместимости с прошлой версией
      */
     const ADMIN = "admin";
+    const EDITOR = "EDITOR";
+    const READER = "READER";
+    const STAFF = "STAFF";
 }

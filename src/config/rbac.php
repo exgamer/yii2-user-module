@@ -1,5 +1,6 @@
 <?php
 use concepture\yii2user\enum\AccessEnum;
+use concepture\yii2user\enum\PermissionEnum;
 use concepture\yii2user\rbac\rules\StaffRule;
 
 return [
@@ -13,6 +14,9 @@ return [
     'permissions' => [
         AccessEnum::SUPERADMIN,
         AccessEnum::ADMIN,
+        AccessEnum::EDITOR,
+        AccessEnum::READER,
+        AccessEnum::STAFF,
     ],
     'default_roles' => [
         'ADMIN',
@@ -39,5 +43,8 @@ return [
     'dependencies' => [
         AccessEnum::SUPERADMIN => '*',
         AccessEnum::ADMIN => '*',
+        AccessEnum::EDITOR => PermissionEnum::EDITOR,
+        AccessEnum::READER => PermissionEnum::READER,
+        AccessEnum::STAFF => PermissionEnum::STAFF,
     ],
 ];
