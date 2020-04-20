@@ -2,7 +2,7 @@
 namespace concepture\yii2user\services;
 
 use concepture\yii2logic\helpers\ClassHelper;
-use concepture\yii2user\enum\AccessEnum;
+use concepture\yii2logic\enum\AccessEnum;
 use concepture\yii2user\forms\UserAuthPermissionForm;
 use Yii;
 use concepture\yii2user\forms\UserAuthRoleForm;

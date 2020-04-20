@@ -2,11 +2,12 @@
 namespace concepture\yii2user\services\traits;
 
 use concepture\yii2logic\helpers\ClassHelper;
-use concepture\yii2user\enum\PermissionEnum;
+use concepture\yii2logic\enum\PermissionEnum;
 use concepture\yii2user\forms\UserAuthPermissionForm;
 use concepture\yii2user\forms\UserAuthRoleForm;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\FileHelper;
 
 /**
  * Треит с методами для генерации ролей и полномочий для rbac
@@ -24,11 +25,11 @@ trait RbacGenerateTrait
      */
     protected function getControllerClasses()
     {
-        $projectControllers = \yii\helpers\FileHelper::findFiles(Yii::getAlias('@backend'), ['recursive' => true, 'only'=>['*Controller.php']]);
+        $projectControllers = FileHelper::findFiles(Yii::getAlias('@backend'), ['recursive' => true, 'only'=>['*Controller.php']]);
         $c = [];
-        $conceptureControllers = \yii\helpers\FileHelper::findFiles(Yii::getAlias('@vendor/concepture'), ['recursive' => true, 'only'=>['*Controller.php']]);
+        $conceptureControllers = FileHelper::findFiles(Yii::getAlias('@vendor/concepture'), ['recursive' => true, 'only'=>['*Controller.php']]);
         $controllers = ArrayHelper::merge($projectControllers, $conceptureControllers);
-        $kamaelControllers = \yii\helpers\FileHelper::findFiles(Yii::getAlias('@vendor/kamaelkz'), ['recursive' => true, 'only'=>['*Controller.php']]);
+        $kamaelControllers = FileHelper::findFiles(Yii::getAlias('@vendor/kamaelkz'), ['recursive' => true, 'only'=>['*Controller.php']]);
         $controllers = ArrayHelper::merge($controllers, $kamaelControllers);
         foreach ($controllers as $controller){
             $handle = fopen($controller, "r");
