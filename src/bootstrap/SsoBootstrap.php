@@ -51,7 +51,7 @@ class SsoBootstrap implements BootstrapInterface
                 if ($sso){
                     $data = JwtHelper::decodeJWT($sso);
                     if (isset($data['user_id']) && $data['user_id'] !== null){
-                        $user = Yii::$app->userService->findById($data['user_id'], ['userRoles']);
+                        $user = Yii::$app->userService->findById($data['user_id']);
                         if ($user->status !== StatusEnum::ACTIVE){
                             return false;
                         }

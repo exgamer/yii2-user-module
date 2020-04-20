@@ -134,7 +134,7 @@ class SsoAuthHelper implements AuthHelperInterface
 
         $data = JwtHelper::decodeJWT($body['token']);
         $userId = $data['user_id'];
-        $user = $this->userService()->findById($userId, ['userRoles']);
+        $user = $this->userService()->findById($userId);
         if ($user->status !== StatusEnum::ACTIVE){
             $error = Yii::t ( 'user', "Пользователь неактивен" );
             $form->addError('identity', $error);
