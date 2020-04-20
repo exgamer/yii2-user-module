@@ -36,17 +36,6 @@ class User extends ActiveRecord implements IdentityInterface
     use ModelTrait;
 
     /**
-     * Users roles array
-     * Contains associative array, where key is role and value is instance of UserRoles class
-     * Example
-     *        [
-     *              'admin
-     *        ]
-     * @var array of UserRoles models
-     */
-    public $roles=[];
-
-    /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
      *
      * @return string
@@ -175,32 +164,5 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserCredentialService()
     {
         return Yii::$app->userCredentialService;
-    }
-
-    /**
-     * Возвращает связь для ролей пользователя
-     *
-     * @return ActiveQuery
-     */
-    public function getUserRoles()
-    {
-        return $this->hasMany(UserRole::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * переопределем обработку связей
-     * @param type $name
-     * @param type $records
-     */
-    public function populateRelation($name, $records)
-    {
-        if($name=='userRoles'){
-            $this->roles=[];
-            foreach($records as $r){
-                $this->roles[] = $r->role;
-            }
-            return;
-        }
-        parent::populateRelation($name, $records);
     }
 }

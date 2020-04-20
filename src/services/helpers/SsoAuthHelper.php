@@ -149,18 +149,6 @@ class SsoAuthHelper implements AuthHelperInterface
             return false;
         }
 
-        if (!empty($form->restrictions)){
-            $roles = $this->userRoleService()->getRolesByUserId($user->id);
-            $roles = array_keys($roles);
-            $result = array_intersect ($roles, $form->restrictions);
-            if (empty($result)){
-                $error = Yii::t ( 'user', "Пользователь не найден" );
-                $form->addError('identity', $error);
-
-                return false;
-            }
-        }
-
         Yii::$app->user->login(
             $user,
             $form->rememberMe ? 3600 : 0
