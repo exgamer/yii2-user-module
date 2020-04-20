@@ -79,7 +79,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
-        $user = $this->userService()->findById($credential->user_id, ['userRoles']);
+        $user = $this->userService()->findById($credential->user_id);
         if ($user->status !== StatusEnum::ACTIVE){
             $error = Yii::t ( 'user', "Пользователь неактивен" );
             $form->addError('identity', $error);
