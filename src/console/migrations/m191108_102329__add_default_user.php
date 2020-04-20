@@ -22,10 +22,7 @@ class m191108_102329__add_default_user extends Migration
         $form->identity = "admin@example.com";
         $form->validation = "123456";
         $model = Yii::$app->authService->signUp($form);
-        $form = new UserRoleForm();
-        $form->role = UserRoleEnum::ADMIN;
-        $form->user_id = $model->id;
-        Yii::$app->userRoleService->create($form);
+        Yii::$app->rbacService->assign($model->id, \concepture\yii2logic\enum\AccessEnum::SUPERADMIN);
     }
 
     /**
