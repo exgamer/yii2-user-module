@@ -24,7 +24,7 @@ class StaffRule extends Rule
             return true;
         }
 
-        if ($model->hasAttribute('owner_id') && $user->id !== $model->owner_id){
+        if ($model->hasAttribute('owner_id') && $user !== $model->owner_id){
             return false;
         }
 
