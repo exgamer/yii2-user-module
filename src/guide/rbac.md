@@ -52,7 +52,7 @@ fi
 
 namespace common\enum;
 
-use concepture\yii2user\enum\AccessEnum as Base;
+use concepture\yii2logic\enum\AccessEnum as Base;
 use Yii;
 
 /**
@@ -141,8 +141,8 @@ return [
 
 ```php
 <?php
-use concepture\yii2user\enum\AccessEnum;
-use concepture\yii2user\helpers\AccessHelper;
+use concepture\yii2logic\enum\AccessEnum;
+use concepture\yii2logic\helpers\AccessHelper;
 use kamaelkz\yii2admin\v1\controllers\BaseController;
 
 class SomeController extends BaseController
