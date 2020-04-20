@@ -1,6 +1,6 @@
 <?php
-use concepture\yii2user\enum\AccessEnum;
-use concepture\yii2user\enum\PermissionEnum;
+use concepture\yii2logic\enum\AccessEnum;
+use concepture\yii2logic\enum\PermissionEnum;
 use concepture\yii2user\rbac\rules\StaffRule;
 
 return [
