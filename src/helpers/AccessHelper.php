@@ -63,9 +63,10 @@ class AccessHelper
      * AccessHelper::checkAccess(['site/index]);
      *
      * @param $name
+     * @param array $params
      * @return bool
      */
-    public static function checkAccess($name)
+    public static function checkAccess($name, $params = [])
     {
         $action = null;
         $controller = null;
@@ -105,7 +106,7 @@ class AccessHelper
 
         $permissions = AccessHelper::getPermissionsByAction($controller, $name);
         foreach ($permissions as $permission){
-            if (Yii::$app->user->can($permission)){
+            if (Yii::$app->user->can($permission, $params)){
                 return true;
             }
         }
