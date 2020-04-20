@@ -163,7 +163,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
-        $user = $this->userService()->findById($credential->user_id, ['userRoles']);
+        $user = $this->userService()->findById($credential->user_id);
         if (!$user){
             $error = Yii::t ( 'user', "Пользователь не найден" );
             $form->addError('validation', $error);
