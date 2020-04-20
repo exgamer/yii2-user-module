@@ -173,5 +173,10 @@ class SomeController extends BaseController
 
 ```php
 <?php
-     AccessHelper::checkAccess($route);
+    AccessHelper::checkAccess('create');
+    AccessHelper::checkAccess(['site/index']);
+    /**
+    * Проверка на доступ для STAFF
+    */
+    AccessHelper::checkAccess(['site/index'], ['model' => $model]);
 ```
