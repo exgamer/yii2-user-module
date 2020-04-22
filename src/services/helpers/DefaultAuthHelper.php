@@ -33,7 +33,7 @@ class DefaultAuthHelper implements AuthHelperInterface
      * @return ActiveRecord|boolean
      * @throws Exception
      */
-    public function signUp(SignUpForm $form)
+    public function signUp(SignUpForm $form, $mailViewPath = "@concepture/yii2user/views/mailer/success_registration_html")
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if ($credential) {
@@ -56,7 +56,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         MailerHelper::send(
             $form->identity,
             Yii::t('user','Успешная регистрация - ' . Yii::$app->name),
-            Yii::$app->controller->renderPartial("@concepture/yii2user/views/mailer/success_registration_html",['form'=> $form, 'password'=>$realPass])
+            Yii::$app->controller->renderPartial($mailViewPath,['form'=> $form, 'password'=>$realPass])
         );
 
         return $user;
@@ -126,7 +126,7 @@ class DefaultAuthHelper implements AuthHelperInterface
      * @return bool
      * @throws Exception
      */
-    public function sendPasswordResetEmail(EmailPasswordResetRequestForm $form)
+    public function sendPasswordResetEmail(EmailPasswordResetRequestForm $form, $mailViewPath = "@concepture/yii2user/views/mailer/password_reset_html")
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
@@ -147,7 +147,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         MailerHelper::send(
             $form->identity,
             Yii::t('user','Смена пароля - ' . Yii::$app->name),
-            Yii::$app->controller->renderPartial("@concepture/yii2user/views/mailer/password_reset_html",['route'=>$form->route, 'token'=>$model->validation])
+            Yii::$app->controller->renderPartial($mailViewPath,['route'=>$form->route, 'token'=>$model->validation])
         );
 
         return true;
