@@ -51,7 +51,13 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
+        $realPass = $form->validation;
         $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
+        MailerHelper::send(
+            $form->identity,
+            Yii::t('user','Успешная регистрация - ' . Yii::$app->name),
+            Yii::$app->controller->renderPartial("@concepture/yii2user/views/mailer/success_registration_html",['form'=> $form, 'password'=>$realPass])
+        );
 
         return $user;
     }
