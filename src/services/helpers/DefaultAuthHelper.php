@@ -53,11 +53,13 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $realPass = $form->validation;
         $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
-        MailerHelper::send(
-            $form->identity,
-            Yii::t('user','Успешная регистрация - ' . Yii::$app->name),
-            Yii::$app->controller->renderPartial($form->mailTmpPath,['form'=> $form, 'password'=>$realPass])
-        );
+        if ($form->sendMail) {
+            MailerHelper::send(
+                $form->identity,
+                Yii::t('user', 'Успешная регистрация - ' . Yii::$app->name),
+                Yii::$app->controller->renderPartial($form->mailTmpPath, ['form' => $form, 'password' => $realPass])
+            );
+        }
 
         return $user;
     }
@@ -144,11 +146,13 @@ class DefaultAuthHelper implements AuthHelperInterface
         $token->type = UserCredentialTypeEnum::VALIDATION_RESET_TOKEN;
         $token->validation = Yii::$app->security->generateRandomString() . '_' . time();
         $model = $this->userCredentialService()->save($token, $tokenModel);
-        MailerHelper::send(
-            $form->identity,
-            Yii::t('user','Смена пароля - ' . Yii::$app->name),
-            Yii::$app->controller->renderPartial($form->mailTmpPath,['route'=>$form->route, 'token'=>$model->validation])
-        );
+        if ($form->sendMail) {
+            MailerHelper::send(
+                $form->identity,
+                Yii::t('user', 'Смена пароля - ' . Yii::$app->name),
+                Yii::$app->controller->renderPartial($form->mailTmpPath, ['route' => $form->route, 'token' => $model->validation])
+            );
+        }
 
         return true;
     }
