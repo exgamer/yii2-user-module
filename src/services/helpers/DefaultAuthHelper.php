@@ -15,6 +15,7 @@ use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
 use yii\db\ActiveQuery;
 use yii\db\Exception;
+use concepture\yii2logic\helpers\MailerHelper;
 
 /**
  * Class DefaultAuthHelper
