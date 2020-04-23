@@ -19,7 +19,7 @@ class SignUpForm extends Model
     public $validation;
     public $credentialType= UserCredentialTypeEnum::EMAIL;
     public $mailTmpPath = "@concepture/yii2user/views/mailer/success_registration_html";
-    public $sendMail = true;
+    public $sendMail = false;
 
     /**
      * {@inheritdoc}
