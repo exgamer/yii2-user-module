@@ -29,6 +29,6 @@ class SocialAuthFilter extends ActionFilter
             $this->owner->redirect($redirect);
         }
 
-        return true;
+        return parent::beforeAction($action);
     }
 }
