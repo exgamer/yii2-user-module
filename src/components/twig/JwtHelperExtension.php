@@ -21,7 +21,7 @@ class JwtHelperExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('jwt_token', function(array $array) {
+            new TwigFunction('jwt_token', function(array $array = []) {
                 return SsoHelper::getSsoJwtToken($array);
             }),
         ];
