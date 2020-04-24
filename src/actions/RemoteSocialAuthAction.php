@@ -23,6 +23,6 @@ class RemoteSocialAuthAction extends Action
         $client = unserialize(Yii::$app->request->post()['client']);
         Yii::$app->authService->onSocialAuthSuccess($client);
 
-        return $this->responseJson([]);
+        return $this->controller->responseJson([]);
     }
 }
