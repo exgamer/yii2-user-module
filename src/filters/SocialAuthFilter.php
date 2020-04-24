@@ -4,6 +4,7 @@ namespace concepture\yii2user\filters;
 use concepture\yii2logic\helpers\JwtHelper;
 use Yii;
 use yii\base\ActionFilter;
+use yii\helpers\Url;
 use yii\web\ForbiddenHttpException;
 
 /**
@@ -23,10 +24,11 @@ class SocialAuthFilter extends ActionFilter
             $data = JwtHelper::decodeJWT(Yii::$app->request->getQueryParam('socialclient'));
             $client = unserialize($data['client']);
             Yii::$app->authService->onSocialAuthSuccess($client);
+            $redirect = Url::current(['socialclient'=>null], true);
 
-            $this->owner->refresh();
+            $this->owner->redirect($redirect);
         }
-        
+
         return true;
     }
 }
