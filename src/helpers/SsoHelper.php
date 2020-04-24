@@ -68,7 +68,7 @@ class SsoHelper
             $payload['user_id'] = Yii::$app->user->identity->id;
         }
 
-        $payload['session_id'] = Yii::$app->session->getId();;
+        $payload['session_id'] = Yii::$app->session->getId();
 
         $payload = ArrayHelper::merge($payload, $data);
 
