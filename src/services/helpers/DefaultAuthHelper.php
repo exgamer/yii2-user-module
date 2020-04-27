@@ -233,6 +233,9 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function onSocialAuthSuccess($client)
     {
+        /**
+         * хак для возможности авторизации по массиву
+         */
         if (! $client instanceof BaseClient){
             if (is_object($client)){
                 $client = get_object_vars($client);
