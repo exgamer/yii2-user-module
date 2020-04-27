@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\services\helpers;
 
+use concepture\yii2user\authclients\Client;
 use Yii;
 use concepture\yii2logic\services\Service;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
@@ -13,6 +14,7 @@ use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\enum\IsDeletedEnum;
+use yii\authclient\BaseClient;
 use yii\db\ActiveQuery;
 use yii\db\Exception;
 use concepture\yii2logic\helpers\MailerHelper;
@@ -231,6 +233,19 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function onSocialAuthSuccess($client)
     {
+        if (! $client instanceof BaseClient){
+            if (is_object($client)){
+                $client = get_object_vars($client);
+            }
+
+            $newClient = new Client();
+            $newClient->setId($client['id']);
+            $newClient->setName($client['name']);
+            $newClient->setTitle($client['title']);
+            $newClient->setUserAttributes($client['userAttributes']);
+            $client = $newClient;
+        }
+
         $attributes = $client->getUserAttributes();
         $auth = $this->userSocialAuthService()->getOneByCondition(function(ActiveQuery $query) use($client, $attributes){
             $query->andWhere([
@@ -374,6 +389,5 @@ class DefaultAuthHelper implements AuthHelperInterface
             case 'twitter':
                 return null;
         }
-
     }
 }
