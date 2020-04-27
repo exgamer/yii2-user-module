@@ -242,7 +242,13 @@ class DefaultAuthHelper implements AuthHelperInterface
             $newClient->setId($client['id']);
             $newClient->setName($client['name']);
             $newClient->setTitle($client['title']);
-            $newClient->setUserAttributes($client['userAttributes']);
+            if (is_object($client['userAttributes'])){
+                $userAttributes = get_object_vars($client['userAttributes']);
+            }else{
+                $userAttributes = $client['userAttributes'];
+            }
+
+            $newClient->setUserAttributes($userAttributes);
             $client = $newClient;
         }
 
