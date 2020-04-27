@@ -20,11 +20,11 @@ class SocialAuthFilter extends ActionFilter
             return true;
         }
 
-        if (Yii::$app->request->getQueryParam('socialclient')){
-            $data = JwtHelper::decodeJWT(Yii::$app->request->getQueryParam('socialclient'));
-            $client = unserialize($data['client']);
+        if (Yii::$app->request->getQueryParam('s_c')){
+            $data = JwtHelper::decodeJWT(Yii::$app->request->getQueryParam('s_c'));
+            $client = $data['client'];
             Yii::$app->authService->onSocialAuthSuccess($client);
-            $redirect = Url::current(['socialclient'=>null], true);
+            $redirect = Url::current(['s_c'=>null], true);
 
             $this->owner->redirect($redirect);
         }
