@@ -46,9 +46,9 @@ SSO_APP_ID=1
 ```
 
 5. на представлении подключить скрипт 
+    Клиенты: github, mailru, vkontakte, google, yandex, odnoklassniki
 ```twig
     <script defer src="http://social-auth.loc/auth.js"></script>
-    <div id="socialAuth" data-x-token="{{ jwt_token() }}" data-auth-host="http://social-auth.loc">
-        <a href="#" data-auth-client="github" class="auth-link">github</a>
-    </div>
+
+    <div id="socialAuth" data-x-token="{{ jwt_token() }}" data-auth-host="http://social-auth.loc" data-redirect-url="{{ app.request.absoluteUrl }}" data-clients="github,mailru,vkontakte"></div>
 ```
