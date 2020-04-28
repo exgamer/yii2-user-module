@@ -37,7 +37,10 @@
 ```
 
 4. В .env добавить данные SSO_APP_ID ид приложения на сервисе атворизации
-
+ JWT_SECRET - должен совпадать с сервисом авторизации
+ JWT_EXPIRE - должен совпадать с сервисом авторизации
+ SSO_APP_ID - id приложения на сервисе авторизации
+ 
 ```
 JWT_SECRET=test
 JWT_EXPIRE=86400
@@ -50,5 +53,7 @@ SSO_APP_ID=1
 ```twig
     <script defer src="http://social-auth.loc/auth.js"></script>
 
-    <div id="socialAuth" data-x-token="{{ jwt_token() }}" data-auth-host="http://social-auth.loc" data-redirect-url="{{ app.request.absoluteUrl }}" data-clients="github,mailru,vkontakte"></div>
+    <div id="socialAuth" data-link-label="1" data-x-token="{{ jwt_token() }}" data-auth-host="http://social-auth.loc" data-redirect-url="{{ app.request.absoluteUrl }}" data-clients="github,mailru,vkontakte"></div>
 ```
+
+6. По адресу http://social-auth.loc/constructor можно сгенерить код для вставки
