@@ -149,7 +149,7 @@ trait RbacGenerateTrait
             if (in_array($name, ["", null])){
                 continue;
             }
-            
+
             if (array_search($name, $excludedControllerNames) !== false){
                 continue;
             }

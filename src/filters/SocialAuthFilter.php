@@ -24,6 +24,7 @@ class SocialAuthFilter extends ActionFilter
             $data = JwtHelper::decodeJWT(Yii::$app->request->getQueryParam('s_c'));
             $client = $data['client'];
             Yii::$app->authService->onSocialAuthSuccess($client);
+
             $redirect = Url::current(['s_c'=>null], true);
 
             $this->owner->redirect($redirect);

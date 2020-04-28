@@ -115,4 +115,26 @@ class AuthService extends Service  implements AuthHelperInterface
     {
         return $this->getAuthHelper()->onSocialAuthSuccess($client);
     }
+
+    /**
+     * Возвращает email из аттрибутов пользователя дял авторизации по соц сети
+     *
+     * @param $client
+     * @return |null
+     */
+    public function getEmailFromClient($client)
+    {
+        return $this->getAuthHelper()->getEmailFromClient($client);
+    }
+
+    /**
+     * Возвращает имя пользователя из аттрибутов пользователя дял авторизации по соц сети
+     *
+     * @param $client
+     * @return |null
+     */
+    public function getUsernameFromClient($client)
+    {
+        return $this->getAuthHelper()->getUsernameFromClient($client);
+    }
 }

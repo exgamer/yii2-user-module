@@ -336,7 +336,7 @@ class DefaultAuthHelper implements AuthHelperInterface
      * @param $client
      * @return |null
      */
-    protected function getEmailFromClient($client)
+    public function getEmailFromClient($client)
     {
         $attributes = $client->getUserAttributes();
         switch ($client->getId()){
@@ -370,7 +370,7 @@ class DefaultAuthHelper implements AuthHelperInterface
      * @param $client
      * @return |null
      */
-    protected function getUsernameFromClient($client)
+    public function getUsernameFromClient($client)
     {
         $attributes = $client->getUserAttributes();
         switch ($client->getId()){
