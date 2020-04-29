@@ -143,7 +143,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAuthKey()
     {
         $cred = $this->getUserCredentialService()->findByType($this->id, UserCredentialTypeEnum::EMAIL);
-        if (! $cred && SsoHelper::isSsoEnabled()){
+        if (! $cred || (! $cred && SsoHelper::isSsoEnabled())){
             return null;
         }
 
