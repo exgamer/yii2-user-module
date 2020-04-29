@@ -148,6 +148,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $token->type = UserCredentialTypeEnum::VALIDATION_RESET_TOKEN;
         $token->validation = Yii::$app->security->generateRandomString() . '_' . time();
         $model = $this->userCredentialService()->save($token, $tokenModel);
+        $form->token = $token->validation;
         if ($form->sendMail) {
             MailerHelper::send(
                 $form->identity,

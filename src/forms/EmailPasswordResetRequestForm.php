@@ -17,6 +17,7 @@ class EmailPasswordResetRequestForm extends Model
     public $route = 'site/reset-password';
     public $mailTmpPath = "@concepture/yii2user/views/mailer/password_reset_html";
     public $sendMail = true;
+    public $token;
 
     /**
      * @inheritdoc
