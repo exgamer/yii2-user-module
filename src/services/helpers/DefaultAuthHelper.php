@@ -56,7 +56,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         $realPass = $form->validation;
-        $cred = $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
+        $cred = $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId(), $form->status);
         $tokenModel = $this->userCredentialService()->findByIdentity($form->identity, UserCredentialTypeEnum::CREDENTIAL_CONFIRM_TOKEN);
         $token = new UserCredentialForm();
         $token->user_id = $cred->user_id;

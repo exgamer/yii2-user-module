@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\forms;
 
+use concepture\yii2user\enum\UserCredentialStatusEnum;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use Yii;
 use concepture\yii2logic\forms\Model;
@@ -17,6 +18,7 @@ class SignUpForm extends Model
     public $username;
     public $identity;
     public $validation;
+    public $status = UserCredentialStatusEnum::ACTIVE;
     public $credentialType= UserCredentialTypeEnum::EMAIL;
     public $mailTmpPath = "@concepture/yii2user/views/mailer/success_registration_html";
     public $sendMail = true;
@@ -39,6 +41,7 @@ class SignUpForm extends Model
                 'min' => 6,
                 'max'=>100
             ],
+            ['status', 'integer'],
             ['identity', 'trim'],
             ['validation', 'trim'],
             ['username', 'trim'],
