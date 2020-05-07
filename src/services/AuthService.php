@@ -2,6 +2,7 @@
 namespace concepture\yii2user\services;
 
 use concepture\yii2logic\helpers\MailerHelper;
+use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
 use concepture\yii2user\forms\SignInForm;
@@ -57,7 +58,17 @@ class AuthService extends Service  implements AuthHelperInterface
         return $this->getAuthHelper()->signUp($form);
     }
 
-
+    /**
+     * Подтверждение учетки
+     *
+     * @param CredentialConfirmForm $form
+     * @return boolean
+     * @throws Exception
+     */
+    public function confirmCredential(CredentialConfirmForm $form)
+    {
+        return $this->getAuthHelper()->confirmCredential($form);
+    }
 
     /**
      * Авторизация пользователя

@@ -4,6 +4,7 @@ namespace concepture\yii2user\services\helpers;
 use concepture\yii2logic\enum\IsDeletedEnum;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\helpers\JwtHelper;
+use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\helpers\SsoHelper;
 use GuzzleHttp\Client;
 use Yii;
@@ -92,6 +93,11 @@ class SsoAuthHelper implements AuthHelperInterface
         }
 
         return $user;
+    }
+
+    public function confirmCredential(CredentialConfirmForm $form)
+    {
+        throw new \Exception("not realised!!!");
     }
 
     /**
@@ -301,4 +307,6 @@ class SsoAuthHelper implements AuthHelperInterface
     {
         // @TODO реализовать авторизацию через социалки для sso
     }
+
+
 }

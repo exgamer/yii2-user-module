@@ -2,6 +2,8 @@
 namespace concepture\yii2user\services\helpers;
 
 use concepture\yii2user\authclients\Client;
+use concepture\yii2user\enum\UserCredentialStatusEnum;
+use concepture\yii2user\forms\CredentialConfirmForm;
 use Yii;
 use concepture\yii2logic\services\Service;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
@@ -54,7 +56,16 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         $realPass = $form->validation;
-        $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
+        $cred = $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId());
+        $tokenModel = $this->userCredentialService()->findByIdentity($form->identity, UserCredentialTypeEnum::CREDENTIAL_CONFIRM_TOKEN);
+        $token = new UserCredentialForm();
+        $token->user_id = $cred->user_id;
+        $token->identity = $cred->identity;
+        $token->parent_id = $cred->id;
+        $token->type = UserCredentialTypeEnum::VALIDATION_RESET_TOKEN;
+        $token->validation = Yii::$app->security->generateRandomString() . '_' . time();
+        $model = $this->userCredentialService()->save($token, $tokenModel);
+        $form->confirmToken = $token->validation;
         if ($form->sendMail) {
             MailerHelper::send(
                 $form->identity,
@@ -64,6 +75,50 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         return $user;
+    }
+
+    /**
+     * Подтверждение учетки
+     *
+     * @param CredentialConfirmForm $form
+     * @return bool
+     */
+    public function confirmCredential(CredentialConfirmForm $form)
+    {
+        $credential = $this->userCredentialService()->findByValidation($form->token);
+        if (!$credential) {
+            $error = Yii::t ( 'user', "Токен недействителен" );
+            $form->addError('validation', $error);
+
+            return false;
+        }
+
+        $user = $this->userService()->findById($credential->user_id);
+        if (!$user){
+            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $form->addError('validation', $error);
+
+            return false;
+        }
+
+        $identity = $credential->identity;
+        $this->userCredentialService()->delete($credential);
+        $credential = $this->userCredentialService()->findByIdentity($identity);
+        if (!$credential) {
+            $error = Yii::t ( 'user', "Логин не существует" );
+            $form->addError('validation', $error);
+
+            return false;
+        }
+
+        $credential->status = UserCredentialStatusEnum::ACTIVE;
+        $credential->save(false);
+        Yii::$app->user->login(
+            $user,
+            3600
+        );
+
+        return true;
     }
 
     /**

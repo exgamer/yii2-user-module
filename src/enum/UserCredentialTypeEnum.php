@@ -17,4 +17,5 @@ class UserCredentialTypeEnum extends Enum
     const EMAIL = 2;
     const AUTH_TOKEN = 3;
     const VALIDATION_RESET_TOKEN = 4;
+    const CREDENTIAL_CONFIRM_TOKEN = 5;
 }
