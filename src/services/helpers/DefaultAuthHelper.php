@@ -88,7 +88,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $credential = $this->userCredentialService()->findByValidation($form->token);
         if (!$credential) {
             $error = Yii::t ( 'user', "Токен недействителен" );
-            $form->addError('validation', $error);
+            $form->addError('token', $error);
 
             return false;
         }
@@ -96,7 +96,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $user = $this->userService()->findById($credential->user_id);
         if (!$user){
             $error = Yii::t ( 'user', "Пользователь не найден" );
-            $form->addError('validation', $error);
+            $form->addError('token', $error);
 
             return false;
         }
@@ -106,7 +106,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $credential = $this->userCredentialService()->findByIdentity($identity);
         if (!$credential) {
             $error = Yii::t ( 'user', "Логин не существует" );
-            $form->addError('validation', $error);
+            $form->addError('token', $error);
 
             return false;
         }
