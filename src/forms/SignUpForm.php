@@ -21,6 +21,7 @@ class SignUpForm extends Model
     public $mailTmpPath = "@concepture/yii2user/views/mailer/success_registration_html";
     public $sendMail = true;
 
+    public $confirmRoute = 'site/confirm';
     public $confirmToken;
 
     /**

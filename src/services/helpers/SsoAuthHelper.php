@@ -31,6 +31,7 @@ class SsoAuthHelper implements AuthHelperInterface
     use ServicesTrait;
 
     /**
+     * @TODO нереализовано продтверждение учетки
      * Регистрация пользователя
      *
      * @param SignUpForm $form
