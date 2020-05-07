@@ -103,7 +103,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $identity = $credential->identity;
         $this->userCredentialService()->delete($credential);
-        $credential = $this->userCredentialService()->findByIdentity($identity);
+        $credential = $this->userCredentialService()->findByIdentity($identity, UserCredentialTypeEnum::EMAIL, UserCredentialStatusEnum::INACTIVE);
         if (!$credential) {
             $error = Yii::t ( 'user', "Логин не существует" );
             $form->addError('token', $error);

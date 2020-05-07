@@ -77,16 +77,17 @@ class UserCredentialService extends Service
     /**
      * Возвращает запись по identity
      * @param $identity
-     * @param $type
+     * @param int $type
+     * @param int $status
      * @return ActiveRecord
      */
-    public function findByIdentity($identity, $type = UserCredentialTypeEnum::EMAIL)
+    public function findByIdentity($identity, $type = UserCredentialTypeEnum::EMAIL, $status = UserCredentialStatusEnum::ACTIVE)
     {
         return $this->getQuery()->andWhere(
             [
                 'identity' => $identity,
                 'type' => $type,
-                'status' => UserCredentialStatusEnum::ACTIVE,
+                'status' => $status,
             ]
         )->one();
     }
