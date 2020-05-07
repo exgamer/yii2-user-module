@@ -62,7 +62,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $token->user_id = $cred->user_id;
         $token->identity = $cred->identity;
         $token->parent_id = $cred->id;
-        $token->type = UserCredentialTypeEnum::VALIDATION_RESET_TOKEN;
+        $token->type = UserCredentialTypeEnum::CREDENTIAL_CONFIRM_TOKEN;
         $token->validation = Yii::$app->security->generateRandomString() . '_' . time();
         $model = $this->userCredentialService()->save($token, $tokenModel);
         $form->confirmToken = $token->validation;
