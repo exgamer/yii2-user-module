@@ -29,9 +29,9 @@ class WebUser extends User
         parent::renewAuthStatus();
         $identity = $this->getIdentity();
         if ($identity  && Yii::$app->has('cache')) {
-            Yii::$app->cache->getOrSet(static::$isActivePrefix . $identity->id, function ($identity) {
-//                $identity->last_seen = date('Y-m-d H:i:s');
-//                $identity->save(false);
+            Yii::$app->cache->getOrSet(static::$isActivePrefix . $identity->id, function () use ($identity) {
+                $identity->last_seen = date('Y-m-d H:i:s');
+                $identity->save(false);
 
                 return 1;
             }, 300);
