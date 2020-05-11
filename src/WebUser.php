@@ -27,12 +27,14 @@ class WebUser extends User
     protected function renewAuthStatus()
     {
         parent::renewAuthStatus();
-        $session = Yii::$app->getSession();
         $identity = $this->getIdentity();
         if ($identity  && Yii::$app->has('cache')) {
-            Yii::$app->cache->getOrSet(static::$isActivePrefix . $identity->id, function () {
+            Yii::$app->cache->getOrSet(static::$isActivePrefix . $identity->id, function ($identity) {
+                $identity->last_seen = date('Y-m-d H:i:s');
+                $identity->save(false);
+
                 return 1;
-            }, 180);
+            }, 300);
         }
     }
 }

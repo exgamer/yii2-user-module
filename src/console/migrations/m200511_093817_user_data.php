@@ -23,6 +23,7 @@ class m200511_093817_user_data extends Migration
         $this->createColumn("famous", $this->smallInteger()->defaultValue(0));
         $this->createColumn("website", $this->string(255));
         $this->createColumn("last_login", $this->dateTime());
+        $this->createColumn("last_seen", $this->dateTime());
     }
 
     /**
