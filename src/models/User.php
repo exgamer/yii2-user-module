@@ -52,6 +52,18 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Возвращает дату последнего появления онлайн
+     *
+     * @return date
+     */
+    public function getLastSeen()
+    {
+
+
+        return $this->last_seen;
+    }
+
+    /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
      *
      * @return string
