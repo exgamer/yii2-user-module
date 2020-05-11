@@ -160,6 +160,9 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
+        $user->last_login = date('Y-m-d H:i:s');
+        $user->save(false);
+
         Yii::$app->user->login(
             $user,
             $form->rememberMe ? 3600 : 0

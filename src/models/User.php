@@ -3,6 +3,7 @@ namespace concepture\yii2user\models;
 
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use concepture\yii2user\helpers\SsoHelper;
+use concepture\yii2user\WebUser;
 use Yii;
 use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
@@ -34,6 +35,21 @@ class User extends ActiveRecord implements IdentityInterface
     use IsDeletedTrait;
     use StatusTrait;
     use ModelTrait;
+
+    /**
+     * Возвращает онлайн ли пользователь
+     * метка выставляется  в классе concepture\yii2user\WebUser при обновлении статуса авторизации
+     *
+     * @return bool
+     */
+    public function isOnline()
+    {
+        if (Yii::$app->has('cache') && Yii::$app->cache->get(WebUser::$isActivePrefix . $this->id)) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * @see \concepture\yii2logic\models\ActiveRecord:label()
@@ -69,6 +85,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['username', 'string', 'min' => 2, 'max' => 100],
+            ['website', 'string', 'max' => 255],
             [
                 [
                     'logo',
@@ -81,6 +98,7 @@ class User extends ActiveRecord implements IdentityInterface
                 [
                     'status',
                     'locale',
+                    'famous',
                 ]
                 , 'integer'
             ]
@@ -92,14 +110,25 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => Yii::t('user', '#'),
             'username' => Yii::t('user','Имя пользователя'),
+            'website' => Yii::t('user','Сайт'),
             'logo' => Yii::t('user','Аватар'),
             'description' => Yii::t('user','Описание'),
+            'famous' => Yii::t('common','Известный'),
             'status' => Yii::t('user','Статус'),
             'locale' => Yii::t('user',' Язык'),
             'created_at' => Yii::t('user', 'Дата создания'),
             'updated_at' => Yii::t('user', 'Дата обновления'),
             'is_deleted' => Yii::t('user','Удален'),
         ];
+    }
+
+    /**
+     * Известен ли пользователь
+     * @return mixed|null
+     */
+    public function isVerified()
+    {
+        return $this->verified;
     }
 
     /**

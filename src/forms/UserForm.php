@@ -19,6 +19,8 @@ class UserForm extends Form
     public $status = StatusEnum::ACTIVE;
     public $logo;
     public $description;
+    public $website;
+    public $famous = 0;
 
     /**
      * @see Form::formRules()
