@@ -127,6 +127,7 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => Yii::t('user', '#'),
             'username' => Yii::t('user','Имя пользователя'),
             'website' => Yii::t('user','Сайт'),
+            'social' => Yii::t('user','Социальные сети'),
             'logo' => Yii::t('user','Аватар'),
             'description' => Yii::t('user','Описание'),
             'famous' => Yii::t('common','Известный'),
