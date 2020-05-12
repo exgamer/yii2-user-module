@@ -1,6 +1,9 @@
 <?php
 namespace concepture\yii2user\models;
 
+use common\pojo\PaymentSystem;
+use concepture\yii2logic\pojo\Social;
+use common\pojo\Spoiler;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use concepture\yii2user\helpers\SsoHelper;
 use concepture\yii2user\WebUser;
@@ -35,6 +38,22 @@ class User extends ActiveRecord implements IdentityInterface
     use IsDeletedTrait;
     use StatusTrait;
     use ModelTrait;
+
+    public function behaviors()
+    {
+        return [
+            'JsonFieldsBehavior' => [
+                'class' => 'concepture\yii2logic\models\behaviors\JsonFieldsBehavior',
+                'jsonAttr' => [
+                    'social' => [
+                        'class' => Social::class,
+                        'uniqueKey' => 'social'
+                    ],
+                ],
+            ],
+        ];
+    }
+
 
     /**
      * Возвращает онлайн ли пользователь
