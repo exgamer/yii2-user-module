@@ -3,6 +3,7 @@ namespace concepture\yii2user;
 
 use Yii;
 use yii\base\BootstrapInterface;
+use yii\helpers\ArrayHelper;
 
 /**
  * Файл первичной настройки модуля
@@ -17,7 +18,13 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         //user component
-        $userConfig = require_once __DIR__ . '/config/user.php';
+        $commonUserConfig = [];
+        $baseConfig = require_once __DIR__ . '/config/user.php';
+        $commonUserConfigPath = Yii::getAlias('@common') . "/config/user.php";
+        if (file_exists($commonUserConfigPath)) {
+            $commonUserConfig = require_once $commonUserConfigPath;
+        }
+        $userConfig = ArrayHelper::merge($baseConfig, $commonUserConfig);
         Yii::$container->set('yii\web\User', $userConfig);
         //загружаем компоненты
         $components  = require_once __DIR__ . '/config/component.php';
