@@ -22,6 +22,8 @@ class UserForm extends Form
     public $website;
     public $famous = 0;
 
+    public $social = [];
+
     /**
      * @see Form::formRules()
      */

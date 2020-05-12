@@ -111,6 +111,12 @@ class User extends ActiveRecord implements IdentityInterface
                     'famous',
                 ]
                 , 'integer'
+            ],
+            [
+                [
+                    'social',
+                ],
+                'safe'
             ]
         ];
     }
