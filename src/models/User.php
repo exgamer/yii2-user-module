@@ -159,15 +159,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Известен ли пользователь
-     * @return mixed|null
-     */
-    public function isVerified()
-    {
-        return $this->verified;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
