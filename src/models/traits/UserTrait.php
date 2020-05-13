@@ -32,5 +32,22 @@ trait UserTrait
         return null;
     }
 
+    public function getUserDescription()
+    {
+        if (isset($this->user)){
+            return $this->user->description;
+        }
+
+        return null;
+    }
+
+    public function getUserWebsite()
+    {
+        if (isset($this->user)){
+            return $this->user->website;
+        }
+
+        return null;
+    }
 }
 
