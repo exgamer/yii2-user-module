@@ -37,4 +37,31 @@ class WebUser extends User
             }, 300);
         }
     }
+
+    public function isCurrentUser($user)
+    {
+        $identity = $this->getIdentity();
+        if(! $identity) {
+
+            return false;
+        }
+
+        if (! $user) {
+            $user = $identity;
+        }
+
+        if (filter_var($user, FILTER_VALIDATE_INT) !== false) {
+            if ($identity->id == $user) {
+                return true;
+            }
+
+            return false;
+        }
+
+        if (  $identity->id == $user->id) {
+            return true;
+        }
+
+        return false;
+    }
 }
