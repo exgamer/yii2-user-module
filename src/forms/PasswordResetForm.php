@@ -15,6 +15,7 @@ class PasswordResetForm extends Model
 {
     public $token;
     public $validation;
+    public $validationCompare;
 
     /**
      * @inheritdoc
@@ -25,18 +26,22 @@ class PasswordResetForm extends Model
             [
                 [
                     'validation',
+                    'validationCompare',
                     'token'
                 ],
                 'required'
             ],
             [
                 [
-                    'validation'
+                    'validation',
+                    'validationCompare',
                 ],
                 'string',
                 'min' => 6,
                 'max'=>100
             ],
+            ['validationCompare', 'compare','compareAttribute'=>'validation','operator'=>'==',
+                'message'=> Yii::t('user', 'Пароли должны совпадать'), 'type' => 'string']
         ];
     }
 
@@ -46,7 +51,8 @@ class PasswordResetForm extends Model
     public function attributeLabels()
     {
         return [
-            'validation' => Yii::t('user', 'Введите новый пароль')
+            'validation' => Yii::t('user', 'Новый пароль'),
+            'validationCompare' => Yii::t('user', 'Подтвердите пароль')
         ];
     }
 }
