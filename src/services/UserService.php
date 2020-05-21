@@ -5,9 +5,11 @@ use Yii;
 use yii\db\ActiveQuery;
 use concepture\yii2logic\forms\Model;
 use concepture\yii2user\forms\UserForm;
-use concepture\yii2logic\services\Service;
-use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\enum\StatusEnum;
+use concepture\yii2logic\services\Service;
+use concepture\yii2user\forms\ChangePasswordForm;
+use concepture\yii2user\forms\UserCredentialForm;
+use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\services\traits\StatusTrait;
 use concepture\yii2handbook\services\traits\ModifySupportTrait as HandbookModifySupportTrait;
 use concepture\yii2handbook\services\traits\ReadSupportTrait as HandbookReadSupportTrait;
@@ -46,5 +48,25 @@ class UserService extends Service
         }
 
         return $this->create($form);
+    }
+
+    public function changePassword(ChangePasswordForm $form)
+    {
+        $credential = \Yii::$app->userCredentialService->findByIdentity($form->identity);
+        if (!$credential) {
+            $error = Yii::t ( 'user', "Логин не существует" );
+            $form->addError('validation', $error);
+
+            return false;
+        }
+        
+        $cred = new UserCredentialForm();
+        $cred->load($credential->attributes,'');
+        $cred->validation = Yii::$app->security->generatePasswordHash($form->new_password);
+        $model = \Yii::$app->userCredentialService->save($cred, $credential);
+        if ($model) {
+            return true;
+        }
+        return false;
     }
 }
