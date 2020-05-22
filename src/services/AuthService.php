@@ -2,6 +2,7 @@
 namespace concepture\yii2user\services;
 
 use concepture\yii2logic\helpers\MailerHelper;
+use concepture\yii2user\forms\ChangePasswordForm;
 use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
@@ -105,13 +106,23 @@ class AuthService extends Service  implements AuthHelperInterface
     }
 
     /**
-     * смена пароля
+     * сброс пароля
      *
      * @param PasswordResetForm $form
      * @return bool
      * @throws Exception
      */
-    public function changePassword(PasswordResetForm $form)
+    public function resetPassword(PasswordResetForm $form)
+    {
+        return $this->getAuthHelper()->resetPassword($form);
+    }
+
+    /**
+     * Смена пароля
+     *
+     * @param ChangePasswordForm $form
+     */
+    public function changePassword(ChangePasswordForm $form)
     {
         return $this->getAuthHelper()->changePassword($form);
     }

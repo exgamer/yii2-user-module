@@ -4,6 +4,7 @@ namespace concepture\yii2user\services\helpers;
 use concepture\yii2logic\enum\IsDeletedEnum;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\helpers\JwtHelper;
+use concepture\yii2user\forms\ChangePasswordForm;
 use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\helpers\SsoHelper;
 use GuzzleHttp\Client;
@@ -226,13 +227,13 @@ class SsoAuthHelper implements AuthHelperInterface
     }
 
     /**
-     * смена пароля
+     * сброс пароля
      *
      * @param PasswordResetForm $form
      * @return bool
      * @throws Exception
      */
-    public function changePassword(PasswordResetForm $form)
+    public function resetPassword(PasswordResetForm $form)
     {
         $options = [];
         $client = new Client([
@@ -263,6 +264,16 @@ class SsoAuthHelper implements AuthHelperInterface
         }
 
         return true;
+    }
+
+    /**
+     * смена пароля
+     *
+     * @param ChangePasswordForm $form
+     */
+    public function changePassword(ChangePasswordForm $form)
+    {
+        // TODO: Implement changePassword() method.
     }
 
     /**
@@ -308,6 +319,4 @@ class SsoAuthHelper implements AuthHelperInterface
     {
         // @TODO реализовать авторизацию через социалки для sso
     }
-
-
 }

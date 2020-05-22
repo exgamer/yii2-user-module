@@ -2,6 +2,7 @@
 
 namespace concepture\yii2user\services\interfaces;
 
+use concepture\yii2user\forms\ChangePasswordForm;
 use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
@@ -18,6 +19,7 @@ interface AuthHelperInterface
     public function signIn(SignInForm $form);
     public function confirmCredential(CredentialConfirmForm $form);
     public function sendPasswordResetEmail(EmailPasswordResetRequestForm $form);
-    public function changePassword(PasswordResetForm $form);
+    public function resetPassword(PasswordResetForm $form);
+    public function changePassword(ChangePasswordForm $form);
     public function onSocialAuthSuccess($client);
 }

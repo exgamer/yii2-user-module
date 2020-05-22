@@ -49,24 +49,4 @@ class UserService extends Service
 
         return $this->create($form);
     }
-
-    public function changePassword(ChangePasswordForm $form)
-    {
-        $credential = \Yii::$app->userCredentialService->findByIdentity($form->identity);
-        if (!$credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
-            $form->addError('validation', $error);
-
-            return false;
-        }
-        
-        $cred = new UserCredentialForm();
-        $cred->load($credential->attributes,'');
-        $cred->validation = Yii::$app->security->generatePasswordHash($form->new_password);
-        $model = \Yii::$app->userCredentialService->save($cred, $credential);
-        if ($model) {
-            return true;
-        }
-        return false;
-    }
 }

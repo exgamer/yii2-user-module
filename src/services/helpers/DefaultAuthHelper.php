@@ -3,6 +3,7 @@ namespace concepture\yii2user\services\helpers;
 
 use concepture\yii2user\authclients\Client;
 use concepture\yii2user\enum\UserCredentialStatusEnum;
+use concepture\yii2user\forms\ChangePasswordForm;
 use concepture\yii2user\forms\CredentialConfirmForm;
 use Yii;
 use concepture\yii2logic\services\Service;
@@ -219,13 +220,13 @@ class DefaultAuthHelper implements AuthHelperInterface
     }
 
     /**
-     * смена пароля
+     * сброс пароля
      *
      * @param PasswordResetForm $form
      * @return bool
      * @throws Exception
      */
-    public function changePassword(PasswordResetForm $form)
+    public function resetPassword(PasswordResetForm $form)
     {
         $credential = $this->userCredentialService()->findByValidation($form->token);
         if (!$credential) {
@@ -263,6 +264,32 @@ class DefaultAuthHelper implements AuthHelperInterface
         );
 
         return true;
+    }
+
+    /**
+     * смена пароля
+     *
+     * @param ChangePasswordForm $form
+     */
+    public function changePassword(ChangePasswordForm $form)
+    {
+        $credential = $this->userCredentialService()->findByIdentity($form->identity);
+        if (!$credential) {
+            $error = Yii::t ( 'user', "Логин не существует" );
+            $form->addError('validation', $error);
+
+            return false;
+        }
+
+        $cred = new UserCredentialForm();
+        $cred->load($credential->attributes,'');
+        $cred->validation = Yii::$app->security->generatePasswordHash($form->new_password);
+        $model = $this->userCredentialService()->save($cred, $credential);
+        if ($model) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
