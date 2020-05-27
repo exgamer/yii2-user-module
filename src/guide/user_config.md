@@ -14,7 +14,7 @@ return [
     'identityClass' => 'concepture\yii2user\models\User',
     'enableAutoLogin' => $enableAutoLogin,
     'enableSession' => $enableSession,
-    'loginUrl' => ['/site/login'],
+    'loginUrl' => '/site/login',
 //    'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
 ];
 ```
