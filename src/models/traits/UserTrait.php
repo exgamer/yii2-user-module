@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\models\traits;
 
+use Yii;
 use concepture\yii2user\models\User;
 
 /**
@@ -11,7 +12,13 @@ trait UserTrait
 {
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        static $class;
+        if (! $class) {
+            $model = Yii::createObject(User::class);
+            $class = get_class($model);
+        }
+
+        return $this->hasOne($class, ['id' => 'user_id']);
     }
 
     public function getUserName()
