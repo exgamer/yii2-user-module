@@ -30,8 +30,7 @@ class WebUser extends User
         $identity = $this->getIdentity();
         if ($identity  && Yii::$app->has('cache')) {
             Yii::$app->cache->getOrSet(static::$isActivePrefix . $identity->id, function () use ($identity) {
-                $identity->last_seen = date('Y-m-d H:i:s');
-                $identity->save(false);
+                $identity->updateAttributes(['last_seen' => date('Y-m-d H:i:s')]);
 
                 return 1;
             }, 300);
