@@ -53,7 +53,7 @@ class SignInForm extends Model
         return [
             'identity' => Yii::t('user', 'Адрес электронной почты'),
             'validation' => Yii::t('user', 'Пароль'),
-            'rememberMe' => Yii::t(B'user', 'Запомнить меня'),
+            'rememberMe' => Yii::t('user', 'Запомнить меня'),
         ];
     }
 
