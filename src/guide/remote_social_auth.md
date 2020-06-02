@@ -53,7 +53,7 @@ SSO_APP_ID=1
 ```twig
     <script defer src="http://social-auth.loc/auth.min.js"></script>
 
-    <div id="socialAuth" data-link-label="1" data-x-token="{{ jwt_token() }}" data-auth-host="http://social-auth.loc" data-redirect-url="{{ app.request.absoluteUrl }}" data-clients="github,mailru,vkontakte"></div>
+    <div id="socialAuth" data-link-label="1" data-x-token="{{ jwt_token({'redirect-url': app.request.absoluteUrl}) }}" data-auth-host="http://social-auth.loc" data-clients="github,mailru,vkontakte"></div>
 ```
 
 !!! Если виджет вызывается в модалке то нужно после показа инициализировать его $('#socialAuth').auth({});
