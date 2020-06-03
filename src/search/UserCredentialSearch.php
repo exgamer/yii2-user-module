@@ -32,17 +32,17 @@ class UserCredentialSearch extends UserCredential
     public function extendQuery(ActiveQuery $query)
     {
         $query->joinWith(['user']);
-        $query->andWhere(['parent_id' => null]);
+        $query->andWhere([static::tableName() . '.parent_id' => null]);
         $query->andFilterWhere([
-            'id' => $this->id
+            static::tableName() . '.id' => $this->id
         ]);
         $query->andFilterWhere([
-            'domain_id' => $this->domain_id
+            static::tableName() . '.domain_id' => $this->domain_id
         ]);
         $query->andFilterWhere([
-            'user_id' => $this->user_id
+            static::tableName() . '.user_id' => $this->user_id
         ]);
-        $query->andFilterWhere(['like', 'identity', $this->identity]);
+        $query->andFilterWhere(['like', static::tableName() . '.identity', $this->identity]);
         $query->andFilterWhere(['like', User::tableName().'.username', $this->username]);
     }
 
