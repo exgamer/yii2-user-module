@@ -41,7 +41,8 @@ class SignInForm extends Model
                 [
                     'rememberMe'
                 ], 'boolean'
-            ]
+            ],
+            ['identity', 'filter', 'filter'=>'strtolower'],
         ];
     }
 

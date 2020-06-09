@@ -27,7 +27,8 @@ class EmailPasswordResetRequestForm extends Model
         return [
             ['identity', 'trim'],
             ['identity', 'required'],
-            ['identity', 'email']
+            ['identity', 'email'],
+            ['identity', 'filter', 'filter'=>'strtolower'],
         ];
     }
 

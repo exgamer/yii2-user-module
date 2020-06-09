@@ -67,6 +67,7 @@ class ChangePasswordForm extends Model
                     );
                 },
             ],
+            ['identity', 'filter', 'filter'=>'strtolower'],
         ];
     }
 
