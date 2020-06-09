@@ -73,6 +73,7 @@ class UserCredential extends ActiveRecord
                     'status',
                     'parent_id',
                     'domain_id',
+                    'generated',
                 ],
                 'integer'
             ],

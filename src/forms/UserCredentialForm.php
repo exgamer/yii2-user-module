@@ -20,6 +20,7 @@ class UserCredentialForm extends Form
     public $domain_id;
     public $type;
     public $status;
+    public $generated = 0;
 
     /**
      * @see CForm::formRules()
