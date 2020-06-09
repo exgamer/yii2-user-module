@@ -90,7 +90,8 @@ class UserCredential extends ActiveRecord
                 ],
                 'unique',
                 'targetAttribute' => ['identity', 'type']
-            ]
+            ],
+            ['identity', 'filter', 'filter'=>'strtolower'],
         ];
     }
 
