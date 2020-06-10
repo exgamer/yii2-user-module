@@ -93,6 +93,26 @@ class UserCredentialService extends Service
     }
 
     /**
+     * Возвращает учетку по email
+     *
+     * @param $email
+     * @param null $status
+     * @return mixed
+     */
+    public function findByEmail($email, $status = null)
+    {
+        $condition = [
+            'identity' => strtolower($email),
+            'type' => UserCredentialTypeEnum::EMAIL,
+        ];
+        if ($status) {
+            $condition['status'] = $status;
+        }
+
+        return $this->getQuery()->andWhere($condition)->one();
+    }
+
+    /**
      * Поиск модели по validation
      *
      * @param $validation
