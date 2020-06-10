@@ -57,9 +57,10 @@ class UserCredentialService extends Service
      * @param $user_id
      * @param null $domain_id
      * @param int $status
+     * @param int $generated
      * @return mixed
      */
-    public function createEmailCredential($identity, $validation, $user_id, $domain_id = null, $status = UserCredentialStatusEnum::ACTIVE)
+    public function createEmailCredential($identity, $validation, $user_id, $domain_id = null, $status = UserCredentialStatusEnum::ACTIVE, $generated = 0)
     {
         $form = new UserCredentialForm();
         $form->identity = $identity;
@@ -67,6 +68,7 @@ class UserCredentialService extends Service
         $form->status = $status;
         $form->user_id = $user_id;
         $form->domain_id = $domain_id;
+        $form->generated = $generated;
         $form->type = UserCredentialTypeEnum::EMAIL;
         $result = $this->create($form);
         $this->emailHandbookService()->addEmail($identity);
