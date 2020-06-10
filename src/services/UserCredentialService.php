@@ -111,7 +111,7 @@ class UserCredentialService extends Service
             $condition['status'] = $status;
         }
 
-        return $this->getQuery()->andWhere($condition)->one();
+        return $this->getQuery()->resetCondition()->andWhere($condition)->one();
     }
 
     /**
