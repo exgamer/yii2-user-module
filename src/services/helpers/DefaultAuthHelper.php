@@ -385,7 +385,7 @@ class DefaultAuthHelper implements AuthHelperInterface
          * чтобы отработала регистрация
          */
         if (! $identity){
-            $identity = (int) microtime(true). '@no.email';
+            $identity = Yii::$app->security->generateRandomString(6) .(int) microtime(true). '@no.email';
         }
 
         $model = new SignUpForm();
