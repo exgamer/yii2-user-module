@@ -21,13 +21,13 @@ trait UserSupportTrait
             return;
         }
 
-        if (! Yii::$app->has('user')){
-            $model->user_id = 1;
-
+        if ($model->user_id){
             return;
         }
 
-        if ($model->user_id){
+        if (! Yii::$app->has('user')){
+            $model->user_id = 1;
+
             return;
         }
 
