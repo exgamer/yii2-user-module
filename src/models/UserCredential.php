@@ -92,6 +92,7 @@ class UserCredential extends ActiveRecord
                 'targetAttribute' => ['identity', 'type']
             ],
             ['identity', 'filter', 'filter'=>'strtolower'],
+            ['identity', 'default', 'value' => null],
         ];
     }
 
