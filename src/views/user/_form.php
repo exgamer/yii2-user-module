@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use kamaelkz\yii2admin\v1\widgets\formelements\activeform\ActiveForm;
 
-$saveRedirectButton = Html::submitButton(
+$saveRedirectButton = Html::saveRedirectButton(
     '<b><i class="icon-list"></i></b>' . Yii::t('yii2admin', 'Сохранить и перейти к списку'),
     [
         'class' => 'btn bg-info btn-labeled btn-labeled-left ml-1',
@@ -12,7 +12,7 @@ $saveRedirectButton = Html::submitButton(
         'value' => 'index'
     ]
 );
-$saveButton = Html::submitButton(
+$saveButton = Html::saveButton(
     '<b><i class="icon-checkmark3"></i></b>' . Yii::t('yii2admin', 'Сохранить'),
     [
         'class' => 'btn bg-success btn-labeled btn-labeled-left ml-1'
