@@ -28,6 +28,8 @@ $saveButton = Html::saveButton(
         <?= $saveRedirectButton?>
         <?= $saveButton?>
     </div>
+</div>
+<div class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -57,6 +59,8 @@ $saveButton = Html::saveButton(
             </div>
         </div>
     </div>
+</div>
+<div class="card">
     <div class="card-body text-right">
         <?= $saveRedirectButton?>
         <?= $saveButton?>
