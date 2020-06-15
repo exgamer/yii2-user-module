@@ -117,11 +117,16 @@ class User extends ActiveRecord implements IdentityInterface
             ['website', 'string', 'max' => 255],
             [
                 [
-                    'logo',
                     'description',
                 ],
                 'string',
                 'max' => 1024
+            ],
+            [
+                [
+                    'logo',
+                ],
+                'string'
             ],
             [
                 [

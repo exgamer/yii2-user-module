@@ -1,9 +1,12 @@
 <?php
+
 namespace concepture\yii2user\forms;
 
-use concepture\yii2logic\enum\StatusEnum;
 use Yii;
+use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\forms\Form;
+use concepture\yii2logic\validators\ModelValidator;
+use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
 
 /**
  * Форма для сущности пользователя
@@ -30,8 +33,28 @@ class UserForm extends Form
     public function formRules()
     {
         return [
-            [['username'], 'required'],
-            ['username', 'trim'],
+            [
+                [
+                    'username'
+                ],
+                'required'
+            ],
+            [
+                [
+                    'username',
+                    'description',
+                    'website',
+                    'logo'
+                ],
+                'trim'
+            ],
+            [
+                [
+                    'logo',
+                ],
+                ModelValidator::class,
+                'modelClass' => CdnImagePojo::class,
+            ],
         ];
     }
 }
