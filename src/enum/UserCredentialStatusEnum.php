@@ -15,5 +15,5 @@ class UserCredentialStatusEnum extends Enum
 {
     const INACTIVE = 0;
     const ACTIVE = 1;
-    const BLOCK = 1;
+    const BLOCK = 2;
 }
