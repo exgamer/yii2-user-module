@@ -54,6 +54,7 @@ class UserForm extends Form
                 ],
                 ModelValidator::class,
                 'modelClass' => CdnImagePojo::class,
+                'modifySource' => false
             ],
         ];
     }
