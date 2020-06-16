@@ -40,7 +40,7 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function signUp(SignUpForm $form)
     {
-        $credential = $this->userCredentialService()->findByIdentity($form->identity);
+        $credential = $this->userCredentialService()->findByEmail($form->identity);
         if ($credential) {
             $error = Yii::t ( 'user', "Логин уже занят" );
             $form->addError('identity', $error);
