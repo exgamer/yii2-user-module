@@ -4,7 +4,6 @@ use concepture\yii2logic\enum\PermissionEnum;
 use concepture\yii2user\rbac\rules\DomainEditorRule;
 use concepture\yii2user\rbac\rules\DomainReaderRule;
 use concepture\yii2user\rbac\rules\StaffRule;
-use concepture\yii2user\rbac\rules\DomainRule;
 
 return [
     'excluded_controller_names' => [
