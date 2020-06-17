@@ -27,9 +27,15 @@ class DomainEditorRule extends Rule
             $domainId = Yii::$app->domainService->getCurrentDomainId();
         }
 
-//        if ($domainId == 1) {
-//            return true;
-//        }
+        $access = Yii::$app->userDomainAssignmentService->getOneByCondition([
+            'user_id' => $user,
+            'domain_id' => $domainId,
+            'access' => AccessTypeEnum::WRITE,
+        ]);
+
+        if(! $access) {
+            return false;
+        }
 
         return true;
     }

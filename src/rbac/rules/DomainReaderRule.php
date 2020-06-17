@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user\rbac\rules;
 
+use concepture\yii2logic\enum\AccessTypeEnum;
 use Yii;
 use yii\rbac\Rule;
 
@@ -27,9 +28,15 @@ class DomainReaderRule extends Rule
             $domainId = Yii::$app->domainService->getCurrentDomainId();
         }
 
-//        if ($domainId == 1) {
-//            return true;
-//        }
+        $access = Yii::$app->userDomainAssignmentService->getOneByCondition([
+            'user_id' => $user,
+            'domain_id' => $domainId,
+            'access' => AccessTypeEnum::READ,
+        ]);
+
+        if(! $access) {
+            return false;
+        }
 
         return true;
     }
