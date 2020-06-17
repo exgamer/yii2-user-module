@@ -86,6 +86,7 @@ $this->viewHelper()->pushPageHeader();
                         ]
                     );
                 },
+                
                 'domain_permissions'=> function ($url, $model) {
                     return Html::a(
                         '<i class="icon-earth"></i>' . Yii::t('yii2admin', 'Доступные версии'),
