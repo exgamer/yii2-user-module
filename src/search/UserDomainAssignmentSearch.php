@@ -17,8 +17,10 @@ class UserDomainAssignmentSearch extends UserDomainAssignment
     public function rules()
     {
         return [
-            'user_id',
-            'integer'
+            [
+                'user_id',
+                'integer'
+            ]
         ];
     }
 
