@@ -6,6 +6,7 @@ use concepture\yii2user\services\EmailHandbookService;
 use concepture\yii2user\services\UserAccountOperationService;
 use concepture\yii2user\services\UserAccountService;
 use concepture\yii2user\services\UserCredentialService;
+use concepture\yii2user\services\UserDomainAssignmentService;
 use concepture\yii2user\services\UserRoleHandbookService;
 use concepture\yii2user\services\UserRoleService;
 use concepture\yii2user\services\UserService;
@@ -65,6 +66,15 @@ trait ServicesTrait
     public function emailHandbookService()
     {
         return Yii::$app->emailHandbookService;
+    }
+
+
+    /**
+     * @return UserDomainAssignmentService
+     */
+    public function userDomainAssignmentService()
+    {
+        return Yii::$app->userDomainAssignmentService;
     }
 }
 
