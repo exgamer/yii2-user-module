@@ -24,7 +24,11 @@ class StaffRule extends Rule
             return true;
         }
 
-        if (! $model->hasAttribute('owner_id')){
+        if (! property_exists($model, 'owner_id')){
+            return false;
+        }
+
+        if ( ! $model->hasAttribute('owner_id')){
             return false;
         }
 
