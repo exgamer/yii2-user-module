@@ -31,7 +31,7 @@ class UserDomainAssignmentService extends Service
 
         return $this->batchInsert(
             array_keys($data),
-            $data
+            [$data]
         );
     }
 
@@ -67,6 +67,7 @@ class UserDomainAssignmentService extends Service
             return $model->delete();
         }
 
+
         $data = [
             'user_id' => $userId,
             'domain_id' => $domainId,
@@ -75,7 +76,7 @@ class UserDomainAssignmentService extends Service
 
         return $this->batchInsert(
             array_keys($data),
-            $data
+            [$data]
         );
     }
 }
