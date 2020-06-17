@@ -59,6 +59,8 @@ class UserDomainAssignmentController extends Controller
                     'pageSize' => 30,
                 ]
             ],
+            null,
+            ''
         );
         $userDomains = ArrayHelper::index($userDomainsDataProvider->getModels(), 'domain_id');
         $domains = $this->domainService()->getDomainsData();
