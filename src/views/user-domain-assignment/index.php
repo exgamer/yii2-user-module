@@ -91,7 +91,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                             if ($data->access == AccessTypeEnum::READ) {
                                 return Html::a(
                                     '<i class="icon-pencil3"></i>',
-                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::READ_WRITE],
+                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
                                         'title' => Yii::t('backend', 'Редактирование'),
@@ -102,7 +102,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                 );
                             }
 
-                            if ($data->access == AccessTypeEnum::READ_WRITE) {
+                            if ($data->access == AccessTypeEnum::WRITE) {
                                 return Html::a(
                                     '<i class="icon-eye2"></i>',
                                     ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::READ],

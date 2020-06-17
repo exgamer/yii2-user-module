@@ -49,34 +49,12 @@ class UserDomainAssignmentService extends Service
         $model = $this->getOneByCondition([
             'user_id' => $userId,
             'domain_id' => $domainId,
+            'access' => $access,
         ]);
         if (! $model) {
             return true;
         }
 
-        switch ($access) {
-            case AccessTypeEnum::READ_WRITE;
-            case AccessTypeEnum::WRITE;
-                $access = AccessTypeEnum::READ;
-                break;
-            default:
-                $access = null;
-        }
-
-        if (! $access) {
-            return $model->delete();
-        }
-
-
-        $data = [
-            'user_id' => $userId,
-            'domain_id' => $domainId,
-            'access' => $access,
-        ];
-
-        return $this->batchInsert(
-            array_keys($data),
-            [$data]
-        );
+        return $model->delete();
     }
 }
