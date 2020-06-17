@@ -2,11 +2,14 @@
 
 namespace concepture\yii2user\web\controllers;
 
+use concepture\yii2handbook\services\DomainService;
 use concepture\yii2user\search\UserAuthAssignmentSearch;
 use concepture\yii2user\services\RbacService;
 use concepture\yii2user\services\UserDomainAssignmentService;
+use frontend\search\post\PostIndexSearch;
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\rbac\Item;
 use yii\web\NotFoundHttpException;
 use concepture\yii2handbook\services\EntityTypePositionSortService;
@@ -29,6 +32,14 @@ class UserDomainAssignmentController extends Controller
     }
 
     /**
+     * @return DomainService
+     */
+    public function domainService()
+    {
+        return Yii::$app->domainService;
+    }
+
+    /**
      * @inheritDoc
      */
     public function actions()
@@ -41,45 +52,34 @@ class UserDomainAssignmentController extends Controller
 
     public function actionIndex($user_id)
     {
-        $roleSearchModel = new UserAuthAssignmentSearch();
-        $roleSearchModel->load(Yii::$app->request->queryParams,'');
-        $rolesDataProvider =  new ArrayDataProvider([
-            'allModels' =>  $this->rbacService()->{$itemsMethod}(),
-            'sort' => [
-                'attributes' => ['name'],
+        $userDomainsDataProvider = $this->userDomainAssignmentService()->getDataProvider(
+            ['user_id' => $user_id],
+            [
+                'pagination' => [
+                    'pageSize' => 30,
+                ]
             ],
+        );
+        $userDomains = ArrayHelper::index($userDomainsDataProvider->getModels(), 'domain_id');
+        $domains = $this->domainService()->getDomainsData();
+        foreach ($domains as $id => $domain) {
+            if (isset($userDomains[$id])) {
+                unset($domains[$id]);
+                $userDomains[$id]->country_caption = $domain['country_caption'];
+            }
+        }
+
+        $domainsDataProvider = new ArrayDataProvider([
+            'allModels' =>  $domains,
             'pagination' => [
                 'pageSize' => 30,
             ],
         ]);
-
-        $userRolesDataProvider = new ArrayDataProvider([
-            'allModels' =>  $this->rbacService()->{$userItemsMethod}($user_id),
-            'sort' => [
-                'attributes' => ['name'],
-            ],
-            'pagination' => [
-                'pageSize' => 30,
-            ],
-        ]);
-
-
-
-
-        $rolesDataProvider =  new ArrayDataProvider([
-            'allModels' =>  $roles,
-            'sort' => [
-                'attributes' => ['name'],
-            ],
-            'pagination' => [
-                'pageSize' => 30,
-            ],
-        ]);
-
 
         return $this->render('index', [
-            'rolesDataProvider' => $rolesDataProvider,
-            'userRolesDataProvider' => $userRolesDataProvider,
+            'user_id' => $user_id,
+            'domainsDataProvider' => $domainsDataProvider,
+            'userDomainsDataProvider' => $userDomainsDataProvider,
         ]);
     }
 

@@ -9,7 +9,7 @@ use kamaelkz\yii2admin\v1\widgets\lists\grid\EditableColumn;
 use kamaelkz\yii2admin\v1\enum\FlashAlertEnum;
 use kamaelkz\yii2admin\v1\widgets\notifications\alert\Alert;
 
-$this->setTitle($title);
+$this->setTitle(Yii::t('yii2admin', 'Доступные версии'));
 $this->pushBreadcrumbs(['label' => Yii::t('yii2admin', 'Список пользователей'), 'url' => ['user/index']]);
 $this->pushBreadcrumbs($this->title);
 $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Список пользователей'),'icon-list');
@@ -27,11 +27,11 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                 </div>
             </div>
             <?= GridView::widget([
-                'dataProvider' => $rolesDataProvider,
+                'dataProvider' => $domainsDataProvider,
                 'searchVisible' => false,
                 'columns' => [
                     [
-                        'attribute' => 'domain_id',
+                        'attribute' => 'country_caption',
                         'label' => Yii::t('yii2admin', 'Версия'),
                     ],
                     [
@@ -70,11 +70,11 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                 </div>
             </div>
             <?= GridView::widget([
-                'dataProvider' => $userRolesDataProvider,
+                'dataProvider' => $userDomainsDataProvider,
                 'searchVisible' => false,
                 'columns' => [
                     [
-                        'attribute' => 'domain_id',
+                        'attribute' => 'country_caption',
                         'label' => Yii::t('yii2admin', 'Версия'),
                     ],
                     [

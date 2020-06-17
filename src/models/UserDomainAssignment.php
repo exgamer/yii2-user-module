@@ -15,6 +15,8 @@ use Yii;
 */
 class UserDomainAssignment extends ActiveRecord
 {
+    public $country_caption;
+
     /**
     * @see \concepture\yii2logic\models\ActiveRecord:label()
     *
