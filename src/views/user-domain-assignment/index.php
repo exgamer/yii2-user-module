@@ -94,24 +94,24 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                     ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
-                                        'title' => Yii::t('backend', 'Редактирование'),
+                                        'title' => Yii::t('backend', 'Дать доступ на редактирование'),
                                         'data-pjax-id' => 'list-pjax',
                                         'data-pjax-url' => Url::current([], true),
-                                        'data-swal' => Yii::t('yii2admin', 'Редактирование'),
+                                        'data-swal' => Yii::t('yii2admin', 'Дать доступ на редактирование'),
                                     ]
                                 );
                             }
 
                             if ($data->access == AccessTypeEnum::WRITE) {
                                 return Html::a(
-                                    '<i class="icon-eye2"></i>',
-                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::READ],
+                                    '<i class="icon-cross2"></i>',
+                                    ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
-                                        'title' => Yii::t('backend', 'Чтение'),
+                                        'title' => Yii::t('backend', 'Удалить доступ для редактирования'),
                                         'data-pjax-id' => 'list-pjax',
                                         'data-pjax-url' => Url::current([], true),
-                                        'data-swal' => Yii::t('yii2admin', 'Чтение'),
+                                        'data-swal' => Yii::t('yii2admin' , 'Удалить доступ для редактирования'),
                                     ]
                                 );
                             }
