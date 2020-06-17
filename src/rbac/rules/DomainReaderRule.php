@@ -10,7 +10,7 @@ use yii\rbac\Rule;
  * Переменную $params мы передаем сюда, когда вызываем \Yii::$app->user->can('role', $param = ['domain_id' => 2]);
  * Если не передавать будет проверен текущий домен
  */
-class DomainRule extends Rule
+class DomainReaderRule extends Rule
 {
     public $name = 'domain-rule';
 
@@ -27,9 +27,9 @@ class DomainRule extends Rule
             $domainId = Yii::$app->domainService->getCurrentDomainId();
         }
 
-//        if ($domainId !== 1) {
-//            return false;
-//        }
+        if ($domainId == 1) {
+            return true;
+        }
 
         return true;
     }

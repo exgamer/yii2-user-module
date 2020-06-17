@@ -1,6 +1,8 @@
 <?php
 use concepture\yii2logic\enum\AccessEnum;
 use concepture\yii2logic\enum\PermissionEnum;
+use concepture\yii2user\rbac\rules\DomainEditorRule;
+use concepture\yii2user\rbac\rules\DomainReaderRule;
 use concepture\yii2user\rbac\rules\StaffRule;
 use concepture\yii2user\rbac\rules\DomainRule;
 
@@ -18,7 +20,8 @@ return [
         AccessEnum::EDITOR,
         AccessEnum::READER,
         AccessEnum::STAFF,
-        AccessEnum::DOMAIN,
+        AccessEnum::DOMAINREADER,
+        AccessEnum::DOMAINEDITOR,
     ],
     'default_roles' => [
         'ADMIN',
@@ -27,8 +30,11 @@ return [
         'STAFF' => [
             'rule' => StaffRule::class,
         ],
-        'DOMAIN' => [
-            'rule' => DomainRule::class,
+        'DOMAINEDITOR' => [
+            'rule' => DomainEditorRule::class,
+        ],
+        'DOMAINREADER' => [
+            'rule' => DomainReaderRule::class,
         ],
     ],
     'default_dependencies' => [
@@ -36,7 +42,8 @@ return [
             'EDITOR',
             'READER',
             'STAFF',
-            'DOMAIN',
+            'DOMAINEDITOR',
+            'DOMAINREADER',
         ],
         'EDITOR' => [
             'READER',
@@ -45,6 +52,9 @@ return [
         'STAFF' => [
             'READER',
         ],
+        'DOMAINEDITOR' => [
+            'DOMAINREADER',
+        ],
     ],
     'dependencies' => [
         AccessEnum::SUPERADMIN => '*',
@@ -52,6 +62,7 @@ return [
         AccessEnum::EDITOR => PermissionEnum::EDITOR,
         AccessEnum::READER => PermissionEnum::READER,
         AccessEnum::STAFF => PermissionEnum::STAFF,
-        AccessEnum::DOMAIN => PermissionEnum::DOMAIN,
+        AccessEnum::DOMAINEDITOR => PermissionEnum::DOMAINEDITOR,
+        AccessEnum::DOMAINREADER => PermissionEnum::DOMAINREADER,
     ],
 ];
