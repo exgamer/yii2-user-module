@@ -2,6 +2,7 @@
 use concepture\yii2logic\enum\AccessEnum;
 use concepture\yii2logic\enum\PermissionEnum;
 use concepture\yii2user\rbac\rules\StaffRule;
+use concepture\yii2user\rbac\rules\DomainRule;
 
 return [
     'excluded_controller_names' => [
@@ -17,6 +18,7 @@ return [
         AccessEnum::EDITOR,
         AccessEnum::READER,
         AccessEnum::STAFF,
+        AccessEnum::DOMAIN,
     ],
     'default_roles' => [
         'ADMIN',
@@ -24,13 +26,17 @@ return [
         'READER',
         'STAFF' => [
             'rule' => StaffRule::class,
-        ]
+        ],
+        'DOMAIN' => [
+            'rule' => DomainRule::class,
+        ],
     ],
     'default_dependencies' => [
         'ADMIN' => [
             'EDITOR',
             'READER',
             'STAFF',
+            'DOMAIN',
         ],
         'EDITOR' => [
             'READER',
@@ -46,5 +52,6 @@ return [
         AccessEnum::EDITOR => PermissionEnum::EDITOR,
         AccessEnum::READER => PermissionEnum::READER,
         AccessEnum::STAFF => PermissionEnum::STAFF,
+        AccessEnum::DOMAIN => PermissionEnum::DOMAIN,
     ],
 ];
