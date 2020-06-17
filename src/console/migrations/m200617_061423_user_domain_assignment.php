@@ -24,9 +24,10 @@ class m200617_061423_user_domain_assignment extends Migration
             'created_at' => $this->dateTime()->defaultValue(new \yii\db\Expression("NOW()") ),
         ]);
         $this->addPK(
-            ['user_id', 'domain_id'], true);
+            ['user_id', 'domain_id', 'access'], true);
         $this->addIndex(['user_id']);
         $this->addIndex(['domain_id']);
+        $this->addIndex(['access']);
         $this->addForeign('user_id', 'user','id');
         $this->addForeign('domain_id', 'domain','id');
     }
