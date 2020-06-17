@@ -88,7 +88,7 @@ $this->viewHelper()->pushPageHeader();
                 },
                 'domain_permissions'=> function ($url, $model) {
                     return Html::a(
-                        '<i class="icon-users"></i>' . Yii::t('yii2admin', 'Доступные версии'),
+                        '<i class="icon-earth"></i>' . Yii::t('yii2admin', 'Доступные версии'),
                         ['/user/user-domain-assignment/index', 'user_id' => $model['id']],
                         [
                             'class' => 'dropdown-item',
