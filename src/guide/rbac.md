@@ -179,4 +179,10 @@ class SomeController extends BaseController
     * Проверка на доступ для STAFF
     */
     AccessHelper::checkAccess(['site/index'], ['model' => $model]);
+
+    /**
+    * Проверка на доступ для DOMAIN
+    */
+    AccessHelper::checkAccess(['site/index']); // будет проверен текущий Yii::$app->domainService->getCurrentDomainId()
+    AccessHelper::checkAccess(['site/index'], ['domain_id' => 2]); // будет проверен переданный
 ```
