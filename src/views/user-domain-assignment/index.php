@@ -1,5 +1,6 @@
 <?php
 
+use concepture\yii2logic\enum\AccessTypeEnum;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -46,7 +47,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                         '/user/user-domain-assignment/create',
                                         'user_id' => $user_id,
                                         'domain_id' => $model['domain_id'],
-                                        'access' => \concepture\yii2logic\enum\AccessTypeEnum::READ
+                                        'access' => AccessTypeEnum::READ
                                     ],
                                     [
                                         'class' => 'admin-action list-icons-item',
@@ -76,6 +77,45 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                     [
                         'attribute' => 'country_caption',
                         'label' => Yii::t('yii2admin', 'Версия'),
+                    ],
+                    [
+                        'label'=> Yii::t('yii2admin', 'Доступ'),
+                        'value'=>function($data) {
+                            return AccessTypeEnum::label($data->access);
+                        }
+                    ],
+                    [
+                        'label'=> Yii::t('yii2admin', 'Смена доступа'),
+                        'format' => 'raw',
+                        'value'=>function($data) use ($user_id) {
+                            if ($data->access == AccessTypeEnum::READ) {
+                                return Html::a(
+                                    '<i class="icon-pencil3"></i>',
+                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::READ_WRITE],
+                                    [
+                                        'class' => 'admin-action list-icons-item',
+                                        'title' => Yii::t('backend', 'Редактирование'),
+                                        'data-pjax-id' => 'list-pjax',
+                                        'data-pjax-url' => Url::current([], true),
+                                        'data-swal' => Yii::t('yii2admin', 'Редактирование'),
+                                    ]
+                                );
+                            }
+
+                            if ($data->access == AccessTypeEnum::READ_WRITE) {
+                                return Html::a(
+                                    '<i class="icon-eye2"></i>',
+                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::READ],
+                                    [
+                                        'class' => 'admin-action list-icons-item',
+                                        'title' => Yii::t('backend', 'Чтение'),
+                                        'data-pjax-id' => 'list-pjax',
+                                        'data-pjax-url' => Url::current([], true),
+                                        'data-swal' => Yii::t('yii2admin', 'Чтение'),
+                                    ]
+                                );
+                            }
+                        }
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
