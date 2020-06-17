@@ -24,7 +24,11 @@ class StaffRule extends Rule
             return true;
         }
 
-        if (! property_exists($model, 'owner_id')){
+        if (is_array($model) ){
+            return true;
+        }
+
+        if (is_object($model) && ! property_exists($model, 'owner_id')){
             return false;
         }
 
