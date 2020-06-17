@@ -67,7 +67,6 @@ class UserDomainAssignmentService extends Service
             return $model->delete();
         }
 
-
         $data = [
             'user_id' => $userId,
             'domain_id' => $domainId,

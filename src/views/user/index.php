@@ -48,7 +48,7 @@ $this->viewHelper()->pushPageHeader();
 
         [
             'class'=>'yii\grid\ActionColumn',
-            'template'=>'{credentials} {roles} {permissions} {update} {activate} {deactivate} {delete}',
+            'template'=>'{credentials} {roles} {permissions} {domain_permissions} {update} {activate} {deactivate} {delete}',
             'buttons'=>[
                 'credentials'=> function ($url, $model) {
                     return Html::a(
@@ -82,6 +82,18 @@ $this->viewHelper()->pushPageHeader();
                             'class' => 'dropdown-item',
                             'aria-label' => Yii::t('yii2admin', 'Полномочия'),
                             'title' => Yii::t('yii2admin', 'Полномочия'),
+                            'data-pjax' => '0'
+                        ]
+                    );
+                },
+                'domain_permissions'=> function ($url, $model) {
+                    return Html::a(
+                        '<i class="icon-users"></i>' . Yii::t('yii2admin', 'Доступные версии'),
+                        ['/user/user-domain-assignment/index', 'user_id' => $model['id']],
+                        [
+                            'class' => 'dropdown-item',
+                            'aria-label' => Yii::t('yii2admin', 'Доступные версии'),
+                            'title' => Yii::t('yii2admin', 'Доступные версии'),
                             'data-pjax' => '0'
                         ]
                     );
