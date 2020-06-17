@@ -11,4 +11,50 @@ use concepture\yii2logic\services\Service;
  */
 class UserDomainAssignmentService extends Service
 {
+    /**
+     * Назначить доступ
+     *
+     * @param $userId
+     * @param $domainId
+     * @param $access
+     * @return mixed
+     * @throws \Exception
+     */
+    public function assign($userId, $domainId, $access)
+    {
+        $data = [
+            'user_id' => $userId,
+            'domain_id' => $domainId,
+            'access' => $access,
+        ];
+
+        return $this->batchInsert(
+            array_keys($data),
+            $data
+        );
+    }
+
+    /**
+     * Забрать доступ
+     *
+     * @param $userId
+     * @param $domainId
+     * @param $access
+     * @return mixed
+     * @throws \Exception
+     */
+    public function revoke($userId, $domainId, $access)
+    {
+//        $model = $this->getOneByCondition([
+//            'user_id' => $userId,
+//            'domain_id' => $domainId,
+//        ]);
+//        if (! $model) {
+//            return true;
+//        }
+//
+//        switch ($access) {
+//            case
+//        }
+    }
 }

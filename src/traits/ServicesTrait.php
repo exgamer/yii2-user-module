@@ -68,7 +68,6 @@ trait ServicesTrait
         return Yii::$app->emailHandbookService;
     }
 
-
     /**
      * @return UserDomainAssignmentService
      */
