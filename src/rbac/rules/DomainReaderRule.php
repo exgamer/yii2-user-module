@@ -12,7 +12,7 @@ use yii\rbac\Rule;
  */
 class DomainReaderRule extends Rule
 {
-    public $name = 'domain-rule';
+    public $name = 'domain-reader-rule';
 
     /**
      * @param int|string $user
@@ -27,9 +27,9 @@ class DomainReaderRule extends Rule
             $domainId = Yii::$app->domainService->getCurrentDomainId();
         }
 
-        if ($domainId == 1) {
-            return true;
-        }
+//        if ($domainId == 1) {
+//            return true;
+//        }
 
         return true;
     }
