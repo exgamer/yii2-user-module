@@ -79,7 +79,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                         'label' => Yii::t('yii2admin', 'Версия'),
                     ],
                     [
-                        'label'=> Yii::t('yii2admin', 'Доступ'),
+                        'label'=> Yii::t('yii2admin', 'Текущий доступ'),
                         'value'=>function($data) {
                             return AccessTypeEnum::label($data->access);
                         }
