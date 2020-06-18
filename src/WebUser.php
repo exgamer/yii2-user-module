@@ -79,6 +79,11 @@ class WebUser extends User
             return $result;
         }
 
+        static $accessData = [];
+        if (isset($accessData[$domain_id])) {
+            return $accessData[$domain_id];
+        }
+
         static $roles = null;
         static $permissions = null;
         if ($roles === null) {
@@ -100,6 +105,8 @@ class WebUser extends User
                 $result = true;
             }
         }
+
+        $accessData[$domain_id] = $result;
 
         return $result;
     }
