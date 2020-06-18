@@ -3,7 +3,6 @@ namespace concepture\yii2user\rbac\rules;
 
 use concepture\yii2logic\enum\AccessTypeEnum;
 use Yii;
-use yii\rbac\Rule;
 
 /**
  * Проверка на доступ к домену
@@ -11,7 +10,7 @@ use yii\rbac\Rule;
  * Переменную $params мы передаем сюда, когда вызываем \Yii::$app->user->can('role', $param = ['domain_id' => 2]);
  * Если не передавать будет проверен текущий домен
  */
-class DomainReaderRule extends Rule
+class DomainReaderRule extends DomainRule
 {
     public $name = 'domain-reader-rule';
 
@@ -28,13 +27,9 @@ class DomainReaderRule extends Rule
             $domainId = Yii::$app->domainService->getCurrentDomainId();
         }
 
-        $access = Yii::$app->userDomainAssignmentService->getOneByCondition([
-            'user_id' => $user,
-            'domain_id' => $domainId,
-            'access' => AccessTypeEnum::READ,
-        ]);
+        $access = $this->getAccess($user, $domainId);
 
-        if(! $access) {
+        if(! isset($access[AccessTypeEnum::READ])) {
             return false;
         }
 

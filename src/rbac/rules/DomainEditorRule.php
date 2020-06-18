@@ -2,7 +2,6 @@
 namespace concepture\yii2user\rbac\rules;
 
 use Yii;
-use yii\rbac\Rule;
 use concepture\yii2logic\enum\AccessTypeEnum;
 
 /**
@@ -11,7 +10,7 @@ use concepture\yii2logic\enum\AccessTypeEnum;
  * Переменную $params мы передаем сюда, когда вызываем \Yii::$app->user->can('role', $param = ['domain_id' => 2]);
  * Если не передавать будет проверен текущий домен
  */
-class DomainEditorRule extends Rule
+class DomainEditorRule extends DomainRule
 {
     public $name = 'domain-editor-rule';
 
@@ -28,13 +27,9 @@ class DomainEditorRule extends Rule
             $domainId = Yii::$app->domainService->getCurrentDomainId();
         }
 
-        $access = Yii::$app->userDomainAssignmentService->getOneByCondition([
-            'user_id' => $user,
-            'domain_id' => $domainId,
-            'access' => AccessTypeEnum::WRITE,
-        ]);
+        $access = $this->getAccess($user, $domainId);
 
-        if(! $access) {
+        if(! isset($access[AccessTypeEnum::WRITE])) {
             return false;
         }
 

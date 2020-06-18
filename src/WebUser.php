@@ -63,4 +63,44 @@ class WebUser extends User
 
         return false;
     }
+
+    /**
+     * Проверка на общий доступ к домену
+     * @param $domain_id
+     * @return bool
+     * @throws \Throwable
+     */
+    public function hasDomainAccess($domain_id)
+    {
+        $result = false;
+        $identity = $this->getIdentity();
+        if(! $identity) {
+
+            return $result;
+        }
+
+        static $roles;
+        static $permissions;
+        if (! $roles) {
+            $roles = Yii::$app->rbacService->getRolesByUser($identity->id);
+        }
+
+        foreach ($roles as $role => $data) {
+            if ($this->can($role, ['domain_id' => $domain_id])){
+                $result = true;
+            }
+        }
+
+        if (! $permissions) {
+            $permissions = Yii::$app->rbacService->getPermissionsByUser($identity->id);
+        }
+
+        foreach ($permissions as $permission => $data) {
+            if ($this->can($permission, ['domain_id' => $domain_id])){
+                $result = true;
+            }
+        }
+
+        return $result;
+    }
 }
