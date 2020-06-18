@@ -57,4 +57,29 @@ class UserDomainAssignmentService extends Service
 
         return $model->delete();
     }
+
+    public function getAccessData($userId)
+    {
+        $data = $this->getStaticData('accessData-' . $userId);
+        if ($data === null) {
+            $data = $this->getAllByCondition([
+                'user_id' => $userId,
+            ]);
+            $result =  [];
+            if ($data) {
+                foreach ($data as $d) {
+                    $result[$d->domain_id][$d['access']] = $d;
+                }
+            }
+
+            $data = $result;
+            $this->setStaticData(function ($d) use ($data, $userId){
+                $d['accessData-' . $userId] = $data;
+
+                return $d;
+            });
+        }
+
+        return $data;
+    }
 }

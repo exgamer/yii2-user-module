@@ -13,21 +13,6 @@ abstract class DomainRule extends Rule
 {
     protected function getAccess($user, $domain_id)
     {
-        static $access = null;
-        if (! $access) {
-            $access = Yii::$app->userDomainAssignmentService->getAllByCondition([
-                'user_id' => $user,
-            ]);
-            $result =  [];
-            if ($access) {
-                foreach ($access as $data) {
-                    $result[$data->domain_id][$data['access']] = $data;
-                }
-            }
-
-            $access = $result;
-        }
-
-        return $access;
+        return Yii::$app->userDomainAssignmentService->getAccessData($user);
     }
 }
