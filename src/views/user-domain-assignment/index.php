@@ -116,6 +116,9 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                 );
                             }
                         },
+                        'headerOptions' => [
+                            'class' => 'text-center'
+                        ],
                         'contentOptions' => [
                             'class' => 'text-center'
                         ]
