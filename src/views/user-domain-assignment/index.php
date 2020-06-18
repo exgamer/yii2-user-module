@@ -81,17 +81,17 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                     [
                         'label'=> Yii::t('yii2admin', 'Текущий доступ'),
                         'value'=>function($data) {
-                            return AccessTypeEnum::label($data->access);
+                            return AccessTypeEnum::label($data['access']);
                         }
                     ],
                     [
                         'label'=> Yii::t('yii2admin', 'Смена доступа'),
                         'format' => 'raw',
                         'value'=>function($data) use ($user_id) {
-                            if ($data->access == AccessTypeEnum::READ) {
+                            if ($data['access'] == AccessTypeEnum::READ) {
                                 return Html::a(
                                     '<i class="icon-pencil3"></i>',
-                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::WRITE],
+                                    ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
                                         'title' => Yii::t('backend', 'Дать доступ на редактирование'),
@@ -102,10 +102,10 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                 );
                             }
 
-                            if ($data->access == AccessTypeEnum::WRITE) {
+                            if ($data['access'] == AccessTypeEnum::WRITE) {
                                 return Html::a(
                                     '<i class="icon-cross2"></i>',
-                                    ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => AccessTypeEnum::WRITE],
+                                    ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
                                         'title' => Yii::t('backend', 'Удалить доступ для редактирования'),
@@ -125,7 +125,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                             'delete' => function ($url, $data) use ($user_id) {
                                 return Html::a(
                                     '<i class="icon-cross2"></i>',
-                                    ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data->domain_id, 'access' => $data->access],
+                                    ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => $data['access']],
                                     [
                                         'class' => 'admin-action list-icons-item',
                                         'title' => Yii::t('backend', 'Удалить'),

@@ -3,6 +3,7 @@
 namespace concepture\yii2user\web\controllers;
 
 use concepture\yii2handbook\services\DomainService;
+use concepture\yii2logic\enum\AccessTypeEnum;
 use concepture\yii2user\search\UserAuthAssignmentSearch;
 use concepture\yii2user\services\RbacService;
 use concepture\yii2user\services\UserDomainAssignmentService;
@@ -52,17 +53,33 @@ class UserDomainAssignmentController extends Controller
 
     public function actionIndex($user_id)
     {
-        $userDomainsDataProvider = $this->userDomainAssignmentService()->getDataProvider(
-            ['user_id' => $user_id],
+        $userDomains = $this->userDomainAssignmentService()->getAllByCondition(
             [
-                'pagination' => [
-                    'pageSize' => 30,
-                ]
+                'user_id' => $user_id
             ],
-            null,
-            ''
         );
-        $userDomains = ArrayHelper::index($userDomainsDataProvider->getModels(), 'domain_id');
+        if (is_array($userDomains)) {
+            $result = [];
+            foreach ($userDomains as $data) {
+                if (! isset($result[$data['domain_id']])) {
+                    $result[$data['domain_id']] = $data;
+                    continue;
+                }
+
+                if ($data->access == AccessTypeEnum::WRITE) {
+                    $result[$data['domain_id']] = $data;
+                }
+            }
+            $userDomains = array_values($result);
+        }
+
+        $userDomainsDataProvider = new ArrayDataProvider([
+            'allModels' =>  $userDomains,
+            'pagination' => [
+                'pageSize' => 30,
+            ],
+        ]);
+        $userDomains = ArrayHelper::index($userDomains, 'domain_id');
         $domains = $this->domainService()->getDomainsData();
         foreach ($domains as $id => $domain) {
             if (isset($userDomains[$id])) {
