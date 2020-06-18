@@ -58,6 +58,11 @@ class UserDomainAssignmentService extends Service
         return $model->delete();
     }
 
+    /**
+     * Возвращает данные по доступу юзера к доменам
+     * @param $userId
+     * @return array
+     */
     public function getAccessData($userId)
     {
         $data = $this->getStaticData('accessData-' . $userId);
