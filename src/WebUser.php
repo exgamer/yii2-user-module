@@ -79,9 +79,9 @@ class WebUser extends User
             return $result;
         }
 
-        static $roles;
-        static $permissions;
-        if (! $roles) {
+        static $roles = null;
+        static $permissions = null;
+        if ($roles === null) {
             $roles = Yii::$app->rbacService->getRolesByUser($identity->id);
         }
 
@@ -91,7 +91,7 @@ class WebUser extends User
             }
         }
 
-        if (! $permissions) {
+        if ($permissions === null) {
             $permissions = Yii::$app->rbacService->getPermissionsByUser($identity->id);
         }
 
