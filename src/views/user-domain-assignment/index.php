@@ -82,7 +82,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                         'label'=> Yii::t('yii2admin', 'Текущий доступ'),
                         'value'=>function($data) {
                             return AccessTypeEnum::label($data['access']);
-                        }
+                        },
                     ],
                     [
                         'label'=> Yii::t('yii2admin', 'Смена доступа'),
@@ -90,7 +90,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                         'value'=>function($data) use ($user_id) {
                             if ($data['access'] == AccessTypeEnum::READ) {
                                 return Html::a(
-                                    '<i class="icon-pencil3"></i>',
+                                    '<i class="icon-pen-plus"></i>',
                                     ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
@@ -104,7 +104,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
 
                             if ($data['access'] == AccessTypeEnum::WRITE) {
                                 return Html::a(
-                                    '<i class="icon-cross2"></i>',
+                                    '<i class="icon-pen-minus"></i>',
                                     ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
@@ -115,7 +115,10 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                     ]
                                 );
                             }
-                        }
+                        },
+                        'contentOptions' => [
+                            'class' => 'text-center'
+                        ]
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
