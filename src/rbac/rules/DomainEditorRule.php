@@ -28,8 +28,7 @@ class DomainEditorRule extends DomainRule
         }
 
         $access = $this->getAccess($user, $domainId);
-
-        if(! isset($access[AccessTypeEnum::WRITE])) {
+        if(! isset($access[$domainId][AccessTypeEnum::WRITE])) {
             return false;
         }
 

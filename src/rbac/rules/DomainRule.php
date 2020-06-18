@@ -17,13 +17,15 @@ abstract class DomainRule extends Rule
         if (! $access) {
             $access = Yii::$app->userDomainAssignmentService->getAllByCondition([
                 'user_id' => $user,
-                'domain_id' => $domain_id
             ]);
-            if (! $access) {
-                $access = [];
+            $result =  [];
+            if ($access) {
+                foreach ($access as $data) {
+                    $result[$data->domain_id][$data['access']] = $data;
+                }
             }
 
-            $access = \yii\helpers\ArrayHelper::index($access, 'access');
+            $access = $result;
         }
 
         return $access;

@@ -28,8 +28,7 @@ class DomainReaderRule extends DomainRule
         }
 
         $access = $this->getAccess($user, $domainId);
-
-        if(! isset($access[AccessTypeEnum::READ])) {
+        if(! isset($access[$domainId][AccessTypeEnum::READ])) {
             return false;
         }
 
