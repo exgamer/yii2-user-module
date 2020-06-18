@@ -70,8 +70,12 @@ class WebUser extends User
      * @return bool
      * @throws \Throwable
      */
-    public function hasDomainAccess($domain_id)
+    public function hasDomainAccess($domain_id = null)
     {
+        if (! $domain_id) {
+            $domain_id = Yii::$app->domainService->getCurrentDomainId();
+        }
+
         $result = false;
         $identity = $this->getIdentity();
         if(! $identity) {
