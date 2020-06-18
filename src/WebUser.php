@@ -86,7 +86,7 @@ class WebUser extends User
         }
 
         foreach ($roles as $role => $data) {
-            if ($this->can($role, ['domain_id' => $domain_id])){
+            if ($this->can($role, ['domain_id' => $domain_id, 'action' => 'index'])){
                 $result = true;
             }
         }
@@ -96,7 +96,7 @@ class WebUser extends User
         }
 
         foreach ($permissions as $permission => $data) {
-            if ($this->can($permission, ['domain_id' => $domain_id])){
+            if ($this->can($permission, ['domain_id' => $domain_id, 'action' => 'index'])){
                 $result = true;
             }
         }
