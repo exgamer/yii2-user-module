@@ -3,6 +3,7 @@ namespace concepture\yii2user\rbac\rules;
 
 use Yii;
 use yii\rbac\Rule;
+use concepture\yii2logic\enum\AccessTypeEnum;
 
 /**
  * Проверка на доступ к домену
