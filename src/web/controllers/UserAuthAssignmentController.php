@@ -109,7 +109,7 @@ class UserAuthAssignmentController extends Controller
                     continue;
                 }
 
-                $result[] = $model;
+                $result[$key] = $model;
             }
 
             $rolesDataProvider =  new ArrayDataProvider([
@@ -132,7 +132,7 @@ class UserAuthAssignmentController extends Controller
 
         if (! empty($usedRoles)){
             $roles = [];
-            foreach ($this->rbacService()->{$itemsMethod}() as $key => $model){
+            foreach ($rolesDataProvider->getModels() as $key => $model){
                 if (isset($usedRoles[$model->name])){
                     continue;
                 }
