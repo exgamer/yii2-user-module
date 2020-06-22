@@ -233,10 +233,43 @@ trait RbacGenerateTrait
     }
 
     /**
+     * Проверка на необходимость генерации ролей
+     * @return bool
+     */
+    protected function isNeedGenerate()
+    {
+        $config = $this->getAccessConfig();
+        $accessData = $config['permissions'] ??[];
+        $result = [];
+        foreach ($accessData as $key => $value) {
+            if (! is_array($value)) {
+                $result[] = $value;
+            }else{
+                $result[] = $key;
+            }
+        }
+
+        $db = $this->getAuthManager()->db;
+        $transaction = $db->beginTransaction();
+        $roles = $db->createCommand("SELECT `name` FROM user_auth_item;")->queryAll();
+        $usedItems = ArrayHelper::map($roles, 'name', 'name');
+        $diff = array_diff($result, $usedItems);
+        if (! empty($diff)){
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * генерация ролей и полномочий из конфигов
      */
     public function generate()
     {
+        if (! $this->isNeedGenerate()) {
+            return;
+        }
+
         $db = $this->getAuthManager()->db;
         $transaction = $db->beginTransaction();
         try {
