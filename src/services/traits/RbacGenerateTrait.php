@@ -271,11 +271,11 @@ trait RbacGenerateTrait
         }
 
         $db = $this->getAuthManager()->db;
-        $transaction = $db->beginTransaction();
+//        $transaction = $db->beginTransaction();
         try {
-            $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; DELETE FROM user_auth_rule;")->execute();
-            $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; DELETE FROM user_auth_item_child;")->execute();
-            $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; DELETE FROM user_auth_item;")->execute();
+            $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE user_auth_rule;")->execute();
+            $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE user_auth_item_child;")->execute();
+            $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE user_auth_item;")->execute();
             $config = $this->getAccessConfig();
             $accessData = $config['permissions'] ??[];
             $dependenciesData = $config['dependencies'] ??[];
@@ -383,13 +383,13 @@ trait RbacGenerateTrait
                 }
             }
 
-            $transaction->commit();
+//            $transaction->commit();
             $this->getAuthManager()->invalidateCache();
         } catch (\Exception $e) {
-            $transaction->rollBack();
+//            $transaction->rollBack();
             throw $e;
         } catch (\Throwable $e) {
-            $transaction->rollBack();
+//            $transaction->rollBack();
             throw $e;
         }
     }
