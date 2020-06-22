@@ -74,11 +74,11 @@ class UserAuthAssignmentController extends Controller
                 $item_caption = Yii::t('yii2admin', 'Полномочие');
                 break;
         }
-
+        $roles = $this->rbacService()->{$itemsMethod}();
         $roleSearchModel = new UserAuthAssignmentSearch();
         $roleSearchModel->load(Yii::$app->request->queryParams,'');
         $rolesDataProvider =  new ArrayDataProvider([
-            'allModels' =>  $this->rbacService()->{$itemsMethod}(),
+            'allModels' =>  $roles,
             'sort' => [
                 'attributes' => ['name'],
             ],
@@ -103,7 +103,7 @@ class UserAuthAssignmentController extends Controller
          */
         if ($roleSearchModel->name){
             $result = [];
-            foreach ($rolesDataProvider->getModels() as $key => $model){
+            foreach ($roles as $key => $model){
                 $pos = strpos(strtolower($model->name), strtolower($roleSearchModel->name));
                 if ($pos === false) {
                     continue;
@@ -112,8 +112,9 @@ class UserAuthAssignmentController extends Controller
                 $result[$key] = $model;
             }
 
+            $roles = $result;
             $rolesDataProvider =  new ArrayDataProvider([
-                'allModels' =>  $result,
+                'allModels' =>  $roles,
                 'sort' => [
                     'attributes' => ['name'],
                 ],
@@ -121,6 +122,7 @@ class UserAuthAssignmentController extends Controller
                     'pageSize' => 30,
                 ],
             ]);
+
         }
 
         $usedRoles = [];
@@ -131,17 +133,17 @@ class UserAuthAssignmentController extends Controller
         }
 
         if (! empty($usedRoles)){
-            $roles = [];
-            foreach ($rolesDataProvider->getModels() as $key => $model){
+            $res = [];
+            foreach ($roles as $key => $model){
                 if (isset($usedRoles[$model->name])){
                     continue;
                 }
 
-                $roles[] = $model;
+                $res[] = $model;
             }
 
             $rolesDataProvider =  new ArrayDataProvider([
-                'allModels' =>  $roles,
+                'allModels' =>  $res,
                 'sort' => [
                     'attributes' => ['name'],
                 ],
