@@ -73,7 +73,6 @@ class WebUser extends User
      */
     public function hasDomainAccess($domain_id = null)
     {
-        return true;
         if (! $domain_id) {
             $data = Yii::$app->domainService->getCurrentDomainData();
             $domain_id = $data['domain_id'] ?? null;
@@ -101,21 +100,24 @@ class WebUser extends User
             $roles = Yii::$app->rbacService->getRolesByUser($identity->id);
         }
 
-        $roles = array_keys($roles);
+        foreach ($roles as $role => $data) {
+            if ($this->can($role)){
+                return true;
+            }
+        }
+
         if ($permissions === null) {
             $permissions = Yii::$app->rbacService->getPermissionsByUser($identity->id);
         }
 
-        $permissions = array_keys($permissions);
-        $all = ArrayHelper::merge($roles, $permissions);
-        foreach ($all as $key => $r) {
-            $parts = explode('_', $r);
+        foreach ($permissions as $permission => $data) {
+            $parts = explode('_', $permission);
             if (count($parts) == 3) {
                 $parts[1] = strtoupper($alias);
-                $r = implode('_', $parts);
+                $permission = implode('_', $parts);
             }
 
-            if ($this->can($r)){
+            if ($this->can($permission)){
                 return true;
             }
         }
