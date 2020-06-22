@@ -48,6 +48,7 @@ class UserCredentialSearch extends UserCredential
 
     public function extendDataProvider(ActiveDataProvider $dataProvider)
     {
+        parent::extendDataProvider($dataProvider);
         $dataProvider->sort->attributes['username'] = [
             'asc' => [User::tableName().'.username' => SORT_ASC],
             'desc' => [User::tableName().'.username' => SORT_DESC],
