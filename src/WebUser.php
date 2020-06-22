@@ -2,6 +2,7 @@
 namespace concepture\yii2user;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 use yii\web\User;
 
@@ -73,8 +74,13 @@ class WebUser extends User
     public function hasDomainAccess($domain_id = null)
     {
         if (! $domain_id) {
-            $domain_id = Yii::$app->domainService->getCurrentDomainId();
+            $data = Yii::$app->domainService->getCurrentDomainData();
+            $domain_id = $data['domain_id'] ?? null;
+        }else{
+            $data = Yii::$app->domainService->getDomainDataById($domain_id);
         }
+
+        $alias = $data['alias'] ?? null;
 
         $result = false;
         $identity = $this->getIdentity();
@@ -94,23 +100,25 @@ class WebUser extends User
             $roles = Yii::$app->rbacService->getRolesByUser($identity->id);
         }
 
-        foreach ($roles as $role => $data) {
-            if ($this->can($role, ['domain_id' => $domain_id, 'action' => 'index'])){
-                return true;
-            }
-        }
-
+        $roles = array_keys($roles);
         if ($permissions === null) {
             $permissions = Yii::$app->rbacService->getPermissionsByUser($identity->id);
         }
 
-        foreach ($permissions as $permission => $data) {
-            if ($this->can($permission, ['domain_id' => $domain_id, 'action' => 'index'])){
+        $permissions = array_keys($permissions);
+        $all = ArrayHelper::merge($roles, $permissions);
+        foreach ($all as $key => $r) {
+            $parts = explode('_', $r);
+            if (count($parts) == 3) {
+                $parts[1] = strtoupper($alias);
+                $r = implode('_', $parts);
+            }
+
+            if ($this->can($r)){
                 return true;
             }
         }
 
-        $accessData[$domain_id] = $result;
 
         return $result;
     }
