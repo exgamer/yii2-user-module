@@ -86,19 +86,6 @@ $this->viewHelper()->pushPageHeader();
                         ]
                     );
                 },
-
-                'domain_permissions'=> function ($url, $model) {
-                    return Html::a(
-                        '<i class="icon-earth"></i>' . Yii::t('yii2admin', 'Доступные версии'),
-                        ['/user/user-domain-assignment/index', 'user_id' => $model['id']],
-                        [
-                            'class' => 'dropdown-item',
-                            'aria-label' => Yii::t('yii2admin', 'Доступные версии'),
-                            'title' => Yii::t('yii2admin', 'Доступные версии'),
-                            'data-pjax' => '0'
-                        ]
-                    );
-                },
                 'view'=> function ($url, $model) {
                     return Html::a(
                         '<i class="icon-file-eye2"></i>' . Yii::t('yii2admin', 'Просмотр'),

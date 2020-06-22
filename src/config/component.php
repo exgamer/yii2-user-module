@@ -27,7 +27,4 @@ return [
     'rbacService' => [
         'class' => 'concepture\yii2user\services\RbacService'
     ],
-    'userDomainAssignmentService' => [
-        'class' => 'concepture\yii2user\services\UserDomainAssignmentService'
-    ],
 ];

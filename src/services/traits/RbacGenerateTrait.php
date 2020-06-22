@@ -106,9 +106,9 @@ trait RbacGenerateTrait
      */
     protected function getDefaultConfig()
     {
-        static $config = null;
-        if (! empty($config)){
-            return $config;
+        static $defaultConfig = null;
+        if (! empty($defaultConfig)){
+            return $defaultConfig;
         }
 
         $baseConfig = require_once __DIR__ . '/../../config/rbac.php';
@@ -118,16 +118,50 @@ trait RbacGenerateTrait
             $commonConfig = require_once $commonConfigPath;
         }
 
-        $config = ArrayHelper::merge($baseConfig, $commonConfig);
-        if (! isset($config['default_roles'])){
+        $defaultConfig = ArrayHelper::merge($baseConfig, $commonConfig);
+        if (! isset($defaultConfig['default_roles'])){
             throw new \Exception("default roles not set");
         }
 
-        if (! isset($config['default_dependencies'])){
+        if (! isset($defaultConfig['default_dependencies'])){
             throw new \Exception("default dependencies not set");
         }
 
-        return $config;
+        $defaultRoles = $defaultConfig['default_roles'];
+        $defaultDependencies = $defaultConfig['default_dependencies'];
+        $access = [];
+        $dependencies = [];
+        $domains = Yii::$app->domainService->catalog('id', 'alias');
+        foreach ($domains as $alias) {
+            foreach ($defaultRoles as $key => $value) {
+                $role = $key;
+                $config = null;
+                if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
+                    $role = $value;
+                }else{
+                    $config = $value;
+                }
+
+                $roleName = strtoupper($alias) . "_" . $role;
+                if ($config){
+                    $access[$roleName] = $config;
+                }else{
+                    $access[] = $roleName;
+                }
+
+                if (isset($defaultDependencies[$role])){
+                    foreach ($defaultDependencies[$role] as $dependentRole){
+                        $dependencies[$roleName][] = strtoupper($alias) . "_" . $dependentRole;
+                    }
+
+                }
+            }
+        }
+
+        $defaultConfig['default_roles'] = ArrayHelper::merge($defaultRoles, $access);
+        $defaultConfig['default_dependencies'] = ArrayHelper::merge($defaultDependencies, $dependencies);
+
+        return $defaultConfig;
     }
 
     /**

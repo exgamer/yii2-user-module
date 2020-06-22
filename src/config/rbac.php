@@ -18,7 +18,6 @@ return [
         AccessEnum::EDITOR,
         AccessEnum::READER,
         AccessEnum::STAFF,
-        AccessEnum::DOMAIN,
     ],
     'default_roles' => [
         'ADMIN',
@@ -26,9 +25,6 @@ return [
         'READER',
         'STAFF' => [
             'rule' => StaffRule::class,
-        ],
-        'DOMAIN' => [
-            'rule' => DomainRule::class,
         ],
     ],
     'default_dependencies' => [
@@ -52,6 +48,5 @@ return [
         AccessEnum::EDITOR => PermissionEnum::EDITOR,
         AccessEnum::READER => PermissionEnum::READER,
         AccessEnum::STAFF => PermissionEnum::STAFF,
-        AccessEnum::DOMAIN => PermissionEnum::DOMAIN,
     ],
 ];
