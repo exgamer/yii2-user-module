@@ -131,6 +131,40 @@ class UserCredentialService extends Service
     }
 
     /**
+     * Поиск записи для подтверждения учетки
+     *
+     * @param $validation
+     * @return mixed
+     */
+    public function findCredentialConfirmToken($validation)
+    {
+        return $this->getQuery()->andWhere(
+            [
+                'validation' => $validation,
+                'type' => UserCredentialTypeEnum::CREDENTIAL_CONFIRM_TOKEN,
+                'status' => UserCredentialStatusEnum::ACTIVE,
+            ]
+        )->one();
+    }
+
+    /**
+     * Возвращает запись для сброса пароля
+     *
+     * @param $validation
+     * @return array|\yii\db\ActiveRecord|null
+     */
+    public function findValidationResetToken($validation)
+    {
+        return $this->getQuery()->andWhere(
+            [
+                'validation' => $validation,
+                'type' => UserCredentialTypeEnum::VALIDATION_RESET_TOKEN,
+                'status' => UserCredentialStatusEnum::ACTIVE,
+            ]
+        )->one();
+    }
+
+    /**
      * Возвращает запись по $type $user_id
      * @param $user_id
      * @param $type
