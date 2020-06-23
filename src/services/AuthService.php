@@ -33,13 +33,20 @@ class AuthService extends Service  implements AuthHelperInterface
 {
     use ServicesTrait;
 
-    protected $authHelper;
+    public $authHelper;
 
     /**
      * @return AuthHelperInterface
      */
     public function getAuthHelper()
     {
+        if ($this->authHelper && ! is_object($this->authHelper)) {
+            $this->authHelper = Yii::createObject($this->authHelper);
+        }
+
+        /**
+         * @TODO костыляка как нибудь убрать
+         */
         if (! $this->authHelper){
             $this->authHelper = SsoHelper::isSsoEnabled() ? new SsoAuthHelper() : new DefaultAuthHelper();
         }
