@@ -2,6 +2,7 @@
 namespace concepture\yii2user\web\controllers;
 
 use concepture\yii2user\enum\UserRoleEnum;
+use concepture\yii2user\forms\ChangePasswordForm;
 use concepture\yii2user\forms\EmailCredentialForm;
 use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\search\UserCredentialSearch;
@@ -70,8 +71,10 @@ class UserCredentialController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $originModel->setAttributes($model->attributes);
             if ($model->validate(null, true, $originModel)) {
-                $model->validation = Yii::$app->security->generatePasswordHash($model->validation);
-                if (($result = $this->getService()->update($model, $originModel)) != false) {
+                $form = Yii::createObject(ChangePasswordForm::class);
+                $form->identity = $originModel->identity;
+                $form->new_password = $model->validation ;
+                if (($result = Yii::$app->authService->changePassword($form)) != false) {
 
                     return $this->redirect(['index' , 'user_id' => $originModel->user_id]);
                 }
