@@ -141,6 +141,9 @@ class DomainAuthHelper extends DefaultAuthHelper
         }
 
         $validation = $credential->validation;
+        /**
+         * Если паролей много ищем для текущего домена
+         */
         if (StringHelper::isJson($credential->validation)) {
             $validationArray = Json::decode($credential->validation);
             $validation = $validationArray[Yii::$app->domainService->getCurrentDomainId()] ?? null;
@@ -271,7 +274,7 @@ class DomainAuthHelper extends DefaultAuthHelper
 
             return false;
         }
-        
+
         $cred = new UserCredentialForm();
         $cred->load($credential->attributes,'');
         $cred->validation = $this->resolveValidation($credential, $form->validation);
@@ -311,8 +314,8 @@ class DomainAuthHelper extends DefaultAuthHelper
     }
 
     /**
-     * Мапим пароль в учетке 
-     * 
+     * Мапим пароль в учетке
+     *
      * @param $credential
      * @param $password
      * @return array|mixed|null
