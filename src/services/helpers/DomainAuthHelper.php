@@ -327,22 +327,22 @@ class DomainAuthHelper extends DefaultAuthHelper
          * Проверка идет ли сброс пароля для домена
          */
         $newValidation = Yii::$app->security->generatePasswordHash($password);
-        $validation = $credential->validation;
-        if ($credential->domain_id !== null) {
-            if (StringHelper::isJson($credential->validation)) {
-                $validation = Json::decode($credential->validation);
-            }
+        if ($credential->domain_id === null) {
+            return $newValidation;
         }
 
-        if ($credential->domain_id > 0 && ($credential->domain_id != Yii::$app->domainService->getCurrentDomainId())) {
-            if (is_array($validation)) {
-                $validation[Yii::$app->domainService->getCurrentDomainId()] = $newValidation;
-            }else{
-                $validationArray = [];
-                $validationArray[$credential->domain_id] = $validation;
-                $validationArray[Yii::$app->domainService->getCurrentDomainId()] = $newValidation;
-                $validation = $validationArray;
-            }
+        $validation = $credential->validation;
+        if (StringHelper::isJson($credential->validation)) {
+            $validation = Json::decode($credential->validation);
+        }
+
+        if (is_array($validation)) {
+            $validation[Yii::$app->domainService->getCurrentDomainId()] = $newValidation;
+        }else{
+            $validationArray = [];
+            $validationArray[$credential->domain_id] = $validation;
+            $validationArray[Yii::$app->domainService->getCurrentDomainId()] = $newValidation;
+            $validation = $validationArray;
         }
 
         if (is_array($validation)) {
