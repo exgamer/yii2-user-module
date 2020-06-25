@@ -327,18 +327,31 @@ class DomainAuthHelper extends DefaultAuthHelper
          * Проверка идет ли сброс пароля для домена
          */
         $newValidation = Yii::$app->security->generatePasswordHash($password);
+        /**
+         * Если domain_id = null, значит учетка имеет доступ ко всему, пароль будет один для всего
+         */
         if ($credential->domain_id === null) {
             return $newValidation;
         }
 
         $validation = $credential->validation;
+        /**
+         * Првоеряем является ли пароль json
+         */
         if (StringHelper::isJson($credential->validation)) {
             $validation = Json::decode($credential->validation);
         }
 
         if (is_array($validation)) {
+            /**
+             * Если массив подменяем пароль для текущего домена
+             */
             $validation[Yii::$app->domainService->getCurrentDomainId()] = $newValidation;
         }else{
+            /**
+             * Если была строка, записываем в массив существующий пароль для домаена учетки
+             * и дополняем новый пароль для текущего домена
+             */
             $validationArray = [];
             $validationArray[$credential->domain_id] = $validation;
             $validationArray[Yii::$app->domainService->getCurrentDomainId()] = $newValidation;
