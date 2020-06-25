@@ -9,6 +9,8 @@ use concepture\yii2logic\forms\Model;
 use yii\helpers\Json;
 
 /**
+ * Форма смены пароля для возможности существования у однйо учетки паролей отдельно для каждого домена
+ *
  * Class DomainChangePasswordForm
  * @package concepture\yii2user\forms
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
