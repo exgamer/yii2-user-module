@@ -42,7 +42,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByEmail($form->identity);
         if ($credential) {
-            $error = Yii::t ( 'user', "Логин уже занят" );
+            $error = Yii::t ( 'user', "Email уже используется" );
             $form->addError('identity', $error);
 
             return false;
