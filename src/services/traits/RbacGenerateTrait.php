@@ -1,12 +1,14 @@
 <?php
 namespace concepture\yii2user\services\traits;
 
+use concepture\yii2logic\console\traits\OutputTrait;
 use concepture\yii2logic\helpers\ClassHelper;
 use concepture\yii2logic\enum\PermissionEnum;
 use concepture\yii2user\forms\UserAuthPermissionForm;
 use concepture\yii2user\forms\UserAuthRoleForm;
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Console;
 use yii\helpers\FileHelper;
 
 /**
@@ -17,6 +19,8 @@ use yii\helpers\FileHelper;
  */
 trait RbacGenerateTrait
 {
+    use OutputTrait;
+
     /**
      * Возвращает массив классов контроллеров
      * из backend, пакетов concepture и kamaelkz
@@ -267,6 +271,7 @@ trait RbacGenerateTrait
     public function generate()
     {
         if (! $this->isNeedGenerate()) {
+            $this->outputSuccess( "No changes in Rbac. Skip generating.");
             return;
         }
 
@@ -280,6 +285,10 @@ trait RbacGenerateTrait
             $accessData = $config['permissions'] ??[];
             $dependenciesData = $config['dependencies'] ??[];
             $newItems = [];
+            $this->outputSuccess( "Rbac roles generate start");
+            $count = count($accessData);
+            Console::startProgress(0, $count);
+            $i = 0;
             foreach ($accessData as $key => $value){
                 $access = $key;
                 $accessConfig = [];
@@ -315,6 +324,9 @@ trait RbacGenerateTrait
                     $permission = $this->addPermission($permissionForm);
                     $this->addChild($role, $permission);
                 }
+
+                Console::updateProgress($i + 1 , $count);
+                $i++;
             }
 
             /**
@@ -330,6 +342,10 @@ trait RbacGenerateTrait
             /**
              * Добавляем зависимости полномочий
              */
+            $this->outputSuccess( "Rbac permissions dependencies generate start");
+            $count = count($dependenciesData);
+            Console::startProgress(0, $count);
+            $i = 0;
             foreach ($dependenciesData as $parent => $childs){
                 if (count(explode('_', $parent)) > 1){
                     $parentItem = $this->getPermission($parent);
@@ -338,6 +354,8 @@ trait RbacGenerateTrait
                 }
 
                 if (! $parentItem){
+                    Console::updateProgress($i + 1 , $count);
+                    $i++;
                     continue;
                 }
 
@@ -350,6 +368,8 @@ trait RbacGenerateTrait
                         $this->addChild($parentItem, $role);
                     }
 
+                    Console::updateProgress($i + 1 , $count);
+                    $i++;
                     continue;
                 }
 
@@ -369,6 +389,9 @@ trait RbacGenerateTrait
                         }
                     }
 
+                    Console::updateProgress($i + 1 , $count);
+                    $i++;
+
                     continue;
                 }
 
@@ -381,6 +404,9 @@ trait RbacGenerateTrait
 
                     $this->addChild($parentItem, $childItem);
                 }
+
+                Console::updateProgress($i + 1 , $count);
+                $i++;
             }
 
 //            $transaction->commit();
