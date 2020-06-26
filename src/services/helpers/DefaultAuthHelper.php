@@ -42,7 +42,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByEmail($form->identity);
         if ($credential) {
-            $error = Yii::t ( 'user', "Email уже используется" );
+            $error = Yii::t ( 'common', "Email is already in use" );
             $form->addError('identity', $error);
 
             return false;
@@ -50,7 +50,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $user = $this->userService()->createUser($form->username);
         if (! $user){
-            $error = Yii::t ( 'user', "Не удалось сохранить нового пользователя" );
+            $error = Yii::t ( 'common', "Failed to save new user" );
             $form->addError('identity', $error);
 
             return false;
@@ -70,7 +70,9 @@ class DefaultAuthHelper implements AuthHelperInterface
         if ($form->sendMail) {
             MailerHelper::send(
                 $form->identity,
-                Yii::t('user', 'Успешная регистрация - ' . Yii::$app->name),
+                Yii::t('common', 'Successful registration - {app_name}', [
+                    ':app_name' => Yii::$app->name,
+                ]),
                 Yii::$app->controller->renderPartial($form->mailTmpPath, ['form' => $form, 'password' => $realPass])
             );
         }
@@ -88,7 +90,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByValidation($form->token);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Токен недействителен" );
+            $error = Yii::t ( 'common', "Token is invalid" );
             $form->addError('token', $error);
 
             return false;
@@ -96,7 +98,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $user = $this->userService()->findById($credential->user_id);
         if (!$user){
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t ( 'common', "User is not found" );
             $form->addError('token', $error);
 
             return false;
@@ -106,7 +108,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $this->userCredentialService()->delete($credential);
         $credential = $this->userCredentialService()->findByIdentity($identity, UserCredentialTypeEnum::EMAIL, UserCredentialStatusEnum::INACTIVE);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
+            $error = Yii::t ( 'common', "Login does not exist" );
             $form->addError('token', $error);
 
             return false;
@@ -133,14 +135,14 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Неверный логин" );
+            $error = Yii::t ( 'common', "Invalid login" );
             $form->addError('identity', $error);
 
             return false;
         }
 
         if (!Yii::$app->security->validatePassword($form->validation, $credential->validation)){
-            $error = Yii::t ( 'user', "Неверный пароль" );
+            $error = Yii::t ( 'common', "Wrong password" );
             $form->addError('validation', $error);
 
             return false;
@@ -148,14 +150,14 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $user = $this->userService()->findById($credential->user_id);
         if ($user->status !== StatusEnum::ACTIVE){
-            $error = Yii::t ( 'user', "Пользователь неактивен" );
+            $error = Yii::t ( 'common', "User is inactive" );
             $form->addError('identity', $error);
 
             return false;
         }
 
         if ($user->is_deleted === IsDeletedEnum::DELETED){
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t ( 'common', "User is not found" );
             $form->addError('identity', $error);
 
             return false;
@@ -193,7 +195,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Неверный логин" );
+            $error = Yii::t ( 'common', "Invalid login" );
             $form->addError('identity', $error);
 
             return false;
@@ -211,7 +213,9 @@ class DefaultAuthHelper implements AuthHelperInterface
         if ($form->sendMail) {
             MailerHelper::send(
                 $form->identity,
-                Yii::t('user', 'Смена пароля - ' . Yii::$app->name),
+                Yii::t('common', 'Password change - {app_name}', [
+                    ':app_name' => Yii::$app->name,
+                ]),
                 Yii::$app->controller->renderPartial($form->mailTmpPath, ['route' => $form->route, 'token' => $model->validation])
             );
         }
@@ -230,7 +234,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByValidation($form->token);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Токен недействителен" );
+            $error = Yii::t ( 'common', "Token is invalid" );
             $form->addError('validation', $error);
 
             return false;
@@ -238,7 +242,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $user = $this->userService()->findById($credential->user_id);
         if (!$user){
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t ( 'common', "User is not found" );
             $form->addError('validation', $error);
 
             return false;
@@ -248,7 +252,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $this->userCredentialService()->delete($credential);
         $credential = $this->userCredentialService()->findByIdentity($identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
+            $error = Yii::t ( 'common', "Login does not exist" );
             $form->addError('validation', $error);
 
             return false;
@@ -275,7 +279,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
+            $error = Yii::t ( 'common', "Login does not exist" );
             $form->addError('validation', $error);
 
             return false;
