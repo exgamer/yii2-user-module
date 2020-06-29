@@ -172,7 +172,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         /**
          * Если у формы установлен признак onlyWithAuthAssignment
-         * проверяем что у юзера есть хоть одна роль 
+         * проверяем что у юзера есть хоть одна роль
          */
         if ($form->onlyWithAuthAssignment === true) {
             $roles = $this->rbacService()->getRolesByUser($user->id);
