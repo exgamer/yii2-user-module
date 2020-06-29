@@ -133,7 +133,7 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function signIn(SignInForm $form)
     {
-        $credential = $this->userCredentialService()->findByIdentity($form->identity);
+        $credential = $this->userCredentialService()->findByEmail($form->identity);
         if (!$credential) {
             $error = Yii::t ( 'common', "Invalid login" );
             $form->addError('identity', $error);
@@ -141,7 +141,14 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
-        if (!Yii::$app->security->validatePassword($form->validation, $credential->validation)){
+        if ($credential->status !== UserCredentialStatusEnum::ACTIVE) {
+            $error = Yii::t ( 'common', "Credential is inactive" );
+            $form->addError('identity', $error);
+
+            return false;
+        }
+
+        if (! Yii::$app->security->validatePassword($form->validation, $credential->validation)) {
             $error = Yii::t ( 'common', "Wrong password" );
             $form->addError('validation', $error);
 
@@ -149,14 +156,14 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         $user = $this->userService()->findById($credential->user_id);
-        if ($user->status !== StatusEnum::ACTIVE){
+        if ($user->status !== StatusEnum::ACTIVE) {
             $error = Yii::t ( 'common', "User is inactive" );
             $form->addError('identity', $error);
 
             return false;
         }
 
-        if ($user->is_deleted === IsDeletedEnum::DELETED){
+        if ($user->is_deleted === IsDeletedEnum::DELETED) {
             $error = Yii::t ( 'common', "User is not found" );
             $form->addError('identity', $error);
 
@@ -193,9 +200,16 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function sendPasswordResetEmail(EmailPasswordResetRequestForm $form)
     {
-        $credential = $this->userCredentialService()->findByIdentity($form->identity);
+        $credential = $this->userCredentialService()->findByEmail($form->identity);
         if (!$credential) {
             $error = Yii::t ( 'common', "Invalid login" );
+            $form->addError('identity', $error);
+
+            return false;
+        }
+
+        if ($credential->status !== UserCredentialStatusEnum::ACTIVE) {
+            $error = Yii::t ( 'common', "Credential is inactive" );
             $form->addError('identity', $error);
 
             return false;
@@ -278,7 +292,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     public function changePassword(ChangePasswordForm $form)
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
-        if (!$credential) {
+        if (! $credential) {
             $error = Yii::t ( 'common', "Login does not exist" );
             $form->addError('validation', $error);
 
