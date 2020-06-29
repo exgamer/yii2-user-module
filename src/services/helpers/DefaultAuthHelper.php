@@ -170,6 +170,17 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
+        if ($form->onlyWithAuthAssignment === true) {
+            $roles = $this->rbacService()->getRolesByUser($user->id);
+            $permissions = $this->rbacService()->getPermissionsByUser($user->id);
+            if (! $roles && ! $permissions) {
+                $error = Yii::t ( 'common', "Access denied" );
+                $form->addError('identity', $error);
+
+                return false;
+            }
+        }
+
         $user->last_login = date('Y-m-d H:i:s');
         $user->save(false);
 

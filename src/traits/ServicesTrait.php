@@ -3,6 +3,7 @@ namespace concepture\yii2user\traits;
 
 use concepture\yii2user\services\AuthService;
 use concepture\yii2user\services\EmailHandbookService;
+use concepture\yii2user\services\RbacService;
 use concepture\yii2user\services\UserAccountOperationService;
 use concepture\yii2user\services\UserAccountService;
 use concepture\yii2user\services\UserCredentialService;
@@ -75,5 +76,12 @@ trait ServicesTrait
     {
         return Yii::$app->userDomainAssignmentService;
     }
-}
 
+    /**
+     * @return RbacService
+     */
+    public function rbacService()
+    {
+        return Yii::$app->rbacService;
+    }
+}
