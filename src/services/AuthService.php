@@ -48,7 +48,7 @@ class AuthService extends Service  implements AuthHelperInterface
          * @TODO костыляка как нибудь убрать
          */
         if (! $this->authHelper){
-            $this->authHelper = SsoHelper::isSsoEnabled() ? new SsoAuthHelper() : new DefaultAuthHelper();
+            $this->authHelper = SsoHelper::isSsoEnabled() ? Yii::createObject( SsoAuthHelper::class) : Yii::createObject(DefaultAuthHelper::class);
         }
 
         return $this->authHelper;
