@@ -34,11 +34,11 @@ class DomainChangePasswordForm extends ChangePasswordForm
         }
 
         if (! $validation) {
-            $this->addError($attribute, \Yii::t('frontend', 'Old password is incorrect'));
+            $this->addError($attribute, \Yii::t('common', 'Old password is incorrect'));
         }
 
         if (!\Yii::$app->security->validatePassword($this->old_password, $validation)) {
-            $this->addError($attribute, \Yii::t('frontend', 'Old password is incorrect'));
+            $this->addError($attribute, \Yii::t('common', 'Old password is incorrect'));
         }
     }
 }

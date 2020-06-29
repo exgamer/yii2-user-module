@@ -10,7 +10,7 @@ use concepture\yii2logic\forms\Model;
  *
  * Форма смены пароля
  *
- * @package frontend\forms
+ * @package concepture\yii2user\forms
  * @author Poletaev Eugene <evgstn7@gmail.com>
  */
 class ChangePasswordForm extends Model
@@ -78,10 +78,10 @@ class ChangePasswordForm extends Model
     public function attributeLabels()
     {
         return ArrayHelper::merge(parent::attributeLabels(), [
-            'identity' => \Yii::t('frontend', 'Email'),
-            'old_password' => \Yii::t('frontend', 'Old password'),
-            'new_password' => \Yii::t('frontend', 'New Password'),
-            'repeat_password' => \Yii::t('frontend', 'Repeat password'),
+            'identity' => \Yii::t('common', 'Email'),
+            'old_password' => \Yii::t('common', 'Old password'),
+            'new_password' => \Yii::t('common', 'New Password'),
+            'repeat_password' => \Yii::t('common', 'Repeat password'),
         ]);
     }
 
@@ -93,7 +93,7 @@ class ChangePasswordForm extends Model
     {
         $credential = \Yii::$app->userCredentialService->findByIdentity($this->identity);
         if (!\Yii::$app->security->validatePassword($this->old_password, $credential->validation)) {
-            $this->addError($attribute, \Yii::t('frontend', 'Old password is incorrect'));
+            $this->addError($attribute, \Yii::t('common', 'Old password is incorrect'));
         }
     }
 }
