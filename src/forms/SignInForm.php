@@ -19,6 +19,7 @@ class SignInForm extends Model
     public $validation;
     public $rememberMe = true;
     public $restrictions = [];
+    public $onlyWithAuthAssignment = false; // только для юзеров у которых есть роли (для админки)
     public $credentialType= UserCredentialTypeEnum::EMAIL;
 
     /**
@@ -39,7 +40,8 @@ class SignInForm extends Model
             ['identity', 'email'],
             [
                 [
-                    'rememberMe'
+                    'rememberMe',
+                    'onlyWithAuthAssignment',
                 ], 'boolean'
             ],
             ['identity', 'filter', 'filter'=>'strtolower'],
