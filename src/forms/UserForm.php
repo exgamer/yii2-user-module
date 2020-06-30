@@ -24,6 +24,7 @@ class UserForm extends Form
     public $description;
     public $website;
     public $famous = 0;
+    public $domain_id;
 
     public $social = [];
 
@@ -47,6 +48,12 @@ class UserForm extends Form
                     'logo'
                 ],
                 'trim'
+            ],
+            [
+                [
+                    'domain_id',
+                ],
+                'integer'
             ],
             [
                 [
