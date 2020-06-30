@@ -180,4 +180,33 @@ class UserCredentialService extends Service
             ]
         )->one();
     }
+
+    /**
+     * Смена email у учетки
+     *
+     * @param $user_id
+     * @param $email
+     * @param $new_email
+     * @throws \Exception
+     */
+    public function changeCredentialEmail($user_id, $email, $new_email)
+    {
+        $credential = $this->findByEmail($new_email);
+        if ($credential && $credential->user_id != $user_id) {
+            throw new \Exception("email occupied");
+        }
+
+        $credential = $this->findByEmail($email);
+        if (! $credential) {
+            throw new \Exception("source credential not found");
+        }
+
+        if ($credential->type != UserCredentialTypeEnum::EMAIL) {
+            throw new \Exception("source credential is not email type");
+        }
+
+        $credential->identity = $new_email;
+
+        return $credential->save(false);
+    }
 }
