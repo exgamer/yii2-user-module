@@ -7,8 +7,6 @@ use concepture\yii2logic\forms\Model;
 use concepture\yii2user\forms\UserForm;
 use concepture\yii2logic\enum\StatusEnum;
 use concepture\yii2logic\services\Service;
-use concepture\yii2user\forms\ChangePasswordForm;
-use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2handbook\converters\LocaleConverter;
 use concepture\yii2logic\services\traits\StatusTrait;
 use concepture\yii2handbook\services\traits\ModifySupportTrait as HandbookModifySupportTrait;
