@@ -40,7 +40,7 @@ class UserService extends Service
      */
     public function createUser($username, $locale = null)
     {
-        $form = new UserForm();
+        $form = Yii::createObject( UserForm::class);
         $form->username = $username;
         $form->status = StatusEnum::ACTIVE;
         if ($locale){
