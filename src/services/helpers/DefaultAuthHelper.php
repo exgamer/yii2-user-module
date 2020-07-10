@@ -190,7 +190,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         Yii::$app->user->login(
             $user,
-            $form->rememberMe ? 3600 : 0
+            $form->rememberMe ? (60*60*24*365) : 0
         );
 
         return true;
