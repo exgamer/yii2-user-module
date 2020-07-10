@@ -209,4 +209,26 @@ class UserCredentialService extends Service
 
         return $credential->save(false);
     }
+
+    /**
+     * активировать учетку емаил
+     *
+     * @param $user_id
+     * @return bool
+     */
+    public function activateEmailCredentialByUserId($user_id)
+    {
+        $credential = $this->getOneByCondition([
+            'user_id' => $user_id,
+            'type' => UserCredentialTypeEnum::EMAIL,
+        ]);
+
+        if ($credential->status == UserCredentialStatusEnum::ACTIVE) {
+            return true;
+        }
+
+        $credential->status = UserCredentialStatusEnum::ACTIVE;
+
+        return $credential->save(false);
+    }
 }
