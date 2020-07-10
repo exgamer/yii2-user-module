@@ -118,7 +118,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $credential->save(false);
         Yii::$app->user->login(
             $user,
-            3600
+            60*60*24*365
         );
 
         return true;
@@ -293,7 +293,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $model = $this->userCredentialService()->save($cred, $credential);
         Yii::$app->user->login(
             $user,
-            3600
+            60*60*24*365
         );
 
         return true;
@@ -442,7 +442,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
             Yii::$app->user->login(
                 $user,
-                3600
+                60*60*24*365
             );
 
             return true;
