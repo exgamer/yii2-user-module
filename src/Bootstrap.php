@@ -26,9 +26,16 @@ class Bootstrap implements BootstrapInterface
         }
 
         $frontUserConfig = [];
-        $frontUserConfigPath = Yii::getAlias('@frontend') . "/config/user.php";
-        if (file_exists($frontUserConfigPath)) {
-            $frontUserConfig = require_once $frontUserConfigPath;
+        try {
+            $path = \Yii::$app->basePath;
+            $path = explode('/', $path);
+            $alias = array_pop($path);
+            $frontUserConfigPath = Yii::getAlias("@{$alias}") . "/config/user.php";
+            if (file_exists($frontUserConfigPath)) {
+                $frontUserConfig = require_once $frontUserConfigPath;
+            }
+        }catch (\Exception $ex) {
+
         }
 
         $userConfig = ArrayHelper::merge($baseConfig,$commonUserConfig, $frontUserConfig);
