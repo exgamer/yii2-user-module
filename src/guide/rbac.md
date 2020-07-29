@@ -182,7 +182,7 @@ class SomeController extends BaseController
 <?php
     AccessHelper::checkAccess('create');
     AccessHelper::checkAccess(['site/index']);
-    AccessHelper::checkAccess(['site/CUSTOM_PEMISSION']);
+    AccessHelper::checkAccess(PermissionEnum::RATE_EDITOR, [], true)
     /**
     * Проверка на доступ для STAFF
     */
