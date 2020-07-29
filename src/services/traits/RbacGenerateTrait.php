@@ -239,10 +239,10 @@ trait RbacGenerateTrait
 
                 foreach ($permission as $p) {
                     $p = strtoupper($p);
-                    $access[] = $name . '_' . $p;
+                    $controllerConfig['generated_custom_permissions'][] = $name . '_' . $p;
                     $domains = Yii::$app->domainService->catalog('id', 'alias');
                     foreach ($domains as $alias) {
-                        $access[] = $name . "_" .strtoupper($alias) . "_" . $p;
+                        $controllerConfig['generated_custom_permissions'][] = $name . "_" .strtoupper($alias) . "_" . $p;
                     }
                 }
             }
@@ -275,6 +275,8 @@ trait RbacGenerateTrait
     {
         $config = $this->getAccessConfig();
         $accessData = $config['permissions'] ??[];
+        $customPermissions = $config['generated_custom_permissions'] ??[];
+        $accessData = ArrayHelper::merge($accessData, $customPermissions);
         $result = [];
         foreach ($accessData as $key => $value) {
             if (! is_array($value)) {
@@ -290,6 +292,7 @@ trait RbacGenerateTrait
         $usedItems = ArrayHelper::map($roles, 'name', 'name');
         $diff = array_diff($result, $usedItems);
         if (! empty($diff)){
+            $this->outputSuccess( "Next new permissions found: " . implode(',' , $diff));
             return true;
         }
 
@@ -307,15 +310,35 @@ trait RbacGenerateTrait
         }
 
         $db = $this->getAuthManager()->db;
+        $config = $this->getAccessConfig();
+        $accessData = $config['permissions'] ??[];
+        $dependenciesData = $config['dependencies'] ??[];
+        $customPermissions = $config['generated_custom_permissions'] ??[];
+        $newItems = [];
+        $allData = ArrayHelper::merge($accessData, $customPermissions);
+        foreach ($accessData as $key => $value) {
+            $access = $key;
+            if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
+                $access = $value;
+            }
+
+            $newItems[$access] = $access;
+        }
+
+        //првоерка привязана ли роль которой нет в конфиге к юзерам
+        $roles = $db->createCommand("SELECT item_name FROM user_auth_assignment GROUP BY item_name;")->queryAll();
+        $usedItems = ArrayHelper::map($roles, 'item_name', 'item_name');
+        $diff = array_diff($usedItems, $newItems);
+        if (! empty($diff)){
+            throw new \Exception(implode(',' , $diff) . " these roles is used in user_auth_assignment, but not found in new rules");
+        }
+
 //        $transaction = $db->beginTransaction();
         try {
             $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE user_auth_rule;")->execute();
             $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE user_auth_item_child;")->execute();
             $db->createCommand("SET FOREIGN_KEY_CHECKS = 0; TRUNCATE user_auth_item;")->execute();
-            $config = $this->getAccessConfig();
-            $accessData = $config['permissions'] ??[];
-            $dependenciesData = $config['dependencies'] ??[];
-            $newItems = [];
+
             $this->outputSuccess( "Rbac roles generate start");
             $count = count($accessData);
             Console::startProgress(0, $count);
@@ -332,7 +355,6 @@ trait RbacGenerateTrait
                     $accessConfig = $value;
                 }
 
-                $newItems[$access] = $access;
                 /**
                  * Добавляем роль
                  */
@@ -358,16 +380,6 @@ trait RbacGenerateTrait
 
                 Console::updateProgress($i + 1 , $count);
                 $i++;
-            }
-
-            /**
-             *  првоерка привязана ли роль которой нет в конфиге к юзерам
-             */
-            $roles = $db->createCommand("SELECT item_name FROM user_auth_assignment GROUP BY item_name;")->queryAll();
-            $usedItems = ArrayHelper::map($roles, 'item_name', 'item_name');
-            $diff = array_diff($usedItems, $newItems);
-            if (! empty($diff)){
-                throw new \Exception(implode(',' , $diff) . " these roles is used in user_auth_assignment, but not found in new rules");
             }
 
             /**
@@ -411,6 +423,11 @@ trait RbacGenerateTrait
                     $permissions = $db->createCommand("SELECT `name` FROM user_auth_item WHERE `name` LIKE '%{$childs}%' AND `type` = 2  GROUP BY `name`;")->queryAll();
                     if ($permissions){
                         foreach ($permissions as $p){
+                            //исключить кастом
+                            if (in_array($p, $customPermissions)) {
+                                continue;
+                            }
+
                             $item = $this->getPermission($p['name']);
                             if (! $item){
                                 continue;
@@ -436,6 +453,35 @@ trait RbacGenerateTrait
                     }
 
                     $this->addChild($parentItem, $childItem);
+                }
+
+                Console::updateProgress($i + 1 , $count);
+                $i++;
+            }
+
+            $this->outputSuccess( "Rbac custom permissions generate start");
+            $count = count($customPermissions);
+            Console::startProgress(0, $count);
+            $i = 0;
+            foreach ($customPermissions as $key => $value){
+                $access = $key;
+                $accessConfig = [];
+                if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
+                    $access = $value;
+                }else{
+                    $accessConfig = $value;
+                }
+
+                $permissionForm = $this->getPermissionForm($access, $accessConfig);
+                if ($permissionForm){
+                    //Добавялем правило (если есть)
+                    $ruleClass = $this->getRuleClassFromConfig($access, $accessConfig);
+                    if ($ruleClass){
+                        $rule = $this->addRule($ruleClass);
+                        $permissionForm->ruleName = $rule->name;
+                    }
+
+                    $permission = $this->addPermission($permissionForm);
                 }
 
                 Console::updateProgress($i + 1 , $count);
