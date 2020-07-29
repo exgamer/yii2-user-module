@@ -180,9 +180,7 @@ class DefaultAuthHelper implements AuthHelperInterface
          * проверяем что у юзера есть хоть одна роль
          */
         if ($form->onlyWithAuthAssignment === true) {
-            $roles = $this->rbacService()->getRolesByUser($user->id);
-            $permissions = $this->rbacService()->getPermissionsByUser($user->id);
-            if (! $roles && ! $permissions) {
+            if (! $this->rbacService()->hasRoleAssignment($user->id)) {
                 $error = Yii::t('general', "Access denied");
                 $form->addError('identity', $error);
 

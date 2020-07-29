@@ -263,4 +263,19 @@ class RbacService extends Service
 
         return $ruleObject;
     }
+
+    /**
+     * Прверка на наличие у пользователя назначенных ролей
+     * @param $user_id
+     * @return bool
+     */
+    public function hasRoleAssignment($user_id)
+    {
+        $sql = "SELECT count(*) FROM `user_auth_assignment` WHERE user_id = :USER_ID";
+        $command = Yii::$app->getDb()->createCommand($sql);
+        $command->bindParam(':USER_ID', $user_id);
+        $count = $command->queryAll() ?? 0;
+
+        return $count > 0 ;
+    }
 }

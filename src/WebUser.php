@@ -141,11 +141,7 @@ class WebUser extends User
         }
 
         $user_id = $identity->getId();
-        $sql = "SELECT count(*) FROM `user_auth_assignment` WHERE user_id = :USER_ID";
-        $command = Yii::$app->getDb()->createCommand($sql);
-        $command->bindParam(':USER_ID', $user_id);
-        $count = $command->queryAll() ?? 0;
 
-        return $count > 0 ;
+        return Yii::$app->rbacService->hasRoleAssignment($user_id);
     }
 }
