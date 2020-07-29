@@ -189,6 +189,7 @@ trait RbacGenerateTrait
         $defaultConfig = $this->getDefaultConfig();
         $defaultRoles = $defaultConfig['default_roles'];
         $defaultDependencies = $defaultConfig['default_dependencies'];
+        $customPermissions = $defaultConfig['custom_permissions'] ?? [];
         $excludedControllerNames = $defaultConfig['excluded_controller_names'];
         $controllerConfig = [];
         $access = [];
@@ -223,6 +224,25 @@ trait RbacGenerateTrait
                         $dependencies[$roleName][] = $name . "_" . $dependentRole;
                     }
 
+                }
+            }
+
+            //генерация кастомных полномочий
+            foreach ($customPermissions as $controller => $permission) {
+                if ($controller !== $name) {
+                    continue;
+                }
+
+                if (! is_array($permission)) {
+                    $permission = [$permission];
+                }
+
+                foreach ($permission as $p) {
+                    $access[] = $name . '_' . $p;
+                    $domains = Yii::$app->domainService->catalog('id', 'alias');
+                    foreach ($domains as $alias) {
+                        $access[] = $name . "_" .strtoupper($alias) . "_" . $p;
+                    }
                 }
             }
         }
