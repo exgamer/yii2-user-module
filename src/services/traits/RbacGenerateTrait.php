@@ -238,6 +238,7 @@ trait RbacGenerateTrait
                 }
 
                 foreach ($permission as $p) {
+                    $p = strtoupper($p);
                     $access[] = $name . '_' . $p;
                     $domains = Yii::$app->domainService->catalog('id', 'alias');
                     foreach ($domains as $alias) {
