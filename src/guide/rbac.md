@@ -129,6 +129,13 @@ return [
             AccessEnum::BOOKMAKER_STAFF ,
         ],
     ],
+    // Добавление кастомных полномочий
+    'custom_permissions' => [
+        'REVIEW' => [ // контроллер
+            'RATEEDITOR', // кастомные полномочия
+            'KVAZIMODO',
+        ],
+    ],
 ];
 
 ```
