@@ -274,7 +274,7 @@ class RbacService extends Service
         $sql = "SELECT count(*) FROM `user_auth_assignment` WHERE user_id = :USER_ID";
         $command = Yii::$app->getDb()->createCommand($sql);
         $command->bindParam(':USER_ID', $user_id);
-        $count = $command->queryAll() ?? 0;
+        $count = $command->queryScalar() ?? 0;
 
         return $count > 0 ;
     }
