@@ -135,6 +135,8 @@ trait RbacGenerateTrait
         $defaultDependencies = $defaultConfig['default_dependencies'];
         $access = [];
         $dependencies = [];
+        $persmissions = [];
+        $permissionsDependencies = [];
         $domains = Yii::$app->domainService->catalog('id', 'alias');
         foreach ($domains as $alias) {
             foreach ($defaultRoles as $key => $value) {
@@ -147,23 +149,31 @@ trait RbacGenerateTrait
                 }
 
                 $roleName = strtoupper($alias) . "_" . $role;
+                $perRoleName = str_replace('_', '', $roleName);
                 if ($config){
                     $access[$roleName] = $config;
+                    $persmissions[$perRoleName] = $config;
                 }else{
                     $access[] = $roleName;
+                    $persmissions[] = $perRoleName;
                 }
 
                 if (isset($defaultDependencies[$role])){
                     foreach ($defaultDependencies[$role] as $dependentRole){
                         $dependencies[$roleName][] = strtoupper($alias) . "_" . $dependentRole;
+                        $permissionsDependencies[$perRoleName][] = strtoupper($alias) . $dependentRole;
                     }
-
+                    $tmp = array_unique($dependencies[$roleName]);
+                    $dependencies[$roleName] = $tmp;
                 }
             }
         }
 
         $defaultConfig['default_roles'] = ArrayHelper::merge($defaultRoles, $access);
         $defaultConfig['default_dependencies'] = ArrayHelper::merge($defaultDependencies, $dependencies);
+
+        $defaultConfig['permissions'] = ArrayHelper::merge($defaultConfig['permissions'], $persmissions);
+        $defaultConfig['dependencies'] = ArrayHelper::merge($defaultConfig['dependencies'], $permissionsDependencies);
 
         return $defaultConfig;
     }
@@ -395,11 +405,13 @@ trait RbacGenerateTrait
                     continue;
                 }
 
-
                 foreach ($childs as $child){
                     $childItem = $this->getPermission($child);
                     if (! $childItem){
-                        continue;
+                        $childItem = $this->getRole($child);
+                        if (! $childItem) {
+                            continue;
+                        }
                     }
 
                     $this->addChild($parentItem, $childItem);

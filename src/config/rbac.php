@@ -32,7 +32,6 @@ return [
             'EDITOR',
             'READER',
             'STAFF',
-            'DOMAIN',
         ],
         'EDITOR' => [
             'READER',
