@@ -77,7 +77,11 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function getLastSeen()
     {
-        return $this->last_seen;
+        if ($this->last_seen && $this->last_login) {
+            return $this->last_seen;
+        }
+
+        return null;
     }
 
     /**
