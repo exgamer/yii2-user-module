@@ -23,11 +23,12 @@ class WebUser extends User
     public static $isActivePrefix = 'user-online-';
 
     /**
-     * @inheritDoc
+     * ВЫставляет дату когад пользвоатель был на саите
+     *
+     * @throws \Throwable
      */
-    protected function renewAuthStatus()
+    protected function setLastSeen()
     {
-        parent::renewAuthStatus();
         $identity = $this->getIdentity();
         if ($identity  && Yii::$app->has('cache')) {
             Yii::$app->cache->getOrSet(static::$isActivePrefix . $identity->id, function () use ($identity) {
@@ -36,6 +37,15 @@ class WebUser extends User
                 return 1;
             }, 300);
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function renewAuthStatus()
+    {
+        parent::renewAuthStatus();
+        $this->setLastSeen();
     }
 
     public function isCurrentUser($user)
