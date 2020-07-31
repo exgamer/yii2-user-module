@@ -316,7 +316,7 @@ trait RbacGenerateTrait
         $customPermissions = $config['generated_custom_permissions'] ??[];
         $newItems = [];
         $allData = ArrayHelper::merge($accessData, $customPermissions);
-        foreach ($accessData as $key => $value) {
+        foreach ($allData as $key => $value) {
             $access = $key;
             if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
                 $access = $value;
