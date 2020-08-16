@@ -25,6 +25,7 @@ class SignUpForm extends Model
 
     public $confirmRoute = 'site/confirm';
     public $confirmToken;
+    public $generatedConfirmToken;
 
     /**
      * {@inheritdoc}

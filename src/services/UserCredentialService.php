@@ -77,6 +77,32 @@ class UserCredentialService extends Service
     }
 
     /**
+     * Создание учетки по телефонц
+     *
+     * @param $identity
+     * @param $validation
+     * @param $user_id
+     * @param null $domain_id
+     * @param int $status
+     * @param int $generated
+     * @return mixed
+     */
+    public function createPhoneCredential($identity, $validation, $user_id, $domain_id = null, $status = UserCredentialStatusEnum::ACTIVE, $generated = 0)
+    {
+        $form = new UserCredentialForm();
+        $form->identity = $identity;
+        $form->validation = $validation;
+        $form->status = $status;
+        $form->user_id = $user_id;
+        $form->domain_id = $domain_id;
+        $form->generated = $generated;
+        $form->type = UserCredentialTypeEnum::PHONE;
+        $result = $this->create($form);
+
+        return $result;
+    }
+
+    /**
      * Возвращает запись по identity
      * @param $identity
      * @param int $type
@@ -114,6 +140,25 @@ class UserCredentialService extends Service
         return $this->getQuery()->resetCondition()->andWhere($condition)->one();
     }
 
+    /**
+     * Возвращает учетку по phone
+     *
+     * @param $phone
+     * @param null $status
+     * @return mixed
+     */
+    public function findByPhone($phone, $status = null)
+    {
+        $condition = [
+            'identity' => $phone,
+            'type' => UserCredentialTypeEnum::PHONE,
+        ];
+        if ($status) {
+            $condition['status'] = $status;
+        }
+
+        return $this->getQuery()->resetCondition()->andWhere($condition)->one();
+    }
     /**
      * Поиск модели по validation
      *

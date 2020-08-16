@@ -18,5 +18,5 @@ class UserCredentialTypeEnum extends Enum
     const AUTH_TOKEN = 3;
     const VALIDATION_RESET_TOKEN = 4;
     const CREDENTIAL_CONFIRM_TOKEN = 5;
-    const CREDENTIAL_PHONE = 6;
+    const PHONE = 6;
 }

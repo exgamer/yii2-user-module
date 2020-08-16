@@ -40,7 +40,15 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function signUp(SignUpForm $form)
     {
-        $credential = $this->userCredentialService()->findByEmail($form->identity);
+        $credential = null;
+        if ($form->credentialType == UserCredentialTypeEnum::EMAIL) {
+            $credential = $this->userCredentialService()->findByEmail($form->identity);
+        }
+
+        if ($form->credentialType == UserCredentialTypeEnum::PHONE) {
+            $credential = $this->userCredentialService()->findByPhone($form->identity);
+        }
+
         if ($credential) {
             $error = Yii::t('general', "Email is already in use");
             $form->addError('identity', $error);
@@ -57,14 +65,26 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         $realPass = $form->validation;
-        $cred = $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId(), $form->status);
+        if ($form->credentialType == UserCredentialTypeEnum::EMAIL) {
+            $cred = $this->userCredentialService()->createEmailCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId(), $form->status);
+        }
+
+        if ($form->credentialType == UserCredentialTypeEnum::PHONE) {
+            $cred = $this->userCredentialService()->createPhoneCredential($form->identity, $form->validation, $user->id, Yii::$app->domainService->getCurrentDomainId(), $form->status);
+        }
+
         $tokenModel = $this->userCredentialService()->findByIdentity($form->identity, UserCredentialTypeEnum::CREDENTIAL_CONFIRM_TOKEN);
         $token = new UserCredentialForm();
         $token->user_id = $cred->user_id;
         $token->identity = $cred->identity;
         $token->parent_id = $cred->id;
         $token->type = UserCredentialTypeEnum::CREDENTIAL_CONFIRM_TOKEN;
-        $token->validation = Yii::$app->security->generateRandomString() . '_' . time();
+        if ($form->generatedConfirmToken) {
+            $token->validation = $form->generatedConfirmToken;
+        }else{
+            $token->validation = Yii::$app->security->generateRandomString() . '_' . time();
+        }
+
         $model = $this->userCredentialService()->save($token, $tokenModel);
         $form->confirmToken = $token->validation;
         if ($form->sendMail) {
@@ -135,7 +155,16 @@ class DefaultAuthHelper implements AuthHelperInterface
      */
     public function signIn(SignInForm $form)
     {
-        $credential = $this->userCredentialService()->findByEmail($form->identity);
+        $credential = null;
+
+        if ($form->credentialType == UserCredentialTypeEnum::EMAIL) {
+            $credential = $this->userCredentialService()->findByEmail($form->identity);
+        }
+
+        if ($form->credentialType == UserCredentialTypeEnum::PHONE) {
+            $credential = $this->userCredentialService()->findByPhone($form->identity);
+        }
+
         if (!$credential) {
             $error = Yii::t('general', "Account not found");
             Yii::warning("Invalid login");
