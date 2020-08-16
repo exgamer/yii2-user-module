@@ -41,16 +41,18 @@ class DefaultAuthHelper implements AuthHelperInterface
     public function signUp(SignUpForm $form)
     {
         $credential = null;
+        $error = null;
         if ($form->credentialType == UserCredentialTypeEnum::EMAIL) {
             $credential = $this->userCredentialService()->findByEmail($form->identity);
+            $error = Yii::t('general', "Email is already in use");
         }
 
         if ($form->credentialType == UserCredentialTypeEnum::PHONE) {
             $credential = $this->userCredentialService()->findByPhone($form->identity);
+            $error = Yii::t('general', "Phone is already in use");
         }
 
         if ($credential) {
-            $error = Yii::t('general', "Email is already in use");
             $form->addError('identity', $error);
 
             return false;
