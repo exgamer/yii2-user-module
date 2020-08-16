@@ -58,7 +58,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             return false;
         }
 
-        $user = $this->userService()->createUser($form->username);
+        $user = $this->userService()->createUserFromForm($form);
         if (! $user){
             $error = Yii::t('general', "Failed to save new user");
             $form->addError('identity', $error);

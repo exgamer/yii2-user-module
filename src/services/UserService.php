@@ -32,6 +32,22 @@ class UserService extends Service
     }
 
     /**
+     * @param $entity
+     * @return UserForm
+     */
+    public function createUserFromForm($entity)
+    {
+        if (is_object($entity)) {
+            $form = Yii::createObject( UserForm::class);
+            $form->setAttributes($entity->attributes);
+
+            return $this->create($form);
+        }
+
+        return $this->createUser($entity);
+    }
+
+    /**
      * @param string $username
      * @param integer $locale
      * @return UserForm
