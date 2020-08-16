@@ -118,6 +118,8 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             ['username', 'string', 'min' => 2, 'max' => 100],
+            ['first_name', 'string', 'min' => 2, 'max' => 255],
+            ['last_name', 'string', 'min' => 2, 'max' => 255],
             ['website', 'string', 'max' => 255],
             [
                 [

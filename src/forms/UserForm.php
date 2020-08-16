@@ -18,6 +18,8 @@ use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
 class UserForm extends Form
 {
     public $username;
+    public $last_name;
+    public $first_name;
     public $locale;
     public $status = StatusEnum::ACTIVE;
     public $logo;
@@ -43,6 +45,8 @@ class UserForm extends Form
             [
                 [
                     'username',
+                    'last_name',
+                    'first_name',
                     'description',
                     'website',
                     'logo'
