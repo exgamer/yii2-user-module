@@ -276,7 +276,8 @@ trait RbacGenerateTrait
         $config = $this->getAccessConfig();
         $accessData = $config['permissions'] ??[];
         $customPermissions = $config['generated_custom_permissions'] ??[];
-        $accessData = ArrayHelper::merge($accessData, $customPermissions);
+        $customRoles = $config['custom_roles'] ??[];
+        $accessData = ArrayHelper::merge($accessData, $customPermissions, $customRoles);
         $result = [];
         foreach ($accessData as $key => $value) {
             if (! is_array($value)) {
