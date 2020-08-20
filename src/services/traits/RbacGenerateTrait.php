@@ -314,8 +314,9 @@ trait RbacGenerateTrait
         $accessData = $config['permissions'] ??[];
         $dependenciesData = $config['dependencies'] ??[];
         $customPermissions = $config['generated_custom_permissions'] ??[];
+        $customRoles = $config['custom_roles'] ??[];
         $newItems = [];
-        $allData = ArrayHelper::merge($accessData, $customPermissions);
+        $allData = ArrayHelper::merge($accessData, $customPermissions, $customRoles);
         foreach ($allData as $key => $value) {
             $access = $key;
             if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
@@ -482,6 +483,28 @@ trait RbacGenerateTrait
                     }
 
                     $permission = $this->addPermission($permissionForm);
+                }
+
+                Console::updateProgress($i + 1 , $count);
+                $i++;
+            }
+
+            $this->outputSuccess( "Rbac custom roles generate start");
+            $count = count($customRoles);
+            Console::startProgress(0, $count);
+            $i = 0;
+            foreach ($customRoles as $key => $value){
+                $access = $key;
+                $accessConfig = [];
+                if (filter_var($key, FILTER_VALIDATE_INT) !== false) {
+                    $access = $value;
+                }else{
+                    $accessConfig = $value;
+                }
+
+                $roleForm = $this->getRoleForm($access, $accessConfig);
+                if ($roleForm){
+                    $role = $this->addRole($roleForm);
                 }
 
                 Console::updateProgress($i + 1 , $count);
