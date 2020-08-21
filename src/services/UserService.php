@@ -40,7 +40,8 @@ class UserService extends Service
         if (is_object($entity)) {
             $form = Yii::createObject( UserForm::class);
             $form->setAttributes($entity->attributes);
-
+            $form->status = StatusEnum::ACTIVE;
+            
             return $this->create($form);
         }
 
