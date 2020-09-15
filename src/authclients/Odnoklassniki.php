@@ -56,6 +56,13 @@ class Odnoklassniki extends OAuth2
         'location'
     ];
 
+    protected function defaultNormalizeUserAttributeMap()
+    {
+        return [
+            'id' => 'uid'
+        ];
+    }
+    
     /**
      * @inheritdoc
      */
