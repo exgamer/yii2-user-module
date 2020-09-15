@@ -276,4 +276,24 @@ class UserCredentialService extends Service
 
         return $credential->save(false);
     }
+
+    /**
+     * Заблокировать учетные записи пользователя
+     *
+     * @param $user_id
+     * @return bool
+     */
+    public function block($user_id)
+    {
+        $this->updateAllByCondition(
+            [
+                'status' => UserCredentialStatusEnum::BLOCK
+            ],
+            [
+                'user_id' => $user_id,
+            ]
+        );
+
+        return true;
+    }
 }
