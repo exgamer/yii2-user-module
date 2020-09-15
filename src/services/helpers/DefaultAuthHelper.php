@@ -421,6 +421,9 @@ class DefaultAuthHelper implements AuthHelperInterface
             $query->with('user');
         });
 
+        /**
+         * Если авторизованный юзер добавляет делаем привязку
+         */
         if (! Yii::$app->user->isGuest && ! $auth){
             $this->userSocialAuthService()->createByClient($client, Yii::$app->user->identity->id);
             return true;
@@ -441,14 +444,15 @@ class DefaultAuthHelper implements AuthHelperInterface
         if ($email){
             $identity = $email;
             $existCredential = $this->userCredentialService()->findByIdentity($identity);
-            /**
-             * @TODO если емаил уже есть ниче не делаем и тут надо решить выбивать ли исключение ил просто реутрн фолс оставить
-             */
             if (! empty($existCredential)){
+                $this->userSocialAuthService()->createByClient($client, $existCredential->user_id);
+                Yii::$app->user->login(
+                    $existCredential->user,
+                    60*60*24*365
+                );
 
-                return false;
+                return true;
             }
-
         }
 
         /**
