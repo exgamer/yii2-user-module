@@ -464,6 +464,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         $model = new SignUpForm();
+        $model->sendMail = false;
         $model->identity = $identity;
         $model->validation = Yii::$app->security->generateRandomString(6);
         $username = $this->getUsernameFromClient($client);
