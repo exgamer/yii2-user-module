@@ -62,7 +62,7 @@ class Odnoklassniki extends OAuth2
             'id' => 'uid'
         ];
     }
-    
+
     /**
      * @inheritdoc
      */
