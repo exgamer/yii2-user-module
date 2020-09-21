@@ -16,4 +16,16 @@ class UserCredentialStatusEnum extends Enum
     const INACTIVE = 0;
     const ACTIVE = 1;
     const BLOCK = 2;
+
+    /**
+     * @return array
+     */
+    public static function labels()
+    {
+        return [
+            self::ACTIVE => \Yii::t('user', "Опубликован"),
+            self::INACTIVE => \Yii::t('user', "Черновик"),
+            self::BLOCK => \Yii::t('user', "Заблокирован"),
+        ];
+    }
 }

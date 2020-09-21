@@ -6,6 +6,7 @@ use yii\web\View;
 use kamaelkz\yii2admin\v1\widgets\formelements\Pjax;
 use yii\helpers\Url;
 use concepture\yii2logic\enum\StatusEnum;
+use concepture\yii2user\enum\UserCredentialStatusEnum;
 
 $this->setTitle(Yii::t('yii2admin', 'Авторизационные данные пользователя ' . $user->username));
 $this->pushBreadcrumbs(['label' => Yii::t('yii2admin', \concepture\yii2user\models\User::label()), 'url' => ['/user/user/index']]);
@@ -30,9 +31,9 @@ $this->viewHelper()->pushPageHeader(['create', 'user_id' => $searchModel->user_i
         'identity',
         [
             'attribute'=>'status',
-            'filter'=> StatusEnum::arrayList(),
+            'filter'=> UserCredentialStatusEnum::arrayList(),
             'value'=>function($data) {
-                return $data->statusLabel();
+                return UserCredentialStatusEnum::label($data->status);
             }
         ],
         [
