@@ -32,6 +32,7 @@ class UserCredentialController extends Controller
                 [
                     'actions' => [
                         'ban-domain',
+                        'unban-domain',
                     ],
                     'allow' => true,
                     'roles' => [
@@ -73,37 +74,6 @@ class UserCredentialController extends Controller
         ]);
     }
 
-    public function actionBanDomain($id)
-    {
-        $originModel = $this->getService()->findById($id);
-        if (!$originModel){
-            throw new NotFoundHttpException();
-        }
-
-        $domains = $model->banned_domains ?? [];
-        $enabledDomains = $this->domainService()->getEnabledDomainData();
-        foreach ($domains as $domain_id) {
-            unset($enabledDomains[$domain_id]);
-        }
-
-        $domainsArray = ArrayHelper::map($enabledDomains, 'domain_id', 'country_caption');
-        $model = new UserCredentialDomainBanForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                $result = $this->userCredentialService()->banDomain($originModel->user_id, $model->domain_id);
-
-                return $this->redirect(['index' , 'user_id' => $originModel->user_id]);
-            }
-        }
-
-        return $this->render('ban_domain', [
-            'model' => $model,
-            'originModel' => $originModel,
-            'domainsArray' => $domainsArray,
-            'user' => $this->userService()->findById($originModel->user_id)
-        ]);
-    }
-
     public function actionUpdate($id)
     {
         $originModel = $this->getService()->findById($id);
@@ -130,6 +100,79 @@ class UserCredentialController extends Controller
         return $this->render('update', [
             'model' => $model,
             'originModel' => $originModel,
+            'user' => $this->userService()->findById($originModel->user_id)
+        ]);
+    }
+
+
+    public function actionUnbanDomain($id)
+    {
+        $originModel = $this->getService()->findById($id);
+        if (!$originModel){
+            throw new NotFoundHttpException();
+        }
+
+        $domains = $originModel->banned_domains ?? [];
+        $enabledDomains = $this->domainService()->getEnabledDomainData();
+        foreach ($enabledDomains as $domain_id => $value) {
+            if (in_array($domain_id, $domains)) {
+                continue;
+            }
+
+            unset($enabledDomains[$domain_id]);
+        }
+
+        $domainsArray = ArrayHelper::map($enabledDomains, 'domain_id', 'country_caption');
+        $model = new UserCredentialDomainBanForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $result = $this->userCredentialService()->unbanDomain($originModel->user_id, $model->domain_id);
+
+                return $this->redirect(['index' , 'user_id' => $originModel->user_id]);
+            }
+        }
+
+        $title = Yii::t('yii2admin', 'Разблокировать ' . $originModel->identity);
+
+        return $this->render('ban_domain', [
+            'model' => $model,
+            'originModel' => $originModel,
+            'domainsArray' => $domainsArray,
+            'title' => $title,
+            'user' => $this->userService()->findById($originModel->user_id)
+        ]);
+    }
+
+    public function actionBanDomain($id)
+    {
+        $originModel = $this->getService()->findById($id);
+        if (!$originModel){
+            throw new NotFoundHttpException();
+        }
+
+        $domains = $originModel->banned_domains ?? [];
+        $enabledDomains = $this->domainService()->getEnabledDomainData();
+        foreach ($domains as $domain_id) {
+            unset($enabledDomains[$domain_id]);
+        }
+
+        $domainsArray = ArrayHelper::map($enabledDomains, 'domain_id', 'country_caption');
+        $model = new UserCredentialDomainBanForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $result = $this->userCredentialService()->banDomain($originModel->user_id, $model->domain_id);
+
+                return $this->redirect(['index' , 'user_id' => $originModel->user_id]);
+            }
+        }
+
+        $title = Yii::t('yii2admin', 'Заблокировать ' . $originModel->identity);
+
+        return $this->render('ban_domain', [
+            'model' => $model,
+            'originModel' => $originModel,
+            'domainsArray' => $domainsArray,
+            'title' => $title,
             'user' => $this->userService()->findById($originModel->user_id)
         ]);
     }
