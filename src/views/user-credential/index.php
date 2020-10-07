@@ -63,8 +63,21 @@ $this->viewHelper()->pushPageHeader(['create', 'user_id' => $searchModel->user_i
         'updated_at',
         [
             'class'=>'yii\grid\ActionColumn',
-            'template'=>'{update} {activate} {deactivate}',
+            'template'=>'{ban} {update} {activate} {deactivate} ',
             'buttons'=>[
+                'ban'=> function ($url, $model) {
+
+                    return Html::a(
+                        '<i class="icon-pencil6"></i>'. Yii::t('yii2admin', 'Заблокировать'),
+                        ['ban-domain', 'id' => $model['id']],
+                        [
+                            'class' => 'dropdown-item',
+                            'aria-label' => Yii::t('yii2admin', 'Заблокировать'),
+                            'title' => Yii::t('yii2admin', 'Заблокировать'),
+                            'data-pjax' => '0'
+                        ]
+                    );
+                },
                 'update'=> function ($url, $model) {
 
                     return Html::a(

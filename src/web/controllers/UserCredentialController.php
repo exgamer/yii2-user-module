@@ -1,12 +1,17 @@
 <?php
 namespace concepture\yii2user\web\controllers;
 
+use concepture\yii2logic\enum\AccessEnum;
+use concepture\yii2logic\enum\PermissionEnum;
+use concepture\yii2logic\helpers\AccessHelper;
 use concepture\yii2user\enum\UserRoleEnum;
 use concepture\yii2user\forms\ChangePasswordForm;
 use concepture\yii2user\forms\EmailCredentialForm;
+use concepture\yii2user\forms\UserCredentialDomainBanForm;
 use concepture\yii2user\forms\UserCredentialForm;
 use concepture\yii2user\search\UserCredentialSearch;
 use concepture\yii2user\traits\ServicesTrait;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use Yii;
 
@@ -19,16 +24,26 @@ class UserCredentialController extends Controller
 {
     use ServicesTrait;
 
-//    protected function getAccessRules()
-//    {
-//        return [
-//            [
-//                'actions' => ['index', 'view','create', 'update', 'status-change'],
-//                'allow' => true,
-//                'roles' => [UserRoleEnum::ADMIN],
-//            ]
-//        ];
-//    }
+    protected function getAccessRules()
+    {
+        return ArrayHelper::merge(
+            parent::getAccessRules(),
+            [
+                [
+                    'actions' => [
+                        'ban-domain',
+                    ],
+                    'allow' => true,
+                    'roles' => [
+                        AccessEnum::ADMIN,
+                        AccessEnum::SUPERADMIN,
+                        AccessHelper::getAccessPermission($this, PermissionEnum::EDITOR),
+                        AccessHelper::getDomainAccessPermission($this, PermissionEnum::EDITOR)
+                    ],
+                ]
+            ]
+        );
+    }
 
     public function actions()
     {
@@ -55,6 +70,37 @@ class UserCredentialController extends Controller
         return $this->render('create', [
             'model' => $model,
             'user' => $this->userService()->findById($user_id)
+        ]);
+    }
+
+    public function actionBanDomain($id)
+    {
+        $originModel = $this->getService()->findById($id);
+        if (!$originModel){
+            throw new NotFoundHttpException();
+        }
+
+        $domains = $model->banned_domains ?? [];
+        $enabledDomains = $this->domainService()->getEnabledDomainData();
+        foreach ($domains as $domain_id) {
+            unset($enabledDomains[$domain_id]);
+        }
+
+        $domainsArray = ArrayHelper::map($enabledDomains, 'domain_id', 'country_caption');
+        $model = new UserCredentialDomainBanForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $result = $this->userCredentialService()->banDomain($originModel->user_id, $model->domain_id);
+
+                return $this->redirect(['index' , 'user_id' => $originModel->user_id]);
+            }
+        }
+
+        return $this->render('ban_domain', [
+            'model' => $model,
+            'originModel' => $originModel,
+            'domainsArray' => $domainsArray,
+            'user' => $this->userService()->findById($originModel->user_id)
         ]);
     }
 
