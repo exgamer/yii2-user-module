@@ -189,6 +189,16 @@ class DefaultAuthHelper implements AuthHelperInterface
 
             return false;
         }
+        
+        if ($form->blockByDomain && $credential->banned_domains && is_array($credential->banned_domains)) {
+            if (in_array(Yii::$app->domainService->getCurrentDomainId(), $credential->banned_domains)) {
+                $error = Yii::t('general', "Account not found");
+                Yii::warning("Credential is banned for domain");
+                $form->addError('identity', $error);
+
+                return false;
+            }
+        }
 
         $user = $this->userService()->findById($credential->user_id);
         if ($user->status !== StatusEnum::ACTIVE) {

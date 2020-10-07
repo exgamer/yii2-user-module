@@ -21,6 +21,7 @@ class SignInForm extends Model
     public $restrictions = [];
     public $onlyWithAuthAssignment = false; // только для юзеров у которых есть роли (для админки)
     public $credentialType= UserCredentialTypeEnum::EMAIL;
+    public $blockByDomain = false; // признак блокирования учетки по домену
 
     /**
      * {@inheritdoc}
