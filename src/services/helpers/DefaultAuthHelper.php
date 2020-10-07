@@ -189,7 +189,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
             return false;
         }
-        
+
         if ($form->blockByDomain && $credential->banned_domains && is_array($credential->banned_domains)) {
             if (in_array(Yii::$app->domainService->getCurrentDomainId(), $credential->banned_domains)) {
                 $error = Yii::t('general', "Account not found");

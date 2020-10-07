@@ -42,6 +42,23 @@ $this->viewHelper()->pushPageHeader(['create', 'user_id' => $searchModel->user_i
                 return $data->getDomainName();
             }
         ],
+        [
+            'attribute'=>'banned_domains',
+            'value'=>function($data) {
+                $domains_caption = [];
+                $domainsData = Yii::$app->domainService->getDomainsData();
+                if ($data->banned_domains && is_array($data->banned_domains)) {
+                    foreach ($data->banned_domains as $domain_id) {
+                        $domainData = $domainsData[$domain_id] ?? null;
+                        if ($domainData) {
+                            $domains_caption[] = $domainData['country_caption'];
+                        }
+                    }
+                }
+
+                return implode(', ' , $domains_caption);
+            }
+        ],
         'created_at',
         'updated_at',
         [
