@@ -24,6 +24,12 @@ class UserCredentialDomainBanForm extends Model
                 [
                     'domain_id',
                 ],
+                'required',
+            ],
+            [
+                [
+                    'domain_id',
+                ],
                 'integer',
             ],
         ];
