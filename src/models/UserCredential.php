@@ -58,6 +58,18 @@ class UserCredential extends ActiveRecord
         return '{{%user_credential}}';
     }
 
+    public function behaviors()
+    {
+        return [
+            'JsonFieldsBehavior' => [
+                'class' => 'concepture\yii2logic\models\behaviors\JsonFieldsBehavior',
+                'jsonAttr' => [
+                    'banned_domains'
+                ],
+            ],
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -93,6 +105,12 @@ class UserCredential extends ActiveRecord
             ],
             ['identity', 'filter', 'filter'=>'strtolower'],
             ['identity', 'default', 'value' => null],
+            [
+                [
+                    'banned_domains',
+                ],
+                'safe'
+            ]
         ];
     }
 
@@ -107,7 +125,8 @@ class UserCredential extends ActiveRecord
             'identity' => Yii::t('user', 'Логин'),
             'status' => Yii::t('user', 'Статус'),
             'created_at' => Yii::t('user', 'Дата создания'),
-            'updated_at' => Yii::t('user', 'Дата обновления')
+            'updated_at' => Yii::t('user', 'Дата обновления'),
+            'banned_domains' => Yii::t('user', 'Заблокированные домены'),
         ];
     }
 }

@@ -296,4 +296,71 @@ class UserCredentialService extends Service
 
         return true;
     }
+
+    /**
+     * Заблокировать учетные записи пользователя для домена
+     *
+     * @param integer $user_id
+     * @param integer $domain_id
+     * @return bool
+     */
+    public function banDomain($user_id, $domain_id = null)
+    {
+        return $this->setBannedDomain($user_id, 1, $domain_id);
+    }
+
+    /**
+     * Разбанить учетные записи пользователя для домена
+     *
+     * @param $user_id
+     * @param null $domain_id
+     * @return bool
+     */
+    public function unbanDomain($user_id, $domain_id = null)
+    {
+        return $this->setBannedDomain($user_id, 0, $domain_id);
+    }
+
+    /**
+     * усановить блокированные домены
+     *
+     * @param integer $user_id
+     * @param integer $action // забанить = 1, разбанить = 0
+     * @param integer $domain_id
+     * @return bool
+     */
+    public function setBannedDomain($user_id, $action = 1, $domain_id = null)
+    {
+        if (! $domain_id) {
+            $domain_id = Yii::$app->domainService->getCurrentDomainId();
+        }
+
+        $models = $this->getAllByCondition(function (\concepture\yii2logic\db\ActiveQuery $query) use($user_id) {
+            $query->resetCondition();
+            $query->andWhere(['user_id' => $user_id]);
+            $query->andWhere(['type' => [UserCredentialTypeEnum::EMAIL, UserCredentialTypeEnum::PHONE]]);
+        });
+
+        foreach ($models as $model) {
+            $domains = $model->banned_domains ?? [];
+            // Забанить домен
+            if ($action == 1) {
+                $domains[] = $domain_id;
+                $domains = array_unique($domains);
+            }
+
+            // разбанить домен
+            if ($action == 0) {
+                if(($key = array_search($domain_id, $domains)) !== false){
+                    unset($domains[$key]);
+                }
+
+                $domains = array_values($domains);
+            }
+
+            $this->updateByModel($model, ['banned_domains' => $domains]);
+        }
+
+        return true;
+    }
 }

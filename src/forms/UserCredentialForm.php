@@ -21,6 +21,7 @@ class UserCredentialForm extends Form
     public $type;
     public $status;
     public $generated = 0;
+    public $banned_domains = [];
 
     /**
      * @see CForm::formRules()
