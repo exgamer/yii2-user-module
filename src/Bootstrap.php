@@ -1,6 +1,7 @@
 <?php
 namespace concepture\yii2user;
 
+use concepture\yii2logic\helpers\ApplicationHelper;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\helpers\ArrayHelper;
@@ -42,7 +43,7 @@ class Bootstrap implements BootstrapInterface
         Yii::$container->set('yii\web\User', $userConfig);
         //загружаем компоненты
         $components  = require_once __DIR__ . '/config/component.php';
-        Yii::$app->setComponents($components);
+        ApplicationHelper::setComponents($components);
 
 
 
