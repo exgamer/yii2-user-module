@@ -229,6 +229,11 @@ trait RbacGenerateTrait
 
             //генерация кастомных полномочий
             foreach ($customPermissions as $controller => $permission) {
+                if (filter_var($controller, FILTER_VALIDATE_INT) !== false && ! is_array($permission)) {
+                    $controllerConfig['generated_custom_permissions'][] = $permission;
+                    continue;
+                }
+
                 if ($controller !== $name) {
                     continue;
                 }
@@ -250,6 +255,7 @@ trait RbacGenerateTrait
 
         $controllerConfig['permissions'] = $access;
         $controllerConfig['dependencies'] = $dependencies;
+        $controllerConfig['generated_custom_permissions'] = array_unique($controllerConfig['generated_custom_permissions']);
 
         return $controllerConfig;
     }
