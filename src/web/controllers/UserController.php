@@ -53,7 +53,7 @@ class UserController extends Controller
         }
 
         if (! AccessHelper::checkAccess('update', ['model' => $originModel])){
-            throw new \yii\web\ForbiddenHttpException(Yii::t("core", "You are not the owner"));
+            throw new \yii\web\ForbiddenHttpException(Yii::t('common', "You are not the owner"));
         }
 
         $model = $this->getForm();

@@ -43,7 +43,7 @@ class DomainAuthHelper extends DefaultAuthHelper
     {
         $credential = $this->userCredentialService()->findByEmail($form->identity);
         if ($credential) {
-            $error = Yii::t ( 'user', "Логин уже занят" );
+            $error = Yii::t('common', "Логин уже занят" );
             $form->addError('identity', $error);
 
             return false;
@@ -51,7 +51,7 @@ class DomainAuthHelper extends DefaultAuthHelper
 
         $user = $this->userService()->createUser($form->username);
         if (! $user){
-            $error = Yii::t ( 'user', "Не удалось сохранить нового пользователя" );
+            $error = Yii::t('common', "Не удалось сохранить нового пользователя" );
             $form->addError('identity', $error);
 
             return false;
@@ -89,7 +89,7 @@ class DomainAuthHelper extends DefaultAuthHelper
     {
         $credential = $this->userCredentialService()->findCredentialConfirmToken($form->token);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Токен недействителен" );
+            $error = Yii::t('common', "Токен недействителен" );
             $form->addError('token', $error);
 
             return false;
@@ -97,7 +97,7 @@ class DomainAuthHelper extends DefaultAuthHelper
 
         $user = $this->userService()->findById($credential->user_id);
         if (!$user){
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t('common', "Пользователь не найден" );
             $form->addError('token', $error);
 
             return false;
@@ -107,7 +107,7 @@ class DomainAuthHelper extends DefaultAuthHelper
         $this->userCredentialService()->delete($credential);
         $credential = $this->userCredentialService()->findByIdentity($identity, UserCredentialTypeEnum::EMAIL, UserCredentialStatusEnum::INACTIVE);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
+            $error = Yii::t('common', "Логин не существует" );
             $form->addError('token', $error);
 
             return false;
@@ -134,7 +134,7 @@ class DomainAuthHelper extends DefaultAuthHelper
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Неверный логин" );
+            $error = Yii::t('common', "Неверный логин" );
             $form->addError('identity', $error);
 
             return false;
@@ -150,14 +150,14 @@ class DomainAuthHelper extends DefaultAuthHelper
         }
 
         if(! $validation) {
-            $error = Yii::t ( 'user', "Неверный пароль для текущей версии" );
+            $error = Yii::t('common', "Неверный пароль для текущей версии" );
             $form->addError('identity', $error);
 
             return false;
         }
 
         if (! Yii::$app->security->validatePassword($form->validation, $validation)) {
-            $error = Yii::t ( 'user', "Неверный пароль" );
+            $error = Yii::t('common', "Неверный пароль" );
             $form->addError('validation', $error);
 
             return false;
@@ -165,14 +165,14 @@ class DomainAuthHelper extends DefaultAuthHelper
 
         $user = $this->userService()->findById($credential->user_id);
         if ($user->status !== StatusEnum::ACTIVE) {
-            $error = Yii::t ( 'user', "Пользователь неактивен" );
+            $error = Yii::t('common', "Пользователь неактивен" );
             $form->addError('identity', $error);
 
             return false;
         }
 
         if ($user->is_deleted === IsDeletedEnum::DELETED) {
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t('common', "Пользователь не найден" );
             $form->addError('identity', $error);
 
             return false;
@@ -210,7 +210,7 @@ class DomainAuthHelper extends DefaultAuthHelper
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Неверный логин" );
+            $error = Yii::t('common', "Неверный логин" );
             $form->addError('identity', $error);
 
             return false;
@@ -251,7 +251,7 @@ class DomainAuthHelper extends DefaultAuthHelper
     {
         $credential = $this->userCredentialService()->findValidationResetToken($form->token);
         if (! $credential) {
-            $error = Yii::t ( 'user', "Токен недействителен" );
+            $error = Yii::t('common', "Токен недействителен" );
             $form->addError('validation', $error);
 
             return false;
@@ -259,7 +259,7 @@ class DomainAuthHelper extends DefaultAuthHelper
 
         $user = $this->userService()->findById($credential->user_id);
         if (!$user){
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t('common', "Пользователь не найден" );
             $form->addError('validation', $error);
 
             return false;
@@ -269,7 +269,7 @@ class DomainAuthHelper extends DefaultAuthHelper
         $this->userCredentialService()->delete($credential);
         $credential = $this->userCredentialService()->findByIdentity($identity);
         if (! $credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
+            $error = Yii::t('common', "Логин не существует" );
             $form->addError('validation', $error);
 
             return false;
@@ -296,7 +296,7 @@ class DomainAuthHelper extends DefaultAuthHelper
     {
         $credential = $this->userCredentialService()->findByIdentity($form->identity);
         if (!$credential) {
-            $error = Yii::t ( 'user', "Логин не существует" );
+            $error = Yii::t('common', "Логин не существует" );
             $form->addError('validation', $error);
 
             return false;
