@@ -36,6 +36,16 @@ class RbacService extends Service
     }
 
     /**
+     * @param $userId
+     * @param $name
+     * @return mixed
+     */
+    public function getAssignment($userId, $name)
+    {
+        return $this->getAuthManager()->getAssignment($userId, $name);
+    }
+
+    /**
      * назначение роли/полномочия пользователю
      *
      * @param $userId
