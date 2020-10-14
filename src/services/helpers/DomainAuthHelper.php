@@ -71,7 +71,7 @@ class DomainAuthHelper extends DefaultAuthHelper
         if ($form->sendMail) {
             MailerHelper::send(
                 $form->identity,
-                Yii::t('user', 'Успешная регистрация - ' . Yii::$app->name),
+                Yii::t('common', 'Успешная регистрация - ' . Yii::$app->name),
                 Yii::$app->controller->renderPartial($form->mailTmpPath, ['form' => $form, 'password' => $realPass])
             );
         }
@@ -232,7 +232,7 @@ class DomainAuthHelper extends DefaultAuthHelper
         if ($form->sendMail) {
             MailerHelper::send(
                 $form->identity,
-                Yii::t('user', 'Смена пароля - ' . Yii::$app->name),
+                Yii::t('common', 'Смена пароля - ' . Yii::$app->name),
                 Yii::$app->controller->renderPartial($form->mailTmpPath, ['route' => $form->route, 'token' => $model->validation])
             );
         }

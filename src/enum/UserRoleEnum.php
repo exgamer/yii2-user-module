@@ -24,9 +24,9 @@ class UserRoleEnum extends Enum
     public static function labels()
     {
         return [
-            self::ADMIN => Yii::t('user', "Администратор"),
-            self::SUPER_ADMIN => Yii::t('user', "Супер администратор"),
-            self::GUEST => Yii::t('user', "Гость"),
+            self::ADMIN => Yii::t('common', "Администратор"),
+            self::SUPER_ADMIN => Yii::t('common', "Супер администратор"),
+            self::GUEST => Yii::t('common', "Гость"),
         ];
     }
 }

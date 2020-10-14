@@ -60,7 +60,7 @@ class UserCredentialSearch extends UserCredential
         $labels = parent::attributeLabels();
 
         return array_merge($labels, [
-            'username' => Yii::t('user', 'Пользователь')
+            'username' => Yii::t('common', 'Пользователь')
         ]);
     }
 }

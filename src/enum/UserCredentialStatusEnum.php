@@ -23,9 +23,9 @@ class UserCredentialStatusEnum extends Enum
     public static function labels()
     {
         return [
-            self::ACTIVE => \Yii::t('user', "Опубликован"),
-            self::INACTIVE => \Yii::t('user', "Черновик"),
-            self::BLOCK => \Yii::t('user', "Заблокирован"),
+            self::ACTIVE => \Yii::t('common', "Опубликован"),
+            self::INACTIVE => \Yii::t('common', "Черновик"),
+            self::BLOCK => \Yii::t('common', "Заблокирован"),
         ];
     }
 }

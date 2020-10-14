@@ -38,7 +38,7 @@ class UserCredential extends ActiveRecord
      */
     public static function label()
     {
-        return Yii::t('user', 'Авторизационные данные пользователей');
+        return Yii::t('common', 'Авторизационные данные пользователей');
     }
 
     /**
@@ -117,16 +117,16 @@ class UserCredential extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', '#'),
-            'type' => Yii::t('user', 'Тип записи'),
-            'validation' => Yii::t('user', 'Пароль'),
-            'user_id' => Yii::t('user', 'Пользователь'),
-            'domain_id' => Yii::t('user', 'Домен'),
-            'identity' => Yii::t('user', 'Логин'),
-            'status' => Yii::t('user', 'Статус'),
-            'created_at' => Yii::t('user', 'Дата создания'),
-            'updated_at' => Yii::t('user', 'Дата обновления'),
-            'banned_domains' => Yii::t('user', 'Заблокированные домены'),
+            'id' => Yii::t('common', '#'),
+            'type' => Yii::t('common', 'Тип записи'),
+            'validation' => Yii::t('common', 'Пароль'),
+            'user_id' => Yii::t('common', 'Пользователь'),
+            'domain_id' => Yii::t('common', 'Домен'),
+            'identity' => Yii::t('common', 'Логин'),
+            'status' => Yii::t('common', 'Статус'),
+            'created_at' => Yii::t('common', 'Дата создания'),
+            'updated_at' => Yii::t('common', 'Дата обновления'),
+            'banned_domains' => Yii::t('common', 'Заблокированные домены'),
         ];
     }
 }

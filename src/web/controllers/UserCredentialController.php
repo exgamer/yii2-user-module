@@ -132,7 +132,7 @@ class UserCredentialController extends Controller
             }
         }
 
-        $title = Yii::t('yii2admin', 'Разблокировать ' . $originModel->identity);
+        $title = Yii::t('common', 'Разблокировать ' . $originModel->identity);
 
         return $this->render('ban_domain', [
             'model' => $model,
@@ -166,7 +166,7 @@ class UserCredentialController extends Controller
             }
         }
 
-        $title = Yii::t('yii2admin', 'Заблокировать ' . $originModel->identity);
+        $title = Yii::t('common', 'Заблокировать ' . $originModel->identity);
 
         return $this->render('ban_domain', [
             'model' => $model,

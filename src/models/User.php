@@ -91,7 +91,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function label()
     {
-        return Yii::t('user', 'Пользователи');
+        return Yii::t('common', 'Пользователи');
     }
 
     /**
@@ -154,18 +154,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', '#'),
-            'username' => Yii::t('user','Имя пользователя'),
-            'website' => Yii::t('user','Сайт'),
-            'social' => Yii::t('user','Социальные сети'),
-            'logo' => Yii::t('user','Аватар'),
-            'description' => Yii::t('user','Описание'),
+            'id' => Yii::t('common', '#'),
+            'username' => Yii::t('common','Имя пользователя'),
+            'website' => Yii::t('common','Сайт'),
+            'social' => Yii::t('common','Социальные сети'),
+            'logo' => Yii::t('common','Аватар'),
+            'description' => Yii::t('common','Описание'),
             'famous' => Yii::t('common','Известный'),
-            'status' => Yii::t('user','Статус'),
-            'locale' => Yii::t('user',' Язык'),
-            'created_at' => Yii::t('user', 'Дата создания'),
-            'updated_at' => Yii::t('user', 'Дата обновления'),
-            'is_deleted' => Yii::t('user','Удален'),
+            'status' => Yii::t('common','Статус'),
+            'locale' => Yii::t('common',' Язык'),
+            'created_at' => Yii::t('common', 'Дата создания'),
+            'updated_at' => Yii::t('common', 'Дата обновления'),
+            'is_deleted' => Yii::t('common','Удален'),
         ];
     }
 
