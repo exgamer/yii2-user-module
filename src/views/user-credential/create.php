@@ -35,7 +35,7 @@ $this->pushBreadcrumbs($this->title);
                     ->field($model, 'domain_id')
                     ->dropDownList(Yii::$app->domainService->catalog(), [
                         'class' => 'form-control custom-select',
-                        'prompt' => Yii::t('backend', 'Выберите домен')
+                        'prompt' => Yii::t('yii2admin', 'Выберите домен')
                     ]);
                 ?>
             </div>

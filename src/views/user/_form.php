@@ -40,7 +40,7 @@ $saveButton = Html::saveButton(
                     ->field($model, 'locale')
                     ->dropDownList(Yii::$app->localeService->catalog(), [
                         'class' => 'form-control custom-select',
-                        'prompt' => Yii::t('backend', 'Выберите язык')
+                        'prompt' => Yii::t('yii2admin', 'Выберите язык')
                     ]);
                 ?>
             </div>
