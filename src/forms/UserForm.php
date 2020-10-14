@@ -2,11 +2,10 @@
 
 namespace concepture\yii2user\forms;
 
-use Yii;
 use concepture\yii2logic\enum\StatusEnum;
-use concepture\yii2logic\forms\Form;
 use concepture\yii2logic\validators\ModelValidator;
 use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
+use kamaelkz\yii2cdnuploader\validators\ResourceValidator;
 
 /**
  * Форма для сущности пользователя
@@ -15,7 +14,7 @@ use kamaelkz\yii2cdnuploader\pojo\CdnImagePojo;
  * @package concepture\yii2user\forms
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
  */
-class UserForm extends Form
+class UserForm extends \kamaelkz\yii2admin\v1\forms\BaseForm
 {
     public $username;
     public $last_name;
@@ -63,9 +62,7 @@ class UserForm extends Form
                 [
                     'logo',
                 ],
-                ModelValidator::class,
-                'modelClass' => CdnImagePojo::class,
-                'modifySource' => false
+                ResourceValidator::class,
             ],
         ];
     }
