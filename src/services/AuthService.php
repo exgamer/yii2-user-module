@@ -33,7 +33,7 @@ class AuthService extends Service  implements AuthHelperInterface
 {
     use ServicesTrait;
 
-    public $authHelper;
+    public $authHelper = DefaultAuthHelper::class;
 
     /**
      * @return AuthHelperInterface
@@ -42,13 +42,6 @@ class AuthService extends Service  implements AuthHelperInterface
     {
         if ($this->authHelper && ! is_object($this->authHelper)) {
             $this->authHelper = Yii::createObject($this->authHelper);
-        }
-
-        /**
-         * @TODO костыляка как нибудь убрать
-         */
-        if (! $this->authHelper){
-            $this->authHelper = SsoHelper::isSsoEnabled() ? Yii::createObject( SsoAuthHelper::class) : Yii::createObject(DefaultAuthHelper::class);
         }
 
         return $this->authHelper;
