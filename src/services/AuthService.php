@@ -119,6 +119,8 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function resetPassword(PasswordResetForm $form)
     {
+        $this->beforeResetPassword($form);
+
         return $this->getAuthHelper()->resetPassword($form);
     }
 
@@ -129,6 +131,8 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function changePassword(ChangePasswordForm $form)
     {
+        $this->beforeChangePassword($form);
+
         return $this->getAuthHelper()->changePassword($form);
     }
 
@@ -164,4 +168,7 @@ class AuthService extends Service  implements AuthHelperInterface
     {
         return $this->getAuthHelper()->getUsernameFromClient($client);
     }
+
+    protected function beforeChangePassword(ChangePasswordForm $form){}
+    protected function beforeResetPassword(PasswordResetForm $form){}
 }
