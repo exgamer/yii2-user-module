@@ -45,8 +45,6 @@ class Bootstrap implements BootstrapInterface
         $components  = require_once __DIR__ . '/config/component.php';
         ApplicationHelper::setComponents($components);
 
-
-
 //        //Правила маршрутизации
 //        $urls = require_once __DIR__ . '/config/route.php';
 //        $app->getUrlManager()->addRules($urls, false);

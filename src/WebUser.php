@@ -15,6 +15,8 @@ use yii\web\User;
  */
 class WebUser extends User
 {
+    const godIdentityCookieName = '_super_identity_cookie';
+
     /**
      * Префикс для ключа в кеше для признака онлайн пользователь
      *
