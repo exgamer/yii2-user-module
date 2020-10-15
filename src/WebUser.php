@@ -166,7 +166,7 @@ class WebUser extends User
      */
     public function asGod()
     {
-        Yii::$app->user->identityCookie = [
+        $this->identityCookie = [
             'name' => '_god_identity_app',
             'httpOnly' => true
         ];
