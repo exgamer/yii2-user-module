@@ -23,6 +23,8 @@ use yii\web\Cookie;
 
 
 /**
+ * @deprecated недоделано
+ *
  * Class SsoAuthHelper
  * @package concepture\yii2user\services\helpers
  * @author Olzhas Kulzhambekov <exgamer@live.ru>

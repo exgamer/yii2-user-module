@@ -25,6 +25,8 @@ use concepture\yii2logic\helpers\MailerHelper;
 use yii\helpers\Json;
 
 /**
+ * @deprecated недоделано
+ *
  * Class DomainAuthHelper
  * @package concepture\yii2user\services\helpers
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
