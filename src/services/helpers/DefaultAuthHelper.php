@@ -34,7 +34,7 @@ class DefaultAuthHelper implements AuthHelperInterface
     public function login($user, $duration = null)
     {
         if ($duration === null) {
-            $duration = 31536000;
+            $duration = 31536000; // год
         }
 
         Yii::$app->user->login(
