@@ -154,4 +154,16 @@ class WebUser extends User
 
         return Yii::$app->rbacService->hasRoleAssignment($user_id);
     }
+
+
+    /**
+     * Для входа как другой пользователь
+     */
+    public function asGod()
+    {
+        Yii::$app->user->identityCookie = [
+            'name' => '_god_identity_app',
+            'httpOnly' => true
+        ];
+    }
 }

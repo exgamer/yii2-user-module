@@ -7,9 +7,7 @@ use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
 use concepture\yii2user\forms\SignInForm;
-use concepture\yii2user\helpers\SsoHelper;
 use concepture\yii2user\services\helpers\DefaultAuthHelper;
-use concepture\yii2user\services\helpers\SsoAuthHelper;
 use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
 use Exception;
@@ -34,6 +32,8 @@ class AuthService extends Service  implements AuthHelperInterface
     use ServicesTrait;
 
     public $authHelper = DefaultAuthHelper::class;
+
+    protected $godIdentityCookieName = '_super_identity_cookie';
 
     /**
      * @return AuthHelperInterface
@@ -95,6 +95,8 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function signOut()
     {
+        Yii::$app->response->cookies->remove($this->godIdentityCookieName);
+
         return $this->getAuthHelper()->signOut();
     }
 
