@@ -22,4 +22,5 @@ interface AuthHelperInterface
     public function resetPassword(PasswordResetForm $form);
     public function changePassword(ChangePasswordForm $form);
     public function onSocialAuthSuccess($client);
+    public function login($user, $duration = null);
 }

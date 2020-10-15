@@ -31,6 +31,18 @@ class DefaultAuthHelper implements AuthHelperInterface
 {
     use ServicesTrait;
 
+    public function login($user, $duration = null)
+    {
+        if ($duration === null) {
+            $duration = 31536000;
+        }
+
+        Yii::$app->user->login(
+            $user,
+            $duration
+        );
+    }
+
     /**
      * Регистрация пользователя
      *
@@ -140,10 +152,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $credential->status = UserCredentialStatusEnum::ACTIVE;
         $credential->save(false);
-        Yii::$app->user->login(
-            $user,
-            60*60*24*365
-        );
+        $this->login($user);
 
         return true;
     }
@@ -231,11 +240,7 @@ class DefaultAuthHelper implements AuthHelperInterface
 
         $user->last_login = date('Y-m-d H:i:s');
         $user->save(false);
-
-        Yii::$app->user->login(
-            $user,
-            $form->rememberMe ? (60*60*24*365) : 0
-        );
+        $this->login($user, $form->rememberMe ? null : 0);
 
         return true;
     }
@@ -338,10 +343,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         $cred->load($credential->attributes,'');
         $cred->validation = Yii::$app->security->generatePasswordHash($form->validation);
         $model = $this->userCredentialService()->save($cred, $credential);
-        Yii::$app->user->login(
-            $user,
-            60*60*24*365
-        );
+        $this->login($user);
 
         return true;
     }
@@ -444,7 +446,7 @@ class DefaultAuthHelper implements AuthHelperInterface
         }
 
         if ($auth) { // авторизация
-            Yii::$app->user->login($auth->user, 60*60*24*365);
+            $this->login($auth->user);
 
             return true;
         }
@@ -456,10 +458,7 @@ class DefaultAuthHelper implements AuthHelperInterface
             $existCredential = $this->userCredentialService()->findByIdentity($identity);
             if (! empty($existCredential)){
                 $this->userSocialAuthService()->createByClient($client, $existCredential->user_id);
-                Yii::$app->user->login(
-                    $existCredential->user,
-                    60*60*24*365
-                );
+                $this->login($existCredential->user);
 
                 return true;
             }
@@ -493,10 +492,7 @@ class DefaultAuthHelper implements AuthHelperInterface
                 throw new Exception();
             }
 
-            Yii::$app->user->login(
-                $user,
-                60*60*24*365
-            );
+            $this->login($user);
 
             return true;
         });

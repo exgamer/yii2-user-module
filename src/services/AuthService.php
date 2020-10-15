@@ -7,7 +7,9 @@ use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
 use concepture\yii2user\forms\SignInForm;
+use concepture\yii2user\helpers\SsoHelper;
 use concepture\yii2user\services\helpers\DefaultAuthHelper;
+use concepture\yii2user\services\helpers\SsoAuthHelper;
 use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
 use Exception;
@@ -43,6 +45,11 @@ class AuthService extends Service  implements AuthHelperInterface
         }
 
         return $this->authHelper;
+    }
+
+    public function login($user, $duration = null)
+    {
+        return $this->getAuthHelper()->login($user, $duration);
     }
 
     /**
