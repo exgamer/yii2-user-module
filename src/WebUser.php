@@ -15,6 +15,9 @@ use yii\web\User;
  */
 class WebUser extends User
 {
+    /**
+     * Имя куки для авторизации под другим юзером
+     */
     const godIdentityCookieName = '_super_identity_cookie';
 
     /**
