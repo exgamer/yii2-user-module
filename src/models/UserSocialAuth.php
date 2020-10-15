@@ -26,7 +26,7 @@ class UserSocialAuth extends ActiveRecord
      */
     public static function label()
     {
-        return Yii::t('user', 'Авторизационные данные пользователей черещ соц сети');
+        return Yii::t('common', 'Авторизационные данные пользователей черещ соц сети');
     }
 
     /**
@@ -75,9 +75,9 @@ class UserSocialAuth extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', '#'),
-            'user_id' => Yii::t('user', 'Пользователь'),
-            'created_at' => Yii::t('user', 'Дата создания'),
+            'id' => Yii::t('common', '#'),
+            'user_id' => Yii::t('common', 'Пользователь'),
+            'created_at' => Yii::t('common', 'Дата создания'),
         ];
     }
 }

@@ -40,8 +40,8 @@ class EmailHandbook extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('user', '#'),
-            'email' => Yii::t('user', 'email')
+            'id' => Yii::t('common', '#'),
+            'email' => Yii::t('common', 'email')
         ];
     }
 }

@@ -32,14 +32,14 @@ class UserAuthPermissionForm extends Model
                 ],
                 'string'
             ],
-            ['name','match', 'pattern' => '/^[A-Z0-9_]+$/', 'message' => \Yii::t('yii2admin', 'Только заглавные латинские символы, цифры и подчеркивания')],
+            ['name','match', 'pattern' => '/^[A-Z0-9_]+$/', 'message' => \Yii::t('common', 'Только заглавные латинские символы, цифры и подчеркивания')],
         ];
     }
     public function attributeLabels()
     {
         return [
-            'name' => Yii::t('yii2admin', 'Наименование'),
-            'description' => Yii::t('yii2admin', 'Описание'),
+            'name' => Yii::t('common', 'Наименование'),
+            'description' => Yii::t('common', 'Описание'),
         ];
     }
 }

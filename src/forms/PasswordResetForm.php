@@ -41,7 +41,7 @@ class PasswordResetForm extends Model
                 'max'=>100
             ],
             ['validationCompare', 'compare','compareAttribute'=>'validation','operator'=>'==',
-                'message'=> Yii::t('user', 'Пароли должны совпадать'), 'type' => 'string']
+                'message'=> Yii::t('common', 'Пароли должны совпадать'), 'type' => 'string']
         ];
     }
 
@@ -51,8 +51,8 @@ class PasswordResetForm extends Model
     public function attributeLabels()
     {
         return [
-            'validation' => Yii::t('user', 'Новый пароль'),
-            'validationCompare' => Yii::t('user', 'Подтвердите пароль')
+            'validation' => Yii::t('common', 'Новый пароль'),
+            'validationCompare' => Yii::t('common', 'Подтвердите пароль')
         ];
     }
 }

@@ -60,18 +60,18 @@ class UserAuthAssignmentController extends Controller
             case Item::TYPE_ROLE:
                 $itemsMethod = 'getRoles';
                 $userItemsMethod = 'getRolesByUser';
-                $title = Yii::t('yii2admin', 'Назначение ролей');
-                $left_side_header = Yii::t('yii2admin', 'Список ролей');
-                $right_side_header = Yii::t('yii2admin', 'Назначенные роли');
-                $item_caption = Yii::t('yii2admin', 'Роль');
+                $title = Yii::t('common', 'Назначение ролей');
+                $left_side_header = Yii::t('common', 'Список ролей');
+                $right_side_header = Yii::t('common', 'Назначенные роли');
+                $item_caption = Yii::t('common', 'Роль');
                 break;
             case Item::TYPE_PERMISSION:
                 $itemsMethod = 'getPermissions';
                 $userItemsMethod = 'getPermissionsByUser';
-                $title = Yii::t('yii2admin', 'Назначение полномочий');
-                $left_side_header = Yii::t('yii2admin', 'Список полномочий');
-                $right_side_header = Yii::t('yii2admin', 'Назначенные полномочия');
-                $item_caption = Yii::t('yii2admin', 'Полномочие');
+                $title = Yii::t('common', 'Назначение полномочий');
+                $left_side_header = Yii::t('common', 'Список полномочий');
+                $right_side_header = Yii::t('common', 'Назначенные полномочия');
+                $item_caption = Yii::t('common', 'Полномочие');
                 break;
         }
         $roles = $this->rbacService()->{$itemsMethod}();
@@ -196,7 +196,7 @@ class UserAuthAssignmentController extends Controller
         try {
             $result = $this->rbacService()->revoke($user_id, $role);
             if ($result === false){
-                throw new \Exception(Yii::t('yii2admin', 'Невозможно удалить полномочие, которое не назначено напрямую!'));
+                throw new \Exception(Yii::t('common', 'Невозможно удалить полномочие, которое не назначено напрямую!'));
             }
 
             return $this->responseNotify();

@@ -91,7 +91,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                     ['/user/user-auth-assignment/delete', 'user_id' => $user_id, 'role' => $data->name],
                                     [
                                         'class' => 'admin-action list-icons-item',
-                                        'title' => Yii::t('backend', 'Удалить'),
+                                        'title' => Yii::t('yii2admin', 'Удалить'),
                                         'data-pjax-id' => 'list-pjax',
                                         'data-pjax-url' => Url::current([], true),
                                         'data-swal' => Yii::t('yii2admin' , 'Удалить'),

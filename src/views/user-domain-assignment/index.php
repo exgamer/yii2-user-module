@@ -94,7 +94,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                     ['/user/user-domain-assignment/create', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
-                                        'title' => Yii::t('backend', 'Дать доступ на редактирование'),
+                                        'title' => Yii::t('yii2admin', 'Дать доступ на редактирование'),
                                         'data-pjax-id' => 'list-pjax',
                                         'data-pjax-url' => Url::current([], true),
                                         'data-swal' => Yii::t('yii2admin', 'Дать доступ на редактирование'),
@@ -108,7 +108,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                     ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => AccessTypeEnum::WRITE],
                                     [
                                         'class' => 'admin-action list-icons-item',
-                                        'title' => Yii::t('backend', 'Удалить доступ для редактирования'),
+                                        'title' => Yii::t('yii2admin', 'Удалить доступ для редактирования'),
                                         'data-pjax-id' => 'list-pjax',
                                         'data-pjax-url' => Url::current([], true),
                                         'data-swal' => Yii::t('yii2admin' , 'Удалить доступ для редактирования'),
@@ -134,7 +134,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                                     ['/user/user-domain-assignment/delete', 'user_id' => $user_id, 'domain_id' => $data['domain_id'], 'access' => $data['access']],
                                     [
                                         'class' => 'admin-action list-icons-item',
-                                        'title' => Yii::t('backend', 'Удалить'),
+                                        'title' => Yii::t('yii2admin', 'Удалить'),
                                         'data-pjax-id' => 'list-pjax',
                                         'data-pjax-url' => Url::current([], true),
                                         'data-swal' => Yii::t('yii2admin' , 'Удалить'),

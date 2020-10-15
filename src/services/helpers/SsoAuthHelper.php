@@ -53,13 +53,13 @@ class SsoAuthHelper implements AuthHelperInterface
                 SsoHelper::getIdentityExistenceCheckUrl(),
                 $options
             );
-            $error = Yii::t ( 'user', "Логин уже занят" );
+            $error = Yii::t('common', "Логин уже занят" );
             $form->addError('identity', $error);
         } catch (\GuzzleHttp\Exception\RequestException $e) {}
 
         $user = $this->userService()->createUser($form->username);
         if (! $user){
-            $error = Yii::t ( 'user', "Не удалось сохранить нового пользователя" );
+            $error = Yii::t('common', "Не удалось сохранить нового пользователя" );
             $form->addError('identity', $error);
 
             return false;
@@ -144,14 +144,14 @@ class SsoAuthHelper implements AuthHelperInterface
         $userId = $data['user_id'];
         $user = $this->userService()->findById($userId);
         if ($user->status !== StatusEnum::ACTIVE){
-            $error = Yii::t ( 'user', "Пользователь неактивен" );
+            $error = Yii::t('common', "Пользователь неактивен" );
             $form->addError('identity', $error);
 
             return false;
         }
 
         if ($user->is_deleted === IsDeletedEnum::DELETED){
-            $error = Yii::t ( 'user', "Пользователь не найден" );
+            $error = Yii::t('common', "Пользователь не найден" );
             $form->addError('identity', $error);
 
             return false;
