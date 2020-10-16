@@ -24,6 +24,8 @@ use concepture\yii2logic\actions\Action;
 class GodAuthAction extends Action
 {
     use ServicesTrait;
+
+    public $redirectTo = '/';
     /**
      * Runs the action.
      */
@@ -41,6 +43,6 @@ class GodAuthAction extends Action
 
         $this->authService()->signInAsUser($user->id);
 
-        return $this->redirect('/');
+        return $this->redirect($this->redirectTo);
     }
 }
