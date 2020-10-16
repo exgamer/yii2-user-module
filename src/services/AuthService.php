@@ -66,7 +66,8 @@ class AuthService extends Service  implements AuthHelperInterface
         }
 
         return $view->render('@concepture/yii2user/views/include/_auth_as_user_panel.php', [
-            'user' => $admin
+            'user' => $admin,
+            'username' => Yii::$app->user->identity->username
         ]);
     }
 
