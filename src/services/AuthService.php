@@ -52,6 +52,10 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function renderAuthAsUserPanel($view)
     {
+        if (Yii::$app->user->isGuest) {
+            return null;
+        }
+
         if (! Yii::$app->user->isGodAccess()) {
             return null;
         }
