@@ -56,6 +56,8 @@ class SiteController extends BaseController
 
 2. Создать класс WebUser для текущего подпроекта и унаследовать его от базового
     Добавить в init условие для переключения названия identitycookie
+    !!! И прописать к конфигурации пользотеля для подпроекта использование своего класса WebUser!!!
+    
     
 ```php
 <?php
@@ -158,3 +160,5 @@ class UserController extends BaseController
                 },
 
 ```
+
+5. Для показа панели на саите вызвать на лэйауте Yii::$app->authService->renderAuthAsUserPanel($this)
