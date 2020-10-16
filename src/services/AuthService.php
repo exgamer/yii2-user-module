@@ -69,11 +69,10 @@ class AuthService extends Service  implements AuthHelperInterface
      * авторизация под другим пользователем
      *
      * @param $id
-     * @param $admin_id
      * @return mixed
      * @throws Exception
      */
-    public function signInAsUser($id, $admin_id)
+    public function signInAsUser($id)
     {
         $user = $this->userService()->findById($id);
         if (! $user){
