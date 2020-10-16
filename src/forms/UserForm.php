@@ -26,6 +26,7 @@ class UserForm extends \kamaelkz\yii2admin\v1\forms\BaseForm
     public $website;
     public $famous = 0;
     public $domain_id;
+    public $interface_iso;
 
     public $social = [];
 
@@ -37,7 +38,7 @@ class UserForm extends \kamaelkz\yii2admin\v1\forms\BaseForm
         return [
             [
                 [
-                    'username'
+                    'username',
                 ],
                 'required'
             ],
@@ -48,7 +49,8 @@ class UserForm extends \kamaelkz\yii2admin\v1\forms\BaseForm
                     'first_name',
                     'description',
                     'website',
-                    'logo'
+                    'logo',
+                    'interface_iso'
                 ],
                 'trim'
             ],

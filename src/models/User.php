@@ -26,6 +26,7 @@ use kamaelkz\yii2cdnuploader\traits\ModelTrait;
  * @property integer $status
  * @property datetime $created_at
  * @property datetime $updated_at
+ * @property string $interface_iso
  *
  * @package concepture\yii2user\models
  * @author Olzhas Kulzhambekov <exgamer@live.ru>
@@ -123,6 +124,13 @@ class User extends ActiveRecord implements IdentityInterface
             ['website', 'string', 'max' => 255],
             [
                 [
+                    'interface_iso'
+                ],
+                'string',
+                'max' => 6
+            ],
+            [
+                [
                     'description',
                 ],
                 'string',
@@ -166,6 +174,7 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => Yii::t('common', 'Дата создания'),
             'updated_at' => Yii::t('common', 'Дата обновления'),
             'is_deleted' => Yii::t('common','Удален'),
+            'interface_iso' => Yii::t('common','Язык интерфейса'),
         ];
     }
 
