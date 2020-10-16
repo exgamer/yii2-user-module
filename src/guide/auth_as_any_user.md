@@ -74,7 +74,8 @@ use concepture\yii2user\WebUser as Base;
 class WebUser extends Base
 {
     /**
-     * Имя куки для авторизации под другим юзером
+     * Имя куки для авторизации под другим юзером хранит id админа который зашел под пользователем чтобы показать его в панели, в теории вообще можно убрать ее и првоерять на $godIdentityCookieName
+     * но пусть будет для того чтобы в панели отображать имя админа
      */
     public static $switchIdentityCookieName = '_frontend_super_identity_cookie';
 
