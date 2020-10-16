@@ -14,5 +14,7 @@
         text-align: center;
         padding-left: 5px;
         padding-right: 5px;
+        opacity: 0.5;
+        color: #000000;
     }
 </style>
