@@ -145,8 +145,9 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function signOut()
     {
+        $user = Yii::$app->user;
         $cookies = Yii::$app->response->cookies;
-        $cookies->remove(WebUser::$switchIdentityCookieName);
+        $cookies->remove($user::$switchIdentityCookieName);
 
         return $this->getAuthHelper()->signOut();
     }
