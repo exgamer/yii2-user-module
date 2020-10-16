@@ -90,9 +90,9 @@ class AuthService extends Service  implements AuthHelperInterface
             throw new Exception();
         }
 
-        $user = Yii::$app->user;
+        $webUser = Yii::$app->user;
         Yii::$app->response->cookies->add(new \yii\web\Cookie([
-            'name' => $user::$switchIdentityCookieName,
+            'name' => $webUser::$switchIdentityCookieName,
             'value' => $admin_id,
             'expire' => time() + 60*20, // 20 мин
         ]));
