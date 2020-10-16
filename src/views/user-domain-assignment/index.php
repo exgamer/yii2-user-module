@@ -33,7 +33,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                 'columns' => [
                     [
                         'attribute' => 'country_caption',
-                        'label' => Yii::t('yii2admin', 'Версия'),
+                        'label' => Yii::t('common', 'Версия'),
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
@@ -76,7 +76,7 @@ $this->viewHelper()->pushPageHeader(['user/index'], Yii::t('yii2admin', 'Спи�
                 'columns' => [
                     [
                         'attribute' => 'country_caption',
-                        'label' => Yii::t('yii2admin', 'Версия'),
+                        'label' => Yii::t('common', 'Версия'),
                     ],
                     [
                         'label'=> Yii::t('yii2admin', 'Текущий доступ'),
