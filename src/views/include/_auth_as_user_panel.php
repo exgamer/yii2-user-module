@@ -10,7 +10,7 @@
         height: 4rem;
         background-color: #eee;
         border-radius: 0 0 0 3px;
-        z-index: 1000;
+        z-index: 2000;
         text-align: center;
         padding-left: 5px;
         padding-right: 5px;
