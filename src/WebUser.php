@@ -176,4 +176,14 @@ class WebUser extends User
             'httpOnly' => true
         ];
     }
+
+    /**
+     * Проверка является ли текущий юзер авторизован под другим
+     *
+     * @return boolean
+     */
+    public function isGodAccess()
+    {
+        return $this->identityCookie['name'] == static::$godIdentityCookieName ?? false;
+    }
 }

@@ -7,9 +7,7 @@ use concepture\yii2user\forms\CredentialConfirmForm;
 use concepture\yii2user\forms\EmailPasswordResetRequestForm;
 use concepture\yii2user\forms\PasswordResetForm;
 use concepture\yii2user\forms\SignInForm;
-use concepture\yii2user\helpers\SsoHelper;
 use concepture\yii2user\services\helpers\DefaultAuthHelper;
-use concepture\yii2user\services\helpers\SsoAuthHelper;
 use concepture\yii2user\services\interfaces\AuthHelperInterface;
 use concepture\yii2user\traits\ServicesTrait;
 use concepture\yii2user\WebUser;
@@ -54,6 +52,10 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function renderAuthAsUserPanel($view)
     {
+        if (! Yii::$app->user->isGodAccess()) {
+            return null;
+        }
+
         return $view->render('@concepture/yii2user/views/include/_auth_as_user_panel.php', [
 
         ]);
