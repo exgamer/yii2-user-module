@@ -73,12 +73,22 @@ use concepture\yii2user\WebUser as Base;
  */
 class WebUser extends Base
 {
+    /**
+     * Имя куки для авторизации под другим юзером
+     */
+    public static $switchIdentityCookieName = '_frontend_super_identity_cookie';
+
+    /**
+     * Имя куки для авторизации под другим юзером
+     */
+    public static $godIdentityCookieName = '_frontend_god_identity_app';
+        
     public function init()
     {
         /**
          * Для входа как другой пользователь
          */
-        if (Yii::$app->request->cookies->getValue(static::godIdentityCookieName)) {
+        if ($this->hasSwitchIdentityCookie()) {
             $this->asGod();
         }
 
