@@ -50,6 +50,16 @@ class AuthService extends Service  implements AuthHelperInterface
     }
 
     /**
+     * возвращает html для панели при авторизации под другим пользователем
+     */
+    public function renderAuthAsUserPanel($view)
+    {
+        return $view->render('@concepture/yii2user/views/include/_auth_as_user_panel.php', [
+
+        ]);
+    }
+
+    /**
      * авторизация под другим пользователем
      *
      * @param $id
@@ -64,7 +74,7 @@ class AuthService extends Service  implements AuthHelperInterface
         }
 
         Yii::$app->response->cookies->add(new \yii\web\Cookie([
-            'name' => WebUser::godIdentityCookieName,
+            'name' => WebUser::$switchIdentityCookieName,
             'value' => $id,
             'expire' => time() + 60*20, // 20 мин
         ]));
@@ -122,7 +132,7 @@ class AuthService extends Service  implements AuthHelperInterface
     public function signOut()
     {
         $cookies = Yii::$app->response->cookies;
-        $cookies->remove(WebUser::godIdentityCookieName);
+        $cookies->remove(WebUser::$switchIdentityCookieName);
 
         return $this->getAuthHelper()->signOut();
     }

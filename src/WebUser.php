@@ -18,7 +18,12 @@ class WebUser extends User
     /**
      * Имя куки для авторизации под другим юзером
      */
-    const godIdentityCookieName = '_super_identity_cookie';
+    public static $switchIdentityCookieName = '_super_identity_cookie';
+
+    /**
+     * Имя куки для авторизации под другим юзером
+     */
+    public static $godIdentityCookieName = '_god_identity_app';
 
     /**
      * Префикс для ключа в кеше для признака онлайн пользователь
@@ -167,7 +172,7 @@ class WebUser extends User
     public function asGod()
     {
         $this->identityCookie = [
-            'name' => '_god_identity_app',
+            'name' => static::$godIdentityCookieName,
             'httpOnly' => true
         ];
     }
