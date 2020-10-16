@@ -18,11 +18,6 @@ class WebUser extends User
     /**
      * Имя куки для авторизации под другим юзером
      */
-    public static $switchIdentityCookieName = '_super_identity_cookie';
-
-    /**
-     * Имя куки для авторизации под другим юзером
-     */
     public static $godIdentityCookieName = '_god_identity_app';
 
     /**
@@ -192,7 +187,7 @@ class WebUser extends User
      */
     public function hasSwitchIdentityCookie()
     {
-        if (Yii::$app->request->cookies->getValue(static::$switchIdentityCookieName)) {
+        if (Yii::$app->request->cookies->getValue(static::$godIdentityCookieName)) {
             return true;
         }
 

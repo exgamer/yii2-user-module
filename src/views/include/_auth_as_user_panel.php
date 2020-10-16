@@ -1,5 +1,5 @@
 <div class="access-as-user">
-    <?= Yii::t('common', '{admin} <br/> просматривает как <br/> {user}', ['admin' => $user->username, 'user' => $username])?>
+    <?= Yii::t('common', 'Вы просматриваете сайт как <br/> {user}', ['user' => $username])?>
 </div>
 <style>
     .access-as-user{
@@ -14,6 +14,7 @@
         text-align: center;
         padding-left: 5px;
         padding-right: 5px;
+        padding-top: 5px;
         opacity: 0.5;
         color: #000000;
     }

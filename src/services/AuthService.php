@@ -60,17 +60,7 @@ class AuthService extends Service  implements AuthHelperInterface
             return null;
         }
 
-        $cookie = Yii::$app->request->cookies->getValue(\frontend\components\WebUser::$switchIdentityCookieName);
-        if (! $cookie){
-            throw new Exception('switch identity cookie not found');
-        }
-        $admin = $this->userService()->findById($cookie);
-        if (! $admin){
-            throw new Exception('admin not found');
-        }
-
         return $view->render('@concepture/yii2user/views/include/_auth_as_user_panel.php', [
-            'user' => $admin,
             'username' => Yii::$app->user->identity->username
         ]);
     }
@@ -90,12 +80,6 @@ class AuthService extends Service  implements AuthHelperInterface
             throw new Exception();
         }
 
-        $webUser = Yii::$app->user;
-        Yii::$app->response->cookies->add(new \yii\web\Cookie([
-            'name' => $webUser::$switchIdentityCookieName,
-            'value' => $admin_id,
-            'expire' => time() + 60*60, // час
-        ]));
         Yii::$app->user->asGod();
 
         return $this->login($user);
@@ -149,10 +133,6 @@ class AuthService extends Service  implements AuthHelperInterface
      */
     public function signOut()
     {
-        $user = Yii::$app->user;
-        $cookies = Yii::$app->response->cookies;
-        $cookies->remove($user::$switchIdentityCookieName);
-
         return $this->getAuthHelper()->signOut();
     }
 
