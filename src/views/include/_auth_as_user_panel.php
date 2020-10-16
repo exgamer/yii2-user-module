@@ -2,7 +2,7 @@
     <?= Yii::t('common', 'Вы просматриваете сайт как <br/> {user}' , ['user' => $username]); ?>
 </div>
 <div class="access-as-user-actions">
-    <?= \yii\helpers\Html::a(Yii::t('common', 'Выход'), ['site/logout'], ['class' => 'link' ,'style' => 'color: #CE272D;']); ?>
+    <?= \yii\helpers\Html::a(Yii::t('common', 'Выход'), ['/site/logout'], ['class' => 'link' ,'style' => 'color: #CE272D;']); ?>
 </div>
 <style>
     .access-as-user{
