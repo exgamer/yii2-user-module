@@ -39,7 +39,7 @@ class GodAuthAction extends Action
             throw new NotFoundHttpException();
         }
 
-        $this->authService()->signInAsUser($user->id);
+        $this->authService()->signInAsUser($user->id, $dataArray['admin_id']);
 
         return $this->redirect('/');
     }

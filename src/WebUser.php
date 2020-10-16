@@ -186,4 +186,16 @@ class WebUser extends User
     {
         return $this->identityCookie['name'] == static::$godIdentityCookieName ?? false;
     }
+
+    /**
+     * Првоерка есть ли кука что авторизация под другим
+     */
+    public function hasSwitchIdentityCookie()
+    {
+        if (Yii::$app->request->cookies->getValue(static::$switchIdentityCookieName)) {
+            return true;
+        }
+
+        return false;
+    }
 }
