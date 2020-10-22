@@ -142,6 +142,26 @@ class WebUser extends User
     }
 
     /**
+     * Проверка доступа по id страны
+     *
+     * @param $country_id
+     * @return bool
+     * @throws \Throwable
+     */
+    public function hasDomainAccessByCountry($country_id)
+    {
+        $data = Yii::$app->domainService->getDomainsData();
+        $data = ArrayHelper::map($data, 'country_id', 'domain_id');
+        if (! isset($data[$country_id])) {
+            return false;
+        }
+
+        $domain_id = $data[$country_id];
+
+        return $this->hasDomainAccess($domain_id);
+    }
+
+    /**
      * Признак доступа в административную панель
      *
      * @return bool
