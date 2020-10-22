@@ -37,6 +37,10 @@ class DefaultAuthHelper implements AuthHelperInterface
             $duration = 31536000; // год
         }
 
+        //Установка даты последнего логина
+        $user->last_login = date('Y-m-d H:i:s');
+        $user->save(false);
+
         Yii::$app->user->login(
             $user,
             $duration
@@ -237,9 +241,7 @@ class DefaultAuthHelper implements AuthHelperInterface
                 return false;
             }
         }
-
-        $user->last_login = date('Y-m-d H:i:s');
-        $user->save(false);
+        
         $this->login($user, $form->rememberMe ? null : 0);
 
         return true;
