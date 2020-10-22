@@ -241,7 +241,7 @@ class DefaultAuthHelper implements AuthHelperInterface
                 return false;
             }
         }
-        
+
         $this->login($user, $form->rememberMe ? null : 0);
 
         return true;
