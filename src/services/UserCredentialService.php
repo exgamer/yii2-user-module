@@ -363,4 +363,20 @@ class UserCredentialService extends Service
 
         return true;
     }
+
+    /**
+     * @param int $user_id
+     * @return bool
+     */
+    public function emailCredentialDomainIsBanned($user_id)
+    {
+        $credential = $this->getOneByCondition([
+            'user_id' => $user_id,
+            'type' => UserCredentialTypeEnum::EMAIL,
+        ]);
+        if ($credential->banned_domains && is_array($credential->banned_domains)) {
+            return in_array(Yii::$app->domainService->getCurrentDomainId(), $credential->banned_domains);
+        }
+        return false;
+    }
 }
