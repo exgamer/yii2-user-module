@@ -46,8 +46,7 @@ class UserCredentialService extends Service
      */
     protected function extendQuery(ActiveQuery $query)
     {
-        // Убрал потому что учетная запись едина для всех доменов
-//        $this->applyDomain($query);
+        $this->applyDomain($query);
     }
 
     /**
