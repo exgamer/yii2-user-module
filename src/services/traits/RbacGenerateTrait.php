@@ -163,7 +163,11 @@ trait RbacGenerateTrait
                         $dependencies[$roleName][] = strtoupper($alias) . "_" . $dependentRole;
                         $permissionsDependencies[$perRoleName][] = strtoupper($alias) . $dependentRole;
                     }
-                    $tmp = array_unique($dependencies[$roleName]);
+
+                    if (is_array($dependencies[$roleName])) {
+                        $tmp = array_unique($dependencies[$roleName]);
+                    }
+
                     $dependencies[$roleName] = $tmp;
                 }
             }
@@ -255,7 +259,9 @@ trait RbacGenerateTrait
 
         $controllerConfig['permissions'] = $access;
         $controllerConfig['dependencies'] = $dependencies;
-        $controllerConfig['generated_custom_permissions'] = array_unique($controllerConfig['generated_custom_permissions']);
+        if (is_array($controllerConfig['generated_custom_permissions'])) {
+            $controllerConfig['generated_custom_permissions'] = array_unique($controllerConfig['generated_custom_permissions']);
+        }
 
         return $controllerConfig;
     }
