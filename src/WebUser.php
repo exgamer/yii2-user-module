@@ -1,6 +1,8 @@
 <?php
 namespace concepture\yii2user;
 
+use concepture\yii2logic\enum\AccessEnum;
+use concepture\yii2logic\helpers\AccessHelper;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
@@ -78,6 +80,25 @@ class WebUser extends User
         }
 
         return false;
+    }
+
+
+    /**
+     * Проверка может ли пользователь модифицировать данные
+     *
+     * @param $controller
+     * @param integer|null $domain_id
+     * @return bool
+     */
+    public function canEdit($controller, $domain_id = null)
+    {
+        if ($domain_id) {
+            $permission = AccessHelper::getDomainAccessPermission($controller, AccessEnum::EDITOR, $domain_id);
+        }else{
+            $permission = AccessHelper::getAccessPermission($controller, AccessEnum::EDITOR);
+        }
+
+        return $this->can($permission);
     }
 
     /**
