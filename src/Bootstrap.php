@@ -20,10 +20,10 @@ class Bootstrap implements BootstrapInterface
     {
         //user component
         $commonUserConfig = [];
-        $baseConfig = require_once __DIR__ . '/config/user.php';
+        $baseConfig = require __DIR__ . '/config/user.php';
         $commonUserConfigPath = Yii::getAlias('@common') . "/config/user.php";
         if (file_exists($commonUserConfigPath)) {
-            $commonUserConfig = require_once $commonUserConfigPath;
+            $commonUserConfig = require $commonUserConfigPath;
         }
 
         $frontUserConfig = [];
@@ -33,7 +33,7 @@ class Bootstrap implements BootstrapInterface
             $alias = array_pop($path);
             $frontUserConfigPath = Yii::getAlias("@{$alias}") . "/config/user.php";
             if (file_exists($frontUserConfigPath)) {
-                $frontUserConfig = require_once $frontUserConfigPath;
+                $frontUserConfig = require $frontUserConfigPath;
             }
         }catch (\Exception $ex) {
 
@@ -42,7 +42,7 @@ class Bootstrap implements BootstrapInterface
         $userConfig = ArrayHelper::merge($baseConfig,$commonUserConfig, $frontUserConfig);
         Yii::$container->set('yii\web\User', $userConfig);
         //загружаем компоненты
-        $components  = require_once __DIR__ . '/config/component.php';
+        $components  = require __DIR__ . '/config/component.php';
         ApplicationHelper::setComponents($components);
 
 //        //Правила маршрутизации
