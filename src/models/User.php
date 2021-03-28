@@ -1,14 +1,11 @@
 <?php
 namespace concepture\yii2user\models;
 
-use common\pojo\PaymentSystem;
+use Yii;
 use concepture\yii2logic\pojo\Social;
-use common\pojo\Spoiler;
 use concepture\yii2user\enum\UserCredentialTypeEnum;
 use concepture\yii2user\helpers\SsoHelper;
 use concepture\yii2user\WebUser;
-use Yii;
-use yii\base\NotSupportedException;
 use concepture\yii2logic\models\ActiveRecord;
 use yii\web\IdentityInterface;
 use concepture\yii2logic\models\traits\IsDeletedTrait;
@@ -186,12 +183,21 @@ class User extends ActiveRecord implements IdentityInterface
         return Yii::$app->userService->findById($id);
     }
 
+
+
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::find()->joinWith([
+            'credentials' => function($q) use($token, $type) {
+                $q->andWhere([
+                    'type' => UserCredentialTypeEnum::AUTH_TOKEN,
+                    'validation' => $token
+                ]);
+            }
+        ])->one();
     }
 
     /**
@@ -240,5 +246,13 @@ class User extends ActiveRecord implements IdentityInterface
     public function getUserCredentialService()
     {
         return Yii::$app->userCredentialService;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCredentials()
+    {
+        return $this->hasMany(UserCredential::class, ['user_id'=>'id']);
     }
 }

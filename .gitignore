@@ -1,0 +1,58 @@
+# yii console commands
+/yii_test
+/yii_test.bat
+
+# phpstorm project files
+.idea
+
+/.env
+/.env.local
+
+
+# netbeans project files
+nbproject
+
+# zend studio for eclipse project files
+.buildpath
+.project
+.settings
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer vendor dir
+/vendor
+/uploads
+
+# composer itself is not needed
+composer.phar
+
+# Mac DS_Store Files
+.DS_Store
+
+/nginx-ilya
+
+# phpunit itself is not needed
+phpunit.phar
+# local phpunit config
+/phpunit.xml
+
+# vagrant runtime
+/.vagrant
+
+# ignore generated files
+/frontend/web/nginx
+/frontend/web/index-test.php
+/frontend/web/robots.txt
+/backend/web/nginx
+/backend/web/index-test.php
+/backend/web/robots.txt
+
+/composer.lock
+/backend/nginx
+/frontend/nginx
+/.env.prod
+/.env.dv
+/.env.test
+common/config/domain-map1.php
+common/config/params-local1.php
